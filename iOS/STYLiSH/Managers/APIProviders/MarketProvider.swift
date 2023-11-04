@@ -28,7 +28,7 @@ class MarketProvider {
 
     // MARK: - Public method
     func fetchHots(completion: @escaping PromotionHanlder) {
-        httpClient.request(STMarketRequest.hots, completion: { [weak self] result in
+        httpClient.originalRequest(STMarketRequest.hots, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

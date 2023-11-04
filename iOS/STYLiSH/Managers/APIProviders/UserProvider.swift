@@ -29,7 +29,7 @@ class UserProvider {
     }
 
     func signInToSTYLiSH(fbToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        httpClient.request(STUserRequest.signin(fbToken), completion: { result in
+        httpClient.originalRequest(STUserRequest.signin(fbToken), completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -81,7 +81,7 @@ class UserProvider {
             token: token,
             body: try? JSONEncoder().encode(body)
         )
-        httpClient.request(request, completion: { result in
+        httpClient.originalRequest(request, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -103,7 +103,7 @@ class UserProvider {
             return completion(.failure(STYLiSHSignInError.noToken))
         }
         let request = STUserRequest.profile(token: token)
-        httpClient.request(request, completion: { result in
+        httpClient.originalRequest(request, completion: { result in
             switch result {
             case .success(let data):
                 do {
