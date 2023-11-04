@@ -34,7 +34,7 @@ enum STMarketRequest: STRequest {
 
     var endPoint: String {
         switch self {
-        case .hots: return "/marketing/hots"
+        case .hots: return "/marketing/hots?paging=0"
         case .women(let paging): return "/products/women?paging=\(paging)"
         case .men(let paging): return "/products/men?paging=\(paging)"
         case .accessories(let paging): return "/products/accessories?paging=\(paging)"
