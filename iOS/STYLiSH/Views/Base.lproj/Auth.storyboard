@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZYD-N5-aSi">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZYD-N5-aSi">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -55,7 +54,7 @@
                                             <constraint firstAttribute="height" constant="1" id="5ey-Kg-ogr"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L51-58-3lp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L51-58-3lp">
                                         <rect key="frame" x="16" y="137.5" width="343" height="48"/>
                                         <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -65,7 +64,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="onFacebookLogin" destination="ZYD-N5-aSi" eventType="touchUpInside" id="grV-3o-TNx"/>
+                                            <action selector="onFacebookLogin:" destination="ZYD-N5-aSi" eventType="touchUpInside" id="nwy-mi-ir0"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -93,6 +92,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="udH-fd-2Vy"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YKh-PK-dkx" firstAttribute="trailing" secondItem="udH-fd-2Vy" secondAttribute="trailing" id="Ewe-mU-IsD"/>
@@ -103,7 +103,6 @@
                             <constraint firstItem="e9o-Yz-YW5" firstAttribute="top" secondItem="s4b-th-ekT" secondAttribute="top" id="vGN-KP-wb2"/>
                             <constraint firstItem="YKh-PK-dkx" firstAttribute="bottom" secondItem="s4b-th-ekT" secondAttribute="bottom" id="wzL-s5-shp"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="udH-fd-2Vy"/>
                     </view>
                     <connections>
                         <outlet property="contentView" destination="YKh-PK-dkx" id="iqH-Ab-zkx"/>
