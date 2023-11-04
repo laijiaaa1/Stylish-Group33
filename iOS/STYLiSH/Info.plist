@@ -27,12 +27,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb851972446659512</string>
+				<string>fb319475037470193</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>851972446659512</string>
+	<string>319475037470193</string>
 	<key>FacebookClientToken</key>
 	<string>abcde</string>
 	<key>FacebookDisplayName</key>
@@ -51,8 +51,6 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<false/>
 	</dict>
 	<key>STBaseURL</key>
 	<string>http://35.72.177.254:3000/api</string>
