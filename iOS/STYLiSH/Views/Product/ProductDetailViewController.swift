@@ -64,8 +64,34 @@ class ProductDetailViewController: STBaseViewController {
 
         guard let product = product else { return }
         galleryView.datas = product.images
+        
+    // Add collection button
+        let collectionButton = UIButton()
+        collectionButton.setImage(UIImage(named: "heart(hollow)"), for: .normal)
+        
+        collectionButton.addTarget(self, action: #selector(didTouchCollectionButton), for: .touchUpInside)
+        collectionButton.frame = CGRect(x: 330, y: 585, width: 30, height: 30)
+        tableView.addSubview(collectionButton)
+        
     }
 
+    // toggle the state of the heart button
+    var isHeartFilled = false
+    @objc func didTouchCollectionButton() {
+        if let product = product {
+            isHeartFilled.toggle() // Toggle the state
+
+            let buttonImage = isHeartFilled ? UIImage(named: "heart(fill)") : UIImage(named: "heart(hollow)")
+            (tableView.subviews.first { $0 is UIButton } as? UIButton)?.setImage(buttonImage, for: .normal)
+
+//            if isHeartFilled {
+//                let storyboard = UIStoryboard(name: "Product", bundle: nil)
+//                let collectionViewController = storyboard.instantiateViewController(withIdentifier: "collectionViewController") as? CollectionViewController
+//                self.navigationController?.pushViewController(collectionViewController!, animated: true)
+//            }
+        }
+    }
+    
     private func setupTableView() {
         tableView.lk_registerCellWithNib(
             identifier: String(describing: ProductDescriptionTableViewCell.self),

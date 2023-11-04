@@ -38,6 +38,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        collectionView.delegate = self
+
     }
 
     // MARK: - Action
@@ -83,6 +85,14 @@ extension ProfileViewController: UICollectionViewDataSource {
         let item = manager.groups[indexPath.section].items[indexPath.row]
         profileCell.layoutCell(image: item.image, text: item.title)
         return profileCell
+    }
+    //push to collection page
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 {
+            let collectionVC = CollectionViewController()
+            collectionVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(collectionVC, animated: true)
+        }
     }
 
     func collectionView(
