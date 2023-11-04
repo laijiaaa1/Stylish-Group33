@@ -13,17 +13,25 @@ protocol CollectionStatusDelegate: AnyObject {
 }
 
 
+// MARK: - CollectionViewController
 class CollectionViewController: ProductListViewController {
     
     weak var collectionStatusDelegate: CollectionStatusDelegate?
-
+    
+    var sampleData: [[Any]] = [
+        ["Product 1", 19.99, "Image_Placeholder"],
+        ["Product 2", 29.99, "Image_Placeholder"],
+        ["Product 3", 39.99, "Image_Placeholder"]
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = NSLocalizedString("收藏", comment: "")
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "collectionCustomCellIdentifier")
         
-        let yourData = [[Any]]()
-        datas = yourData
+        self.navigationController?.navigationBar.backgroundColor = UIColor.white
+        
+        datas = [sampleData]
+        
         view.addSubview(collectionView)
         
     }
@@ -33,7 +41,8 @@ class CollectionViewController: ProductListViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return sampleData.count
+        
     }
     
     override func collectionView(
@@ -43,17 +52,22 @@ class CollectionViewController: ProductListViewController {
             withReuseIdentifier: "collectionCustomCellIdentifier", for: indexPath) as? CollectionViewCell else {
             fatalError("Unable to dequeue CollectionViewCell.")
         }
-
-        cell.imageView.image = UIImage(named: "Image_Placeholder")
-        cell.titleLabel.text = "Title"
-        cell.priceLabel.text = "Price"
+        let productData = sampleData[indexPath.row]
+        
+        if let name = productData[0] as? String,
+           let price = productData[1] as? Double,
+           let imageUrl = productData[2] as? String {
+            cell.imageView.image = UIImage(named: "Image_Placeholder")
+            cell.titleLabel.text = name
+            cell.priceLabel.text = "Price: \(price)"
+        }
         
         cell.collectionButton.setImage(UIImage(named: "heart(fill)"), for: .normal)
+        cell.collectionButton.tag = indexPath.row
         cell.collectionButton.addTarget(self, action: #selector(removeFromCollection(_:)), for: .touchUpInside)
- 
+        
         return cell
     }
-    
     // back to detailPage when click item
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let product = datas[indexPath.section][indexPath.row] as? Product else { return }
@@ -61,21 +75,23 @@ class CollectionViewController: ProductListViewController {
         detailVC.product = product
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-    // remove from collection list
-    
+    //L-collection/collectionPage: remove item
     @objc func removeFromCollection(_ sender: UIButton) {
-        guard let cell = sender.superview as? CollectionViewCell,
-              let collectionView = self.collectionView,
-              let indexPath = collectionView.indexPath(for: cell),
-              let product = datas[indexPath.section][indexPath.row] as? Product else {
+        guard let collectionView = self.collectionView else {
             return
         }
-        
-        datas[indexPath.section].remove(at: indexPath.row)
-        collectionView.deleteItems(at: [indexPath])
-        collectionStatusDelegate?.productStatusChanged(product: product, isCollected: false)
-        
+
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+
+        if indexPath.row < sampleData.count {
+            sampleData.remove(at: indexPath.row)
+            collectionView.performBatchUpdates {
+                collectionView.deleteItems(at: [indexPath])
+            } completion: { finished in
+                if finished {
+                }
+            }
+        }
     }
 }
 class CollectionViewCell: UICollectionViewCell {
