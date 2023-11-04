@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30C2E5FF28B87D4700DD2939 /* TPDirect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C2E5FE28B87D4700DD2939 /* TPDirect.framework */; };
+		349300F42AF5443000F5C880 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349300F32AF5443000F5C880 /* CollectionViewController.swift */; };
 		3C09F5122211435B00C5B3E2 /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C09F5112211435B00C5B3E2 /* Lobby.storyboard */; };
 		3C09F51C22114A0100C5B3E2 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */; };
 		3C09F51E22114E1900C5B3E2 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */; };
@@ -145,6 +146,7 @@
 
 /* Begin PBXFileReference section */
 		30C2E5FE28B87D4700DD2939 /* TPDirect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TPDirect.framework; sourceTree = "<group>"; };
+		349300F32AF5443000F5C880 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		3C09F5112211435B00C5B3E2 /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
 		3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				3C41B8462216667000112F94 /* ProductViewController.swift */,
 				3C33863E221BB2B800ED97E4 /* ProductListViewController.swift */,
 				3CCB3BC3222AA8FD00976A1C /* ProductDetailViewController.swift */,
+				349300F32AF5443000F5C880 /* CollectionViewController.swift */,
 				3C347949222E82F500969C30 /* AmountSelectionCell */,
 				3CDC5A68222D85B50071D0D1 /* SizeSelectionCell */,
 				3CDC5A64222D85080071D0D1 /* ColorSelectionCell */,
@@ -1023,6 +1026,7 @@
 				3C3369162227CE7D008A5A7A /* TrolleyProductBaseView.swift in Sources */,
 				3CE7A50222302354009FF003 /* ProductContentCategory.swift in Sources */,
 				3C6020E8222BBA3C00312958 /* ProductBasicCell.swift in Sources */,
+				349300F42AF5443000F5C880 /* CollectionViewController.swift in Sources */,
 				3CE7A51522305E5A009FF003 /* KeyChainManager.swift in Sources */,
 				3C1ACFEB22153114005583E2 /* ProfileCollectionReusableView.swift in Sources */,
 				3C9C0D532215400900595689 /* ProfileItem.swift in Sources */,
