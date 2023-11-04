@@ -36,8 +36,11 @@ class CollectionViewController: ProductListViewController {
         return 10
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCustomCellIdentifier", for: indexPath) as? CollectionViewCell else {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "collectionCustomCellIdentifier", for: indexPath) as? CollectionViewCell else {
             fatalError("Unable to dequeue CollectionViewCell.")
         }
 
@@ -72,7 +75,6 @@ class CollectionViewController: ProductListViewController {
         datas[indexPath.section].remove(at: indexPath.row)
         collectionView.deleteItems(at: [indexPath])
         collectionStatusDelegate?.productStatusChanged(product: product, isCollected: false)
-        
         
     }
 }
@@ -114,7 +116,7 @@ class CollectionViewCell: UICollectionViewCell {
             collectionButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 30),
             collectionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             collectionButton.heightAnchor.constraint(equalToConstant: 20),
-            collectionButton.widthAnchor.constraint(equalToConstant: 20),
+            collectionButton.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
