@@ -84,6 +84,17 @@ extension ProfileViewController: UICollectionViewDataSource {
         profileCell.layoutCell(image: item.image, text: item.title)
         return profileCell
     }
+    // L-coupon/MyCouponViewController: push to coupon page
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 {
+//            let collectionVC = CollectionViewController()
+//            collectionVC.hidesBottomBarWhenPushed = true
+//            navigationController?.pushViewController(collectionVC, animated: true)
+        } else if indexPath.section == 1 && indexPath.row == 1{
+            let couponVC = MyCouponViewController()
+            navigationController?.pushViewController(couponVC, animated: true)
+        }
+    }
 
     func collectionView(
         _ collectionView: UICollectionView,

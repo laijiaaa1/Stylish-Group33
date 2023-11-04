@@ -59,7 +59,7 @@ enum OrderItem: ProfileItem {
 
 enum ServiceItem: ProfileItem {
     case collcetion
-    case notification
+    case coupon
     case refund
     case address
     case customService
@@ -70,7 +70,7 @@ enum ServiceItem: ProfileItem {
     var image: UIImage? {
         switch self {
         case .collcetion: return .asset(.Icons_24px_Starred)
-        case .notification: return .asset(.Icons_24px_Notification)
+        case .coupon: return .asset(.Icons_24px_Notification)
         case .refund: return .asset(.Icons_24px_Refunded)
         case .address: return .asset(.Icons_24px_Address)
         case .customService: return .asset(.Icons_24px_CustomerService)
@@ -83,7 +83,7 @@ enum ServiceItem: ProfileItem {
     var title: String {
         switch self {
         case .collcetion: return NSLocalizedString("收藏")
-        case .notification: return NSLocalizedString("貨到通知")
+        case .coupon: return NSLocalizedString("優惠券")
         case .refund: return NSLocalizedString("帳戶退款")
         case .address: return NSLocalizedString("地址")
         case .customService: return NSLocalizedString("客服訊息")

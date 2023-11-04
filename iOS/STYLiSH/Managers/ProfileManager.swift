@@ -27,7 +27,7 @@ class ProfileManager {
         action: nil,
         items: [
             ServiceItem.collcetion,
-            ServiceItem.notification,
+            ServiceItem.coupon,
             ServiceItem.refund,
             ServiceItem.address,
             ServiceItem.customService,
