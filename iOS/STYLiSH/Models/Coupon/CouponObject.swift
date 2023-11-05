@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct CouponObject: Codable {
+    let couponId: Int
+    let couponType: String
+    let couponTitle: String
+    let couponExpiredDate: String
+    let isUsed: Bool
+}
+
+
+
+
