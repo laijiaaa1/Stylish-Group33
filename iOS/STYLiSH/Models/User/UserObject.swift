@@ -26,6 +26,21 @@ struct User: Codable {
     let picture: String
 }
 
+struct UserProfile: Codable {
+    let id: Int
+    let email: String
+    let name: String
+    let picture: String
+}
+
 struct Reciept: Codable {
     let number: String
+}
+
+
+struct UserResponse: Codable {
+    let success: Bool
+    let message: String
+    let id: Int?
+    let couponId: Int?
 }

@@ -83,6 +83,7 @@ class HTTPClient: HTTPClientProtocol {
                 }
                 
                 let statusCode = httpResponse.statusCode
+                print(statusCode)
                 switch statusCode {
                 case 200..<300:
                     completion(.success(data!))

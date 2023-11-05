@@ -14,6 +14,7 @@ enum STUserRequest: STRequest {
     case checkout(token: String, body: Data?)
     case profile(token: String)
 
+    
     var headers: [String: String] {
         switch self {
         case .signin, .signinNative:
@@ -28,9 +29,9 @@ enum STUserRequest: STRequest {
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
+            
         }
     }
-
     var body: Data? {
         switch self {
         case .signin(let token):
@@ -45,20 +46,23 @@ enum STUserRequest: STRequest {
                 "email": email,
                 "password": password
             ]
-            return try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+           return try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+      
         case .checkout(_, let body):
             return body
         case .profile: return nil
         }
     }
-
+    
     var method: String {
         switch self {
-        case .signin, .signinNative, .checkout: return STHTTPMethod.POST.rawValue
-        case .profile: return STHTTPMethod.GET.rawValue
+        case .signin, .signinNative, .checkout:
+            return STHTTPMethod.POST.rawValue
+        case .profile:
+            return STHTTPMethod.GET.rawValue
         }
     }
-
+    
     var endPoint: String {
         switch self {
         case .signin: return "/user/signin"
@@ -68,3 +72,4 @@ enum STUserRequest: STRequest {
         }
     }
 }
+
