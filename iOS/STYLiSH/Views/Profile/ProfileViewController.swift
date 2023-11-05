@@ -34,10 +34,49 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-
+    let getCouponButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+
+        getCouponButton.setTitle("領取", for: .normal)
+        getCouponButton.backgroundColor = .orange
+        getCouponButton.layer.cornerRadius = 25
+        view.addSubview(getCouponButton)
+        getCouponButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            getCouponButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            getCouponButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            getCouponButton.heightAnchor.constraint(equalToConstant: 50),
+            getCouponButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
+
+        getCouponButton.addTarget(self, action: #selector(getCouponButtonTapped), for: .touchUpInside)
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+           getCouponButton.addGestureRecognizer(panGesture)
+        
+    
+    }
+   
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+       guard let getCouponButton = gesture.view as? UIButton else { return }
+        
+        switch gesture.state {
+        case .began, .changed:
+            let translation = gesture.translation(in: view)
+            getCouponButton.center = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
+            gesture.setTranslation(.zero, in: view)
+            
+        default:
+            break
+        }
+    }
+    @objc func getCouponButtonTapped() {
+        
+        let getCouponVC = GetCouponViewController()
+        navigationController?.pushViewController(getCouponVC, animated: true)
     }
 
     // MARK: - Action

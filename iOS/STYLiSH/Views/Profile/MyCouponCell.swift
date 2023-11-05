@@ -1,4 +1,3 @@
-//
 //  MyCouponCell.swift
 //  STYLiSH
 //

@@ -212,6 +212,36 @@
             </objects>
             <point key="canvasLocation" x="2552" y="166"/>
         </scene>
+        <!--Get Coupon View Controller-->
+        <scene sceneID="fXs-7Q-uhV">
+            <objects>
+                <viewController storyboardIdentifier="GetCouponViewController" id="Nf9-hf-7gf" customClass="GetCouponViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qZe-JL-X81">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bo0-Ki-biw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MZJ-0p-IX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3308" y="158"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="31t-f1-vAi">
+            <objects>
+                <viewController id="cSE-1H-J8a" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bmy-F6-sD6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yBs-L4-VjJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nPh-a4-ko3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4071" y="179"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HWM-t4-4rC">
             <objects>
