@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CollectionProducts: Codable {
+struct CollectionObject: Codable {
     let userId: String
     let products: [Product]
     
@@ -18,8 +18,3 @@ struct CollectionProducts: Codable {
     }
 }
 
-struct CollectionEditResponse: Codable {
-    let success: Bool
-    let message: String
-    let id: Int
-}
