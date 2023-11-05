@@ -118,7 +118,7 @@ extension STTabBarViewController: UITabBarControllerDelegate {
                 if let sheetPresentationController = logInVC.sheetPresentationController {
                     sheetPresentationController.preferredCornerRadius = 16
                     sheetPresentationController.detents = [.custom(resolver: { _ in
-                        369
+                        350
                     })]
                 }
                 present(logInVC, animated: true, completion: nil)
