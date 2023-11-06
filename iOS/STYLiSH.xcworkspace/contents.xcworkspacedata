@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/laijiaaa1/Desktop/cowork3/Stylish-Group33/iOS/STYLiSH/Views/Base/GetCouponViewController.swift">
-   </FileRef>
-   <FileRef
       location = "group:STYLiSH.xcodeproj">
    </FileRef>
    <FileRef

@@ -46,6 +46,7 @@ extension STRequest {
         request.allHTTPHeaderFields = headers
         request.httpBody = body
         request.httpMethod = method
+        print(urlString)
         return request
     }
     func makeOriginalRequest() -> URLRequest {

@@ -68,8 +68,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     var tableView1: UITableView!
     var tableView2: UITableView!
     var tableView3: UITableView!
-    
-    let collectionCellIdentifier = "CollectionCell"
+ 
     let tableCellIdentifier = "TableCell"
     
     var indicatorViewLeadingConstraint: NSLayoutConstraint?
@@ -166,7 +165,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.dataSource = self
         view.addSubview(collectionView)
         
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
+        collectionView.register(CollectionProductCell.self, forCellWithReuseIdentifier: CollectionProductCell.identifier)
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 10),
@@ -180,7 +179,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: tableCellIdentifier)
+        tableView.register(CouponViewCell.self, forCellReuseIdentifier: tableCellIdentifier)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 10),
@@ -255,7 +254,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionCellIdentifier, for: indexPath) as? CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionProductCell.identifier, for: indexPath) as? CollectionProductCell
         
         return cell ?? UICollectionViewCell()
     }
@@ -267,7 +266,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as? TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as? CouponViewCell
         let coupon = coupons[indexPath.row]
         cell?.coupon = coupon
         

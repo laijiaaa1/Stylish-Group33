@@ -193,7 +193,7 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
 //        super.init(coder: coder)
 //    }
 //}
-class UseCouponTableCell: TableViewCell {
+class UseCouponTableCell: CouponViewCell {
     var useCouponAction: ((String) -> Void)?
     var radioButton: UIButton = UIButton()
     var isToggled = false
