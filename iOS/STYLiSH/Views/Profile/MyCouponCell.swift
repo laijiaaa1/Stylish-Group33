@@ -9,7 +9,8 @@
 import UIKit
 import Foundation
 
-class CollectionViewCell: UICollectionViewCell { }
+//need 
+class CollectionViewCell: UICollectionViewCell{}
 
 class TableViewCell: UITableViewCell {
     var couponImage: UIImageView!

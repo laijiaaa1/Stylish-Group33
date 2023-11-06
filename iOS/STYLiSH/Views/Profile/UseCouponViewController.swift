@@ -5,7 +5,7 @@
 //  Created by laijiaaa1 on 2023/11/5.
 //  Copyright © 2023 AppWorks School. All rights reserved.
 //
-
+//MARK: -L-useCoupon/useCoponViewController: All
 import UIKit
 
 protocol UseCouponDelegate: AnyObject {
@@ -102,7 +102,8 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
             if iiii != index {
                 let indexPath = IndexPath(row: iiii, section: 0)
                 if let cell = tableView.cellForRow(at: indexPath) as? UseCouponTableCell {
-                    cell.radioButton.isSelected = false
+                    cell.resetButton()
+//                    cell.radioButton.isSelected = false
                 }
             }
         }
@@ -117,82 +118,14 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
             let selectedCoupon = data[selectedCouponIndex]
             couponSelectionHandler?(selectedCoupon)
             navigationController?.popViewController(animated: true)
+        } else {
+            couponSelectionHandler?(nil)
+            navigationController?.popViewController(animated: true)
         }
     }
 
 }
 
-//class UseCouponTableCell: TableViewCell {
-//
-//    var useCouponAction: ((String) -> Void)?
-//    var isToggled = false
-//
-//    var radioButton: UIButton = UIButton()
-//
-//    override var coupon: ShowCoupon? {
-//        didSet {
-//            // Update the coupon's UI
-//        }
-//    }
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//
-//        radioButton.backgroundColor = UIColor(
-//            red: 225 / 255.0,
-//            green: 213 / 255.0,
-//            blue: 205 / 255.0,
-//            alpha: 1.0
-//        )
-//
-//        contentView.addSubview(radioButton)
-//
-//        radioButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-//        radioButton.addTarget(self, action: #selector(radioButtonTapped), for: .touchUpInside)
-//
-//        radioButton.translatesAutoresizingMaskIntoConstraints = false
-//        radioButton.layer.cornerRadius = 15
-//
-//        NSLayoutConstraint.activate([
-//            radioButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-//            radioButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-//            radioButton.heightAnchor.constraint(equalToConstant: 30),
-//            radioButton.widthAnchor.constraint(equalToConstant: 30)
-//        ])
-//
-//        radioButton.isSelected = false
-//    }
-//
-//    @objc func radioButtonTapped() {
-//        if let couponTitle = coupon?.title {
-//            radioButton.isSelected = !radioButton.isSelected
-//
-//            if isToggled {
-//                radioButton.backgroundColor = UIColor(
-//                    red: 225 / 255.0,
-//                    green: 213 / 255.0,
-//                    blue: 205 / 255.0,
-//                    alpha: 1.0
-//                )
-//            } else {
-//                radioButton.backgroundColor = UIColor(
-//                    red: 153 / 255.0,
-//                    green: 103 / 255.0,
-//                    blue: 82 / 255.0,
-//                    alpha: 1.0
-//                )
-//            }
-//
-//            isToggled = !isToggled
-//
-//            useCouponAction?(couponTitle)
-//        }
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
-//}
 class UseCouponTableCell: TableViewCell {
     var useCouponAction: ((String) -> Void)?
     var radioButton: UIButton = UIButton()
@@ -223,13 +156,7 @@ class UseCouponTableCell: TableViewCell {
         ])
 
         radioButton.setImage(UIImage(systemName: "smallcircle.fill.circle"), for: .selected)
-        //change image color
-        radioButton.tintColor = UIColor(
-            red: 153 / 255.0,
-            green: 103 / 255.0,
-            blue: 82 / 255.0,
-            alpha: 1.0
-        )
+        radioButton.tintColor = .black
         
         radioButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }
@@ -249,6 +176,12 @@ class UseCouponTableCell: TableViewCell {
         }
         
         useCouponAction?(coupon?.title ?? "")
+    }
+    func resetButton(){
+        radioButton.isSelected = false
+        radioButton.backgroundColor = .clear
+        isToggled = false
+        
     }
 
     required init?(coder: NSCoder) {

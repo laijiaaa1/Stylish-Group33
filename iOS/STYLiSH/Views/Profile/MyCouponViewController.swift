@@ -4,7 +4,7 @@
 //
 //  Created by laijiaaa1 on 2023/11/4.
 //
-
+//MARK: -L-myCoupon/myCoponViewController: All
 import UIKit
 
 struct Coupon: Codable {
@@ -82,6 +82,32 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         createAllTableViews()
         tableView1.isHidden = false
         tableView1.reloadData()
+        
+        let topView = UIView()
+        topView.backgroundColor = .white
+        view.addSubview(topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor),
+            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topView.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        let addButton = UIButton()
+        addButton.setTitle("領取優惠券 >", for: .normal)
+        addButton.setTitleColor(.black, for: .normal)
+        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        addButton.addTarget(self, action: #selector(getCouponButtonTappedFromMyCoupon), for: .touchUpInside)
+        topView.addSubview(addButton)
+        
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            addButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10),
+            addButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
+            addButton.heightAnchor.constraint(equalToConstant: 30),
+            addButton.widthAnchor.constraint(equalToConstant: 100)
+        ])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -178,29 +204,9 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(tableView)
         
         tableView.register(TableViewCell.self, forCellReuseIdentifier: tableCellIdentifier)
-        
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
-        
-        let addButton = UIButton()
-        addButton.setTitle("領取優惠券 >", for: .normal)
-        addButton.setTitleColor(.black, for: .normal)
-        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        addButton.addTarget(self, action: #selector(getCouponButtonTappedFromMyCoupon), for: .touchUpInside)
-        headerView.addSubview(addButton)
-        
-        addButton.translatesAutoresizingMaskIntoConstraints = false
+       
         NSLayoutConstraint.activate([
-            addButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
-            addButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -10),
-            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            addButton.heightAnchor.constraint(equalToConstant: 30),
-            addButton.widthAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        tableView.tableHeaderView = headerView
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 40),
+            tableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

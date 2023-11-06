@@ -117,8 +117,8 @@
                                             <action selector="goUuseCouponButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ctx-Ek-rgg"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全站免運" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-H1-wi4">
-                                        <rect key="frame" x="281" y="19.666666666666657" width="69.333333333333314" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="選擇優惠券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-H1-wi4">
+                                        <rect key="frame" x="263.66666666666669" y="19.666666666666657" width="86.666666666666686" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="B4"/>
                                         <nil key="highlightedColor"/>

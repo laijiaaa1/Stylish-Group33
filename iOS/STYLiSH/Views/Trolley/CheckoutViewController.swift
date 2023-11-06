@@ -7,16 +7,16 @@
 //
 
 import UIKit
-
+//MARK: -L-usecoupon/CheckoutViewController: useCoupon delegate
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
 
-    let stPaymentInfoTableViewCell = STPaymentInfoTableViewCell(style: .default, reuseIdentifier: nil)
-
+    var stPaymentInfoTableViewCell: STPaymentInfoTableViewCell?
+        
     func didSelectCoupon(_ coupon: String?) {
         if let selectedCoupon = coupon {
-            stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+            stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon
         } else {
-            stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+            stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
         }
     }
     
@@ -64,9 +64,7 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stPaymentInfoTableViewCell.delegate = self
-        
-     
+        stPaymentInfoTableViewCell?.delegate = self
     }
     
     private func setupTableView() {
@@ -241,6 +239,8 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             return UITableViewCell()
         }
+        //MARK: -L-usecoupon/CheckoutViewController: pass selected coupon
+        stPaymentInfoTableViewCell = inputCell
         inputCell.creditView.stickSubView(tappayVC.view)
         inputCell.delegate = self
         inputCell.layoutCellWith(
@@ -275,9 +275,9 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
         if let vc = storyboard.instantiateViewController(withIdentifier: "UseCouponViewController") as? UseCouponViewController {
             vc.couponSelectionHandler = { [weak self] selectedCoupon in
                 if let selectedCoupon = selectedCoupon {
-                    self?.stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+                    self?.stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon
                 } else {
-                    self?.stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+                    self?.stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
                 }
             }
             navigationController?.pushViewController(vc, animated: true)
