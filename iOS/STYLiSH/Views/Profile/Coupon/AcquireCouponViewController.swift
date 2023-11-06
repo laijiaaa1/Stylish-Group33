@@ -1,5 +1,5 @@
 //
-//  CollectionViewController.swift
+//  AcquireCouponViewController.swift
 //  STYLiSH
 //
 //  Created by Red Wang on 2023/11/6.

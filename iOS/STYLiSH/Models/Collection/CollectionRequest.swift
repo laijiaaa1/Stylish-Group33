@@ -55,7 +55,7 @@ enum STCollectionRequest: STRequest {
     var endPoint: String {
         switch self {
         case .addCollection, .removeCollection: return "/v1/collection"
-        case .getCollection(_, let paging): return "/v1/collection?\(paging)"
+        case .getCollection(_, let paging): return "/v1/collection?paging=\(paging)"
         }
     }
 }
