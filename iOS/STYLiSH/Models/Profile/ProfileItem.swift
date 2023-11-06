@@ -70,7 +70,7 @@ enum ServiceItem: ProfileItem {
     var image: UIImage? {
         switch self {
         case .collcetion: return .asset(.Icons_24px_Starred)
-        case .coupon: return .asset(.Icons_24px_Notification)
+        case .coupon: return UIImage(named: "coupon")
         case .refund: return .asset(.Icons_24px_Refunded)
         case .address: return .asset(.Icons_24px_Address)
         case .customService: return .asset(.Icons_24px_CustomerService)
