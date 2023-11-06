@@ -38,7 +38,13 @@ class ProductDetailViewController: STBaseViewController {
         blurView.backgroundColor = .black.withAlphaComponent(0.4)
         return blurView
     }()
-
+    private let collectionButton: UIButton = {
+        let collectionButton = UIButton()
+        collectionButton.setImage(UIImage(named: "heart_hollow"), for: .normal)
+        collectionButton.setImage(UIImage(named: "heart_fill"), for: .selected)
+        collectionButton.frame = CGRect(x: 330, y: 585, width: 25, height: 25)
+        return collectionButton
+    }()
     private let datas: [ProductContentCategory] = [
         .description, .color, .size, .stock, .texture, .washing, .placeOfProduction, .remarks
     ]
@@ -64,8 +70,20 @@ class ProductDetailViewController: STBaseViewController {
 
         guard let product = product else { return }
         galleryView.datas = product.images
+        
+        // Add collection button
+        collectionButton.addTarget(self, action: #selector(collectionButtonTapped), for: .touchUpInside)
+        tableView.addSubview(collectionButton)
+        
     }
 
+  
+    @objc func collectionButtonTapped() {
+        if let product = product {
+            
+        }
+    }
+    
     private func setupTableView() {
         tableView.lk_registerCellWithNib(
             identifier: String(describing: ProductDescriptionTableViewCell.self),

@@ -109,15 +109,36 @@ extension STTabBarViewController: UITabBarControllerDelegate {
         else {
             return true
         }
-        
+        /// Push Native Login
         if KeyChainManager.shared.token == nil {
-            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                authVC.modalPresentationStyle = .overCurrentContext
-                present(authVC, animated: false, completion: nil)
+            let logInVC = LogInViewController()
+            logInVC.isModalInPresentation = true
+            
+            if #available(iOS 16.0, *) {
+                if let sheetPresentationController = logInVC.sheetPresentationController {
+                    sheetPresentationController.preferredCornerRadius = 16
+                    sheetPresentationController.detents = [.custom(resolver: { _ in
+                        350
+                    })]
+                }
+                present(logInVC, animated: true, completion: nil)
             }
             return false
         } else {
             return true
         }
+        
+        /// Push FB Login
+//        if KeyChainManager.shared.token == nil {
+//            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+//                authVC.modalPresentationStyle = .overCurrentContext
+//                present(authVC, animated: false, completion: nil)
+//            }
+//            return false
+//        } else {
+//            return true
+//        }
+        
+        
     }
 }

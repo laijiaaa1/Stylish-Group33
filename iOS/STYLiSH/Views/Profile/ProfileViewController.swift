@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
     
     private let userProvider = UserProvider(httpClient: HTTPClient())
     
-    private var user: User? {
+    private var user: UserProfile? {
         didSet {
             if let user = user {
                 updateUser(user)
@@ -98,11 +98,10 @@ class ProfileViewController: UIViewController {
         })
     }
     
-    private func updateUser(_ user: User) {
+    private func updateUser(_ user: UserProfile) {
         imageProfile.loadImage(user.picture, placeHolder: .asset(.Icons_36px_Profile_Normal))
-        
         labelName.text = user.name
-        labelInfo.text = user.getUserInfo()
+        labelInfo.text = user.getUserInfo(userProfile: user)
         labelInfo.isHidden = false
     }
 }

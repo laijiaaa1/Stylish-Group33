@@ -48,10 +48,20 @@ extension STRequest {
         request.httpMethod = method
         return request
     }
+    func makeOriginalRequest() -> URLRequest {
+        let urlString = Bundle.STValueForString(key: STConstant.urlKeyOriginal) + endPoint
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = headers
+        request.httpBody = body
+        request.httpMethod = method
+        return request
+    }
 }
 
 protocol HTTPClientProtocol {
     func request(_ stRequest: STRequest, completion: @escaping (Result<Data, STHTTPClientError>) -> Void)
+    func originalRequest(_ stRequest: STRequest, completion: @escaping (Result<Data, STHTTPClientError>) -> Void)
 }
 
 class HTTPClient: HTTPClientProtocol {
@@ -62,6 +72,37 @@ class HTTPClient: HTTPClientProtocol {
     ) {
         URLSession.shared.dataTask(
             with: stRequest.makeRequest(),
+            completionHandler: { (data, response, error) in
+                if let error = error {
+                    completion(.failure(.urlSessionError(error)))
+                    return
+                }
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    completion(.failure(.unexpectedError))
+                    return
+                }
+                
+                let statusCode = httpResponse.statusCode
+                print(statusCode)
+                switch statusCode {
+                case 200..<300:
+                    completion(.success(data!))
+                case 400..<500:
+                    completion(.failure(.clientError(data!)))
+                case 500..<600:
+                    completion(.failure(.serverError))
+                default:
+                    completion(.failure(.unexpectedError))
+                }
+            }).resume()
+    }
+    
+    func originalRequest(
+        _ stRequest: STRequest,
+        completion: @escaping (Result<Data, STHTTPClientError>) -> Void
+    ) {
+        URLSession.shared.dataTask(
+            with: stRequest.makeOriginalRequest(),
             completionHandler: { (data, response, error) in
                 if let error = error {
                     completion(.failure(.urlSessionError(error)))

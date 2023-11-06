@@ -27,9 +27,28 @@ class UserProvider {
     init(httpClient: HTTPClientProtocol) {
         self.httpClient = httpClient
     }
-
-    func signInToSTYLiSH(fbToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        httpClient.request(STUserRequest.signin(fbToken), completion: { result in
+    
+    func signInToStylish(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        httpClient.request(STUserRequest.signinNative(
+            email: email,
+            password: password), completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let userObject = try JSONDecoder().decode(STSuccessParser<UserObject>.self, from: data)
+                    KeyChainManager.shared.token = userObject.data.accessToken
+                    completion(.success(()))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
+  
+    func signInToStylishWithFb(fbToken: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        httpClient.originalRequest(STUserRequest.signin(fbToken), completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -81,7 +100,7 @@ class UserProvider {
             token: token,
             body: try? JSONEncoder().encode(body)
         )
-        httpClient.request(request, completion: { result in
+        httpClient.originalRequest(request, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -98,23 +117,25 @@ class UserProvider {
         })
     }
     
-    func getUserProfile(completion: @escaping (Result<User, Error>) -> Void) {
+    func getUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
         guard let token = KeyChainManager.shared.token else {
             return completion(.failure(STYLiSHSignInError.noToken))
         }
         let request = STUserRequest.profile(token: token)
+        print(token)
         httpClient.request(request, completion: { result in
             switch result {
             case .success(let data):
                 do {
-                    let user = try JSONDecoder().decode(STSuccessParser<User>.self, from: data)
+                    let userProfile = try JSONDecoder().decode(STSuccessParser<UserProfile>.self, from: data)
                     DispatchQueue.main.async {
-                        completion(.success(user.data))
+                        completion(.success(userProfile.data))
                     }
                 } catch {
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(error)
                 completion(.failure(error))
             }
         })

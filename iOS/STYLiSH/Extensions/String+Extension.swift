@@ -23,3 +23,13 @@ extension User {
         }
     }
 }
+extension UserProfile {
+    
+    func getUserInfo(userProfile: UserProfile) -> String {
+        if email == "\(userProfile.email)" {
+            return "帳號 ID : \(userProfile.id)"
+        } else {
+            return ""
+        }
+    }
+}

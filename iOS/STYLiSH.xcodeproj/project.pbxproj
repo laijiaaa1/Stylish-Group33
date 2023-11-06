@@ -136,6 +136,14 @@
 		5AE0296B2A6A18AB00532297 /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0296A2A6A18AB00532297 /* MockHTTPClient.swift */; };
 		5AE0296E2A6A195400532297 /* SuccessData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AE0296D2A6A195400532297 /* SuccessData.json */; };
 		5AEC6D2D2A6A251F001184E4 /* SuccessDataWithWrongFormat.json in Resources */ = {isa = PBXBuildFile; fileRef = 5AEC6D2C2A6A251F001184E4 /* SuccessDataWithWrongFormat.json */; };
+		9D359ACA2AF64B1A00DE4A42 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359AC92AF64B1A00DE4A42 /* LoginViewController.swift */; };
+		9D359ACC2AF6731C00DE4A42 /* CollectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359ACB2AF6731C00DE4A42 /* CollectionProvider.swift */; };
+		9D359ACE2AF6766900DE4A42 /* CollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359ACD2AF6766900DE4A42 /* CollectionRequest.swift */; };
+		9D359AD12AF6795B00DE4A42 /* CollectionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359AD02AF6795B00DE4A42 /* CollectionObject.swift */; };
+		9D359AD42AF75BC900DE4A42 /* CollectionProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359AD32AF75BC900DE4A42 /* CollectionProductCell.swift */; };
+		9D359AD62AF7DAAF00DE4A42 /* CouponProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359AD52AF7DAAF00DE4A42 /* CouponProvider.swift */; };
+		9D359AD92AF7DAF300DE4A42 /* CouponRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359AD82AF7DAF300DE4A42 /* CouponRequest.swift */; };
+		9D359ADB2AF7DF0200DE4A42 /* CouponObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D359ADA2AF7DF0200DE4A42 /* CouponObject.swift */; };
 		D306B883B370DFD3ED8ACD74 /* Pods_STYLiSH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C2B4AF3EF2ABFF2BB9F7AB /* Pods_STYLiSH.framework */; };
 /* End PBXBuildFile section */
 
@@ -294,6 +302,14 @@
 		5AE0296A2A6A18AB00532297 /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		5AE0296D2A6A195400532297 /* SuccessData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuccessData.json; sourceTree = "<group>"; };
 		5AEC6D2C2A6A251F001184E4 /* SuccessDataWithWrongFormat.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuccessDataWithWrongFormat.json; sourceTree = "<group>"; };
+		9D359AC92AF64B1A00DE4A42 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9D359ACB2AF6731C00DE4A42 /* CollectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionProvider.swift; sourceTree = "<group>"; };
+		9D359ACD2AF6766900DE4A42 /* CollectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRequest.swift; sourceTree = "<group>"; };
+		9D359AD02AF6795B00DE4A42 /* CollectionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionObject.swift; sourceTree = "<group>"; };
+		9D359AD32AF75BC900DE4A42 /* CollectionProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionProductCell.swift; sourceTree = "<group>"; };
+		9D359AD52AF7DAAF00DE4A42 /* CouponProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponProvider.swift; sourceTree = "<group>"; };
+		9D359AD82AF7DAF300DE4A42 /* CouponRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponRequest.swift; sourceTree = "<group>"; };
+		9D359ADA2AF7DF0200DE4A42 /* CouponObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponObject.swift; sourceTree = "<group>"; };
 		E921004E251C9FC3CBC174F5 /* Pods-STYLiSH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-STYLiSH.release.xcconfig"; path = "Target Support Files/Pods-STYLiSH/Pods-STYLiSH.release.xcconfig"; sourceTree = "<group>"; };
 		F551E8F447D7C8DC42B53B98 /* Pods-STYLiSH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-STYLiSH.debug.xcconfig"; path = "Target Support Files/Pods-STYLiSH/Pods-STYLiSH.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -364,6 +380,7 @@
 		3C1ACFE722152D10005583E2 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9D359AD22AF75B9A00DE4A42 /* Collection */,
 				3C1ACFE322151F50005583E2 /* ProfileViewController.swift */,
 				3C1ACFE822152D29005583E2 /* ProfileCollectionViewCell.swift */,
 				3C1ACFEA22153114005583E2 /* ProfileCollectionReusableView.swift */,
@@ -529,8 +546,8 @@
 			children = (
 				3C7036D0222C4E0A00F6C58B /* ProductPickerController.swift */,
 				3C41B8462216667000112F94 /* ProductViewController.swift */,
-				3C33863E221BB2B800ED97E4 /* ProductListViewController.swift */,
 				3CCB3BC3222AA8FD00976A1C /* ProductDetailViewController.swift */,
+				3C33863E221BB2B800ED97E4 /* ProductListViewController.swift */,
 				3C347949222E82F500969C30 /* AmountSelectionCell */,
 				3CDC5A68222D85B50071D0D1 /* SizeSelectionCell */,
 				3CDC5A64222D85080071D0D1 /* ColorSelectionCell */,
@@ -620,6 +637,8 @@
 		3CD2913022113CF3008B8A2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9D359AD72AF7DAE300DE4A42 /* Coupon */,
+				9D359ACF2AF677F800DE4A42 /* Collection */,
 				3CE7A51A2230899D009FF003 /* OrderProvider */,
 				3CE7A51122305904009FF003 /* User */,
 				3CEBE075222F714A0064EF82 /* Local Storage */,
@@ -745,6 +764,7 @@
 			isa = PBXGroup;
 			children = (
 				3CD9BB34223B882C0012C00D /* AuthViewController.swift */,
+				9D359AC92AF64B1A00DE4A42 /* LoginViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -776,8 +796,37 @@
 				3CE7A51222305916009FF003 /* UserProvider.swift */,
 				3CED4C0B22141E9700121D4B /* MarketProvider.swift */,
 				3CA25518222A484300B286F6 /* ProductsListProvider.swift */,
+				9D359ACB2AF6731C00DE4A42 /* CollectionProvider.swift */,
+				9D359AD52AF7DAAF00DE4A42 /* CouponProvider.swift */,
 			);
 			path = APIProviders;
+			sourceTree = "<group>";
+		};
+		9D359ACF2AF677F800DE4A42 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				9D359ACD2AF6766900DE4A42 /* CollectionRequest.swift */,
+				9D359AD02AF6795B00DE4A42 /* CollectionObject.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		9D359AD22AF75B9A00DE4A42 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				349300F32AF5443000F5C880 /* CollectionViewController.swift */,
+				9D359AD32AF75BC900DE4A42 /* CollectionProductCell.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		9D359AD72AF7DAE300DE4A42 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				9D359AD82AF7DAF300DE4A42 /* CouponRequest.swift */,
+				9D359ADA2AF7DF0200DE4A42 /* CouponObject.swift */,
+			);
+			path = Coupon;
 			sourceTree = "<group>";
 		};
 		F26A8A19BFED7C956C38BFE8 /* Frameworks */ = {
@@ -836,8 +885,9 @@
 		3CD29111221135E2008B8A2D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "AppWorks School";
 				TargetAttributes = {
 					3CD29118221135E2008B8A2D = {
@@ -995,6 +1045,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C0DD87822134EC100F5237E /* UIFont+Extension.swift in Sources */,
+				9D359ACC2AF6731C00DE4A42 /* CollectionProvider.swift in Sources */,
 				3CE7A507223042CE009FF003 /* STBaseTextField.swift in Sources */,
 				3CB80E78222FCCC20095F18C /* Bundle+Extension.swift in Sources */,
 				3492B2162AF68FEF00B7F131 /* MyCouponCell.swift in Sources */,
@@ -1019,8 +1070,11 @@
 				3C4B10E222292EBB009942B7 /* STTapPayViewController.swift in Sources */,
 				3C831C8A22EAAF7A00112298 /* STPaymentInfoTableViewCell.swift in Sources */,
 				3C990F6C22E5C78200F2FCEA /* ProductDetailView.swift in Sources */,
+				9D359AD92AF7DAF300DE4A42 /* CouponRequest.swift in Sources */,
 				3C546BE722EAC79D0082C655 /* STOrderHeaderView.swift in Sources */,
 				3C5DD7CC2227EFFF0053B67A /* TrolleyViewController.swift in Sources */,
+				9D359ACA2AF64B1A00DE4A42 /* LoginViewController.swift in Sources */,
+				9D359AD62AF7DAAF00DE4A42 /* CouponProvider.swift in Sources */,
 				3C6020EA222BC00100312958 /* UILabel+Extension.swift in Sources */,
 				3CB80E76222FCBE60095F18C /* STConstant.swift in Sources */,
 				3C1ACFE422151F50005583E2 /* ProfileViewController.swift in Sources */,
@@ -1029,11 +1083,13 @@
 				3CE7A51C223089C3009FF003 /* OrderProvider.swift in Sources */,
 				3C0DD87A221350B300F5237E /* UIColor+Extension.swift in Sources */,
 				3CC706162216B34800CAD850 /* ProductTableViewCell.swift in Sources */,
+				9D359AD42AF75BC900DE4A42 /* CollectionProductCell.swift in Sources */,
 				3CEBE077222F718D0064EF82 /* StorageManager.swift in Sources */,
 				3C09F51C22114A0100C5B3E2 /* STTabBarViewController.swift in Sources */,
 				3C7036D1222C4E0A00F6C58B /* ProductPickerController.swift in Sources */,
 				3CC7061A2216B36800CAD850 /* ProductCollectionViewCell.swift in Sources */,
 				3CED4C0F2214222A00121D4B /* STParser.swift in Sources */,
+				9D359ACE2AF6766900DE4A42 /* CollectionRequest.swift in Sources */,
 				3CED4C0A2214192100121D4B /* Product.swift in Sources */,
 				3C33691A2227D20B008A5A7A /* UIView+Extension.swift in Sources */,
 				3CB8011E22299B460029A552 /* STCompondViewController.swift in Sources */,
@@ -1041,10 +1097,12 @@
 				3C9EF5342213C5C800DEE152 /* HTTPClient.swift in Sources */,
 				3CEBE07C222F7A210064EF82 /* Int+Extension.swift in Sources */,
 				3CED80AE23012CE400B7DA8E /* NSLocalizedString+Extension.swift in Sources */,
+				9D359ADB2AF7DF0200DE4A42 /* CouponObject.swift in Sources */,
 				3CA25519222A484300B286F6 /* ProductsListProvider.swift in Sources */,
 				3C3369162227CE7D008A5A7A /* TrolleyProductBaseView.swift in Sources */,
 				3CE7A50222302354009FF003 /* ProductContentCategory.swift in Sources */,
 				3C6020E8222BBA3C00312958 /* ProductBasicCell.swift in Sources */,
+				349300F42AF5443000F5C880 /* CollectionViewController.swift in Sources */,
 				3CE7A51522305E5A009FF003 /* KeyChainManager.swift in Sources */,
 				3C1ACFEB22153114005583E2 /* ProfileCollectionReusableView.swift in Sources */,
 				3C9C0D532215400900595689 /* ProfileItem.swift in Sources */,
@@ -1067,6 +1125,7 @@
 				3CE7A51322305916009FF003 /* UserProvider.swift in Sources */,
 				3CE7A51E22308D34009FF003 /* OrderObject.swift in Sources */,
 				3CD9BB35223B882C0012C00D /* AuthViewController.swift in Sources */,
+				9D359AD12AF6795B00DE4A42 /* CollectionObject.swift in Sources */,
 				58A77AA0262F3CC800B88679 /* LSColor+Extension.swift in Sources */,
 				3CB801212229A0970029A552 /* KingFisherWrapper.swift in Sources */,
 				3CFAC67322EEF71C00785FAB /* String+Extension.swift in Sources */,
@@ -1216,6 +1275,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1280,6 +1340,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

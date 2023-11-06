@@ -30,7 +30,7 @@ class AuthViewController: STBaseViewController {
         presentingViewController?.dismiss(animated: false, completion: nil)
     }
 
-    @IBAction func onFacebookLogin() {
+    @IBAction func onFacebookLogin(_ sender: Any) {
         userProvider.loginWithFaceBook(from: self, completion: { [weak self] result in
             switch result {
             case .success(let token):
@@ -44,7 +44,7 @@ class AuthViewController: STBaseViewController {
     private func onSTYLiSHSignIn(token: String) {
         LKProgressHUD.show()
 
-        userProvider.signInToSTYLiSH(fbToken: token, completion: { [weak self] result in
+        userProvider.signInToStylishWithFb(fbToken: token, completion: { [weak self] result in
             LKProgressHUD.dismiss()
 
             switch result {
@@ -58,4 +58,5 @@ class AuthViewController: STBaseViewController {
             }
         })
     }
+   
 }
