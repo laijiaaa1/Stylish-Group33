@@ -25,10 +25,10 @@ class CollectionViewController: STCompondViewController {
     private func setUpCollectionViewLayout() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(
-            width: Int(164.0 / 375.0 * UIScreen.width),
-            height: Int(164.0 / 375.0 * UIScreen.width * 308.0 / 164.0)
+            width: Int((UIScreen.width - 46) / 2),
+            height: Int((UIScreen.width - 46) / 2 / 164 * 280)
         )
-        flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 12.0, right: 16.0)
+        flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
         flowLayout.minimumInteritemSpacing = 0
         flowLayout.minimumLineSpacing = 24.0
         collectionView.collectionViewLayout = flowLayout
@@ -50,7 +50,6 @@ class CollectionViewController: STCompondViewController {
             }
         })
     }
-
     override func footerLoader() {
         guard let paging = paging else {
             endWithNoMoreData()
@@ -79,7 +78,6 @@ class CollectionViewController: STCompondViewController {
                 withReuseIdentifier: CollectionProductCell.identifier, for: indexPath) as? CollectionProductCell else {
                 fatalError("Unable to dequeue cell")
             }
-            
             if let product = datas[indexPath.section][indexPath.row] as? Product {
                 print("Product:\(product)")
                 cell.productId = product.id
@@ -109,7 +107,7 @@ class CollectionViewController: STCompondViewController {
                             if response.success == true {
                                 LKProgressHUD.showSuccess(text: "已移除")
                             } else {
-                                LKProgressHUD.showSuccess(text: "已移除")
+                                LKProgressHUD.showFailure(text: "無法移除")
                             }
                         case .failure(let error):
                             print(error.localizedDescription)

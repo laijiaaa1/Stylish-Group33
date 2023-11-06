@@ -24,6 +24,6 @@ class ProductTableViewCell: UITableViewCell {
     func layoutCell(image: String, title: String, price: Int) {
         productImg.loadImage(image, placeHolder: .asset(.Image_Placeholder))
         productTitleLbl.text = title
-        productPriceLbl.text = String(price)
+        productPriceLbl.text = "NT$\(price)"
     }
 }

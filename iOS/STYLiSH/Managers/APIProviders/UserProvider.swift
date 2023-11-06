@@ -16,8 +16,8 @@ enum FacebookError: String, Error {
     case denineEmailPermission = "請允許存取 Facebook email！"
 }
 
-enum STYLiSHSignInError: Error {
-    case noToken
+enum STYLiSHSignInError: String, Error {
+    case noToken = "請先登入！"
 }
 
 class UserProvider {
@@ -95,7 +95,7 @@ class UserProvider {
         guard let token = KeyChainManager.shared.token else {
             return completion(.failure(STYLiSHSignInError.noToken))
         }
-        let body = CheckoutAPIBody(order: order, prime: prime)
+        let body = CheckoutAPIBody(order: order, prime: prime, couponId: 0)
         let request = STUserRequest.checkout(
             token: token,
             body: try? JSONEncoder().encode(body)

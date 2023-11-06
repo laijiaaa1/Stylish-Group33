@@ -72,9 +72,9 @@ class ProductDetailViewController: STBaseViewController {
         galleryView.datas = product.images
     }
     private func setUpCollectionButton() {
+        guard let product = product else { return }
         collectionButton.addTarget(self, action: #selector(collectionButtonTapped), for: .touchUpInside)
-        
-        let selectedState = UserDefaults.standard.bool(forKey: "\(String(describing: product?.id))")
+        let selectedState = UserDefaults.standard.bool(forKey: "\(product.id)")
         collectionButton.isSelected = selectedState
     }
     private func setupTableView() {
@@ -101,40 +101,51 @@ class ProductDetailViewController: STBaseViewController {
         }
     }
     // MARK: - Methods
-    private func addCollection(with productId: Int) {
+    private func addCollection(with productId: Int, completion: @escaping (Bool) -> Void) {
         collectionProvider.addCollectionProducts(productId: productId, completion: { [weak self] result in
             switch result {
             case .success(let response):
                 LKProgressHUD.showSuccess(text: "\(response.message)")
-                self?.collectionButton.isSelected = true
-            case .failure:
-                LKProgressHUD.showFailure(text: "無法收藏商品")
-                self?.collectionButton.isSelected = false
+                completion(true)
+            case .failure(let error):
+                if let error = error as? STYLiSHSignInError {
+                    LKProgressHUD.showFailure(text: "\(error.rawValue)")
+                } else {
+                    LKProgressHUD.showFailure(text: "無法收藏商品")
+                }
+                completion(false)
             }
         })
     }
-    private func removeCollection(with productId: Int) {
+    private func removeCollection(with productId: Int, completion: @escaping (Bool) -> Void) {
         collectionProvider.removeCollectionProducts(productId: productId, completion: { [weak self] result in
             switch result {
             case .success(let response):
                 LKProgressHUD.showSuccess(text: "\(response.message)")
-                self?.collectionButton.isSelected = false
+                completion(false)
             case .failure:
                 LKProgressHUD.showFailure(text: "無法移除收藏")
-                self?.collectionButton.isSelected = true
+                completion(true)
             }
         })
     }
     @objc func collectionButtonTapped(sender: UIButton) {
         guard let product = product else { return }
-        // POST API
         if collectionButton.isSelected == false {
-            addCollection(with: product.id)
+            addCollection(with: product.id) { result in
+                UserDefaults.standard.set(result, forKey: "\(String(describing: product.id))")
+                DispatchQueue.main.async {
+                    self.collectionButton.isSelected = result
+                }
+            }
         } else {
-            removeCollection(with: product.id)
+            removeCollection(with: product.id) { result in
+                UserDefaults.standard.set(result, forKey: "\(String(describing: product.id))")
+                DispatchQueue.main.async {
+                    self.collectionButton.isSelected = result
+                }
+            }
         }
-        // Save button state
-        UserDefaults.standard.set(collectionButton.isSelected ,forKey: "\(String(describing: product.id))")
     }
     @IBAction func didTouchAddToCarBtn(_ sender: UIButton) {
         if productPickerView.superview == nil {

@@ -53,7 +53,7 @@
 		<true/>
 	</dict>
 	<key>STBaseURL</key>
-	<string>https://ygolonhcet.online/api/v1</string>
+	<string>https://ygolonhcet.online/api</string>
 	<key>STOriginalURL</key>
 	<string>https://api.appworks-school.tw/api/1.0</string>
 	<key>STTapPayAppID</key>
