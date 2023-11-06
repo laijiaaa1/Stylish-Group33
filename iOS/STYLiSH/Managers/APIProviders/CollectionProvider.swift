@@ -12,7 +12,7 @@ typealias CollectionResponseWithPaging = (Result<STSuccessParser<[Product]>, Err
 typealias CollectionResponse = (Result<UserResponse, Error>) -> Void
 
 class CollectionProvider {
-  
+    static let shared = CollectionProvider(httpClient: HTTPClient())
     let decoder = JSONDecoder()
     let httpClient: HTTPClientProtocol
 
@@ -55,7 +55,13 @@ class CollectionProvider {
                     completion(.failure(error))
                 }
             case .failure(let error):
-                completion(.failure(error))
+                switch error{
+                case .clientError(_):
+                    return
+                default:
+                    completion(.failure(error))
+                }
+               
             }
         })
     }
@@ -74,6 +80,7 @@ class CollectionProvider {
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(error.localizedDescription)
                 completion(.failure(error))
             }
         })

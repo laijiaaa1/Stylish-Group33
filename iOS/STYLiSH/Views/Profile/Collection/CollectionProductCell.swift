@@ -15,22 +15,42 @@ class CollectionProductCell: UICollectionViewCell {
     var productId: Int?
     
     // MARK: - Subviews
-    let imageView = UIImageView()
-    let titleLabel = UILabel()
-    let priceLabel = UILabel()
-    let collectionButton = UIButton()
-    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    private let collectionButton: UIButton = {
+        let collectionButton = UIButton()
+        collectionButton.setImage(UIImage(named: "heart_fill"), for: .normal)
+        collectionButton.setImage(UIImage(named: "heart_hollow"), for: .selected)
+        return collectionButton
+    }()
+    private let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.numberOfLines = 1
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.textAlignment = .left
+        titleLabel.font = .regular(size: 15)
+        titleLabel.textColor = .B1
+        return titleLabel
+    }()
+    private let priceLabel: UILabel = {
+        let priceLabel = UILabel()
+        priceLabel.textAlignment = .left
+        priceLabel.font = .regular(size: 15)
+        priceLabel.textColor = .B1
+        return priceLabel
+    }()
+    // MARK: - View Load
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        collectionButton.setImage(UIImage(named: "heart_fill"), for: .normal)
-        collectionButton.setImage(UIImage(named: "heart_hollow"), for: .selected)
+        setUpLayouts()
+     
         collectionButton.addTarget(self, action: #selector(removeProductCell), for: .touchUpInside)
     }
     private func setUpLayouts(){
@@ -43,19 +63,18 @@ class CollectionProductCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
+            imageView.heightAnchor.constraint(equalToConstant: 220),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -29),
             titleLabel.heightAnchor.constraint(equalToConstant: 20),
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            priceLabel.heightAnchor.constraint(equalToConstant: 20),
-            collectionButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            collectionButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 30),
-            collectionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            
+            collectionButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
+            collectionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             collectionButton.heightAnchor.constraint(equalToConstant: 20),
             collectionButton.widthAnchor.constraint(equalToConstant: 20)
         ])
@@ -67,6 +86,6 @@ class CollectionProductCell: UICollectionViewCell {
     func configureCell(image: String, title: String, price: Int) {
         imageView.loadImage(image, placeHolder: .asset(.Image_Placeholder))
         titleLabel.text = title
-        priceLabel.text = "$NT \(price)"
+        priceLabel.text = "NT$\(price)"
     }
 }
