@@ -91,7 +91,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
             topView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topView.heightAnchor.constraint(equalToConstant: 20)
+            topView.heightAnchor.constraint(equalToConstant: 50)
         ])
         let addButton = UIButton()
         addButton.setTitle("領取優惠券 >", for: .normal)
