@@ -22,3 +22,8 @@ class CheckoutResultViewController: STBaseViewController {
         })
     }
 }
+
+//L-checkoutError/ErrorCheckoutResultViewController: Error page
+class ErrorCheckoutResultViewController: CheckoutResultViewController {
+    
+}

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="運費總金額" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-LJ-9ws">
-                        <rect key="frame" x="16" y="138.66666666666666" width="80" height="22.333333333333343"/>
+                        <rect key="frame" x="16" y="138.66666666666666" width="80" height="22.666666666666657"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                         <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -60,13 +62,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NT$ 60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vX3-QS-RG3">
-                        <rect key="frame" x="402" y="138.66666666666666" width="56" height="22.333333333333343"/>
+                        <rect key="frame" x="402" y="139" width="56" height="22.333333333333343"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="16"/>
                         <color key="textColor" red="0.2470588235" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmE-zR-aH4">
-                        <rect key="frame" x="0.0" y="185" width="474" height="56"/>
+                        <rect key="frame" x="0.0" y="185.33333333333334" width="474" height="56"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="總計 (4樣商品)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ov-ov-dSM">
                                 <rect key="frame" x="16" y="16" width="106" height="22.666666666666671"/>
@@ -91,7 +93,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jg8-e7-47O">
-                        <rect key="frame" x="16" y="257" width="442" height="48"/>
+                        <rect key="frame" x="16" y="257.33333333333331" width="442" height="48"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="Tpg-rx-aeG"/>
@@ -104,6 +106,44 @@
                             <action selector="checkout" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UOr-T6-Rh9"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" id="1Zm-r2-uk9">
+                        <rect key="frame" x="10" y="139" width="454" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="優惠券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SL1-7O-2pX">
+                                <rect key="frame" x="16" y="19.666666666666657" width="52" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTW-DH-bmF">
+                                <rect key="frame" x="398.33333333333331" y="13" width="39.666666666666686" height="34.333333333333336"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system">
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="goUuseCouponButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ctx-Ek-rgg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全站免運" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-H1-wi4">
+                                <rect key="frame" x="313" y="19.666666666666657" width="69.333333333333314" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="B4"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="A5g-EB-aJq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SL1-7O-2pX" firstAttribute="centerY" secondItem="1Zm-r2-uk9" secondAttribute="centerY" id="5bS-GI-63q"/>
+                            <constraint firstItem="hTW-DH-bmF" firstAttribute="leading" secondItem="MQ4-H1-wi4" secondAttribute="trailing" constant="16" id="DQ2-Y8-hV6"/>
+                            <constraint firstItem="MQ4-H1-wi4" firstAttribute="centerY" secondItem="1Zm-r2-uk9" secondAttribute="centerY" id="Fdu-Dn-Z3Q"/>
+                            <constraint firstItem="hTW-DH-bmF" firstAttribute="trailing" secondItem="A5g-EB-aJq" secondAttribute="trailing" constant="-16" id="Lfh-Ve-Qek"/>
+                            <constraint firstItem="SL1-7O-2pX" firstAttribute="leading" secondItem="A5g-EB-aJq" secondAttribute="leading" constant="16" id="QjL-xN-P8G"/>
+                            <constraint firstItem="hTW-DH-bmF" firstAttribute="centerY" secondItem="1Zm-r2-uk9" secondAttribute="centerY" id="xYb-cA-Jyk"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -136,6 +176,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkoutBtn" destination="Jg8-e7-47O" id="Rdv-gI-U7C"/>
+                <outlet property="couponLabel" destination="MQ4-H1-wi4" id="KIr-os-Q8K"/>
                 <outlet property="creditView" destination="nue-Rk-3kZ" id="2mE-Xs-Z0g"/>
                 <outlet property="paymentTextField" destination="da4-NM-yrP" id="eia-6w-AhH"/>
                 <outlet property="productAmountLabel" destination="8ov-ov-dSM" id="rep-49-JCF"/>
@@ -152,4 +193,13 @@
             <size key="intrinsicContentSize" width="64" height="24.333333333333332"/>
         </designable>
     </designables>
+    <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <namedColor name="B4">
+            <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

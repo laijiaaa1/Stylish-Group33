@@ -20,6 +20,7 @@ struct Coupon: Codable {
 
 struct ShowCoupon {
     var title: String
+    var description: String
     var expiredDate: String
     var image: UIImage
     var type: String?
@@ -42,6 +43,7 @@ class CouponAPI: CouponDataProvider {
         for couponIndex in 1...5 {
             let coupon = ShowCoupon(
                 title: "\(type) Coupon \(couponIndex)",
+                description: "Description for \(type) Coupon \(couponIndex)",
                 expiredDate: "ExpiredDate for \(type) Coupon \(couponIndex)",
                 image: UIImage(named: "Image_Placeholder")!
             )
@@ -52,9 +54,9 @@ class CouponAPI: CouponDataProvider {
 }
 
 class MyCouponViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
-    
+   
     let couponAPI = CouponAPI()
-    
+    let getButton = UIButton()
     var tabButton: [UIButton] = []
     var selectedTabButton = 0
     private var coupons = [ShowCoupon]()
@@ -78,11 +80,20 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         title = "我的優惠券"
         
         setupUI()
-        tabBarController?.tabBar.backgroundColor = .white
         coupons = couponAPI.fetchCoupons(type: .canUse)
         createAllTableViews()
         tableView1.isHidden = false
         tableView1.reloadData()
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func setupUI() {
@@ -207,9 +218,20 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
             tableView3.reloadData()
         }
         
+        DispatchQueue.main.async {
+            if self.selectedTabButton == 0 {
+                self.tableView1.reloadData()
+            } else if self.selectedTabButton == 1 {
+                self.tableView2.reloadData()
+            } else if self.selectedTabButton == 2 {
+                self.tableView3.reloadData()
+            }
+        }
+        
         tableView1.isHidden = selectedTabButton != 0
         tableView2.isHidden = selectedTabButton != 1
         tableView3.isHidden = selectedTabButton != 2
+        
     }
     
     private func selectTabButton() {
@@ -257,11 +279,13 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
             passView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
             cell?.couponImage?.addSubview(passView)
             cell?.couponTitle?.alpha = 0.5
-            cell?.couponDesc?.alpha = 0.5
+            cell?.couponDes?.alpha = 0.5
+            cell?.couponED?.alpha = 0.5
         } else {
             cell?.couponImage?.alpha = 1
             cell?.couponTitle?.alpha = 1
-            cell?.couponDesc?.alpha = 1
+            cell?.couponDes?.alpha = 1
+            cell?.couponED?.alpha = 1
         }
         
         return cell ?? UITableViewCell()
@@ -270,7 +294,3 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         return 130
     }
 }
-
-// Entry point
-let couponVC = MyCouponViewController()
-let navigationController = UINavigationController(rootViewController: couponVC)

@@ -15,6 +15,8 @@ protocol STPaymentInfoTableViewCellDelegate: AnyObject {
     func heightForConstraint(_ cell: STPaymentInfoTableViewCell, at index: Int) -> CGFloat
     func isHidden(_ cell: STPaymentInfoTableViewCell, at index: Int) -> Bool
     func endEditing(_ cell: STPaymentInfoTableViewCell)
+    //MARK: -L-useCoupon/STPaymentInfoTableViewCell: useCoupon nib
+    func goUseCoupon(_ cell: STPaymentInfoTableViewCell)
 }
 
 class STPaymentInfoTableViewCell: UITableViewCell {
@@ -94,6 +96,14 @@ class STPaymentInfoTableViewCell: UITableViewCell {
     
     @IBAction func checkout() {
         delegate?.checkout(self)
+    }
+    
+    //MARK: -L-useCoupon/STPaymentInfoTableViewCell: useCoupon UI
+    @IBOutlet weak var couponLabel: UILabel!
+   
+    @IBAction func goUuseCouponButton(_ sender: Any) {
+        delegate?.goUseCoupon(self)
+       
     }
 }
 

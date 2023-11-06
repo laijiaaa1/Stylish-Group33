@@ -8,7 +8,17 @@
 
 import UIKit
 
-class CheckoutViewController: STBaseViewController {
+class CheckoutViewController: STBaseViewController, UseCouponDelegate {
+
+    let stPaymentInfoTableViewCell = STPaymentInfoTableViewCell(style: .default, reuseIdentifier: nil)
+
+    func didSelectCoupon(_ coupon: String?) {
+        if let selectedCoupon = coupon {
+            stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+        } else {
+            stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+        }
+    }
     
     private struct Segue {
         static let success = "SegueSuccess"
@@ -54,6 +64,9 @@ class CheckoutViewController: STBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        stPaymentInfoTableViewCell.delegate = self
+        
+     
     }
     
     private func setupTableView() {
@@ -256,6 +269,22 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
     
+    //L-useCoupon/CheckoutViewController: gouseCoupon
+    func goUseCoupon(_ cell: STPaymentInfoTableViewCell) {
+        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "UseCouponViewController") as? UseCouponViewController {
+            vc.couponSelectionHandler = { [weak self] selectedCoupon in
+                if let selectedCoupon = selectedCoupon {
+                    self?.stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+                } else {
+                    self?.stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+                }
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+
     func endEditing(_ cell: STPaymentInfoTableViewCell) {
         tableView.reloadData()
     }

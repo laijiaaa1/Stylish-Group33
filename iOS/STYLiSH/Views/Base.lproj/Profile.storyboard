@@ -242,6 +242,21 @@
             </objects>
             <point key="canvasLocation" x="4071" y="179"/>
         </scene>
+        <!--Use Coupon View Controller-->
+        <scene sceneID="I9e-cG-AeG">
+            <objects>
+                <viewController storyboardIdentifier="UseCouponViewController" id="zzQ-hg-qq5" customClass="UseCouponViewController" customModule="STYLiSH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UoO-vF-Bzg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6zS-nA-kw1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XWm-r7-cf3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4847" y="176"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HWM-t4-4rC">
             <objects>

@@ -40,8 +40,14 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         fetchData()
 
+        //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
         getCouponButton.setTitle("領取", for: .normal)
-        getCouponButton.backgroundColor = .orange
+        getCouponButton.backgroundColor = UIColor(
+            red: 202 / 255.0,
+            green: 185 / 255.0,
+            blue: 163 / 255.0,
+            alpha: 1.0
+        )
         getCouponButton.layer.cornerRadius = 25
         view.addSubview(getCouponButton)
         getCouponButton.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +63,7 @@ class ProfileViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
            getCouponButton.addGestureRecognizer(panGesture)
         
+        tabBarController?.tabBar.isHidden = false
     
     }
    
