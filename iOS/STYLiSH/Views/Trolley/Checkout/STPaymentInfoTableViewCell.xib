@@ -68,7 +68,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jg8-e7-47O">
-                        <rect key="frame" x="16" y="257.33333333333331" width="442" height="48"/>
+                        <rect key="frame" x="16" y="331.33333333333331" width="442" height="48"/>
                         <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="Tpg-rx-aeG"/>
@@ -82,7 +82,7 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmE-zR-aH4">
-                        <rect key="frame" x="0.0" y="185.33333333333334" width="474" height="56"/>
+                        <rect key="frame" x="0.0" y="185.33333333333334" width="474" height="130.00000000000003"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="總計 (4樣商品)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ov-ov-dSM">
                                 <rect key="frame" x="16" y="16" width="106" height="22.666666666666671"/>
@@ -97,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="1Zm-r2-uk9">
-                                <rect key="frame" x="4" y="-12" width="454" height="60"/>
+                                <rect key="frame" x="0.0" y="70" width="395" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="優惠券" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SL1-7O-2pX">
@@ -106,18 +106,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTW-DH-bmF">
-                                        <rect key="frame" x="398.33333333333331" y="13" width="39.666666666666686" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system">
-                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTW-DH-bmF">
+                                        <rect key="frame" x="366.33333333333331" y="18.999999999999972" width="12.666666666666686" height="22"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="chevron.right" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="goUuseCouponButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ctx-Ek-rgg"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全站免運" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-H1-wi4">
-                                        <rect key="frame" x="313" y="19.666666666666657" width="69.333333333333314" height="21"/>
+                                        <rect key="frame" x="281" y="19.666666666666657" width="69.333333333333314" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="B4"/>
                                         <nil key="highlightedColor"/>
@@ -140,7 +141,7 @@
                             <constraint firstItem="8ov-ov-dSM" firstAttribute="leading" secondItem="WmE-zR-aH4" secondAttribute="leading" constant="16" id="FAt-dn-3Qx"/>
                             <constraint firstItem="8ov-ov-dSM" firstAttribute="top" secondItem="WmE-zR-aH4" secondAttribute="top" constant="16" id="KdJ-UH-xkA"/>
                             <constraint firstAttribute="trailing" secondItem="j2h-mD-Jbi" secondAttribute="trailing" constant="16" id="MeW-JK-c5E"/>
-                            <constraint firstAttribute="height" constant="56" id="NCY-Q4-yKY"/>
+                            <constraint firstAttribute="height" constant="130" id="NCY-Q4-yKY"/>
                             <constraint firstItem="j2h-mD-Jbi" firstAttribute="centerY" secondItem="8ov-ov-dSM" secondAttribute="centerY" id="kIy-aM-ha2"/>
                         </constraints>
                     </view>
