@@ -34,12 +34,56 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-
+    let getCouponButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        collectionView.delegate = self
 
+        //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
+        getCouponButton.setTitle("領取", for: .normal)
+        getCouponButton.backgroundColor = UIColor(
+            red: 202 / 255.0,
+            green: 185 / 255.0,
+            blue: 163 / 255.0,
+            alpha: 1.0
+        )
+        getCouponButton.layer.cornerRadius = 25
+        view.addSubview(getCouponButton)
+        getCouponButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            getCouponButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            getCouponButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            getCouponButton.heightAnchor.constraint(equalToConstant: 50),
+            getCouponButton.widthAnchor.constraint(equalToConstant: 50)
+        ])
+
+        getCouponButton.addTarget(self, action: #selector(getCouponButtonTapped), for: .touchUpInside)
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+           getCouponButton.addGestureRecognizer(panGesture)
+        
+        tabBarController?.tabBar.isHidden = false
+    
+    }
+   
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+       guard let getCouponButton = gesture.view as? UIButton else { return }
+        
+        switch gesture.state {
+        case .began, .changed:
+            let translation = gesture.translation(in: view)
+            getCouponButton.center = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
+            gesture.setTranslation(.zero, in: view)
+            
+        default:
+            break
+        }
+    }
+    @objc func getCouponButtonTapped() {
+        
+        let getCouponVC = GetCouponViewController()
+        navigationController?.pushViewController(getCouponVC, animated: true)
     }
 
     // MARK: - Action
@@ -85,12 +129,15 @@ extension ProfileViewController: UICollectionViewDataSource {
         profileCell.layoutCell(image: item.image, text: item.title)
         return profileCell
     }
-    //push to collection page
+    // L-coupon/MyCouponViewController: push to coupon page
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
-            let collectionVC = CollectionViewController()
-            collectionVC.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(collectionVC, animated: true)
+//            let collectionVC = CollectionViewController()
+//            collectionVC.hidesBottomBarWhenPushed = true
+//            navigationController?.pushViewController(collectionVC, animated: true)
+        } else if indexPath.section == 1 && indexPath.row == 1{
+            let couponVC = MyCouponViewController()
+            navigationController?.pushViewController(couponVC, animated: true)
         }
     }
 

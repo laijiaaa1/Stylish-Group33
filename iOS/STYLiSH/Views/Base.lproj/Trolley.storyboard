@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xR8-U7-ovk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xR8-U7-ovk">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -187,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H6o-1E-wOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="990" y="2139"/>
+            <point key="canvasLocation" x="1236" y="2135"/>
         </scene>
         <!--結帳-->
         <scene sceneID="AtB-Pv-0Iv">
@@ -249,9 +249,75 @@
             </objects>
             <point key="canvasLocation" x="52" y="160.56971514242881"/>
         </scene>
+        <!--結帳結果-->
+        <scene sceneID="oUc-Q7-oCr">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="BaY-yF-G3T" customClass="ErrorCheckoutResultViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3el-SH-nNz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="結帳失敗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OT5-x7-fvJ">
+                                <rect key="frame" x="157.5" y="252" width="60" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
+                                <color key="textColor" name="B1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我們收到您的訂單了！將以最快的速度為您安排出貨。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpt-df-w2p">
+                                <rect key="frame" x="16" y="290" width="343" height="44"/>
+                                <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="15"/>
+                                <color key="textColor" name="B1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N00-PV-OUM">
+                                <rect key="frame" x="16" y="603" width="343" height="48"/>
+                                <color key="backgroundColor" name="B1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="q5Y-xg-8cO"/>
+                                </constraints>
+                                <state key="normal" title="再 去 逛 逛">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="backToRoot:" destination="BaY-yF-G3T" eventType="touchUpInside" id="9Mb-3H-afE"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="x.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hgh-q5-MWB">
+                                <rect key="frame" x="140" y="143.5" width="94" height="89"/>
+                                <color key="tintColor" red="0.01893939394" green="0.01893939394" blue="0.01893939394" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Hgh-q5-MWB" secondAttribute="height" multiplier="1:1" constant="4" id="5aN-9V-qJG"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gQW-kX-YSm"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fpt-df-w2p" firstAttribute="top" secondItem="OT5-x7-fvJ" secondAttribute="bottom" constant="16" id="4J6-Id-IT4"/>
+                            <constraint firstItem="OT5-x7-fvJ" firstAttribute="top" secondItem="Hgh-q5-MWB" secondAttribute="bottom" constant="19" id="Cz4-jd-rnc"/>
+                            <constraint firstItem="OT5-x7-fvJ" firstAttribute="centerX" secondItem="Hgh-q5-MWB" secondAttribute="centerX" id="Jae-AP-dkT"/>
+                            <constraint firstItem="fpt-df-w2p" firstAttribute="leading" secondItem="gQW-kX-YSm" secondAttribute="leading" constant="16" id="LOY-2c-1Lv"/>
+                            <constraint firstItem="fpt-df-w2p" firstAttribute="centerX" secondItem="3el-SH-nNz" secondAttribute="centerX" id="Nkr-vq-To0"/>
+                            <constraint firstItem="gQW-kX-YSm" firstAttribute="bottom" secondItem="N00-PV-OUM" secondAttribute="bottom" constant="16" id="TIs-fs-Anp"/>
+                            <constraint firstItem="gQW-kX-YSm" firstAttribute="trailing" secondItem="fpt-df-w2p" secondAttribute="trailing" constant="16" id="TXb-cj-JHM"/>
+                            <constraint firstItem="OT5-x7-fvJ" firstAttribute="centerX" secondItem="3el-SH-nNz" secondAttribute="centerX" id="WM7-hO-Gny"/>
+                            <constraint firstItem="Hgh-q5-MWB" firstAttribute="centerX" secondItem="3el-SH-nNz" secondAttribute="centerX" id="hEq-Fw-ES3"/>
+                            <constraint firstItem="Hgh-q5-MWB" firstAttribute="centerX" secondItem="gQW-kX-YSm" secondAttribute="centerX" id="mmJ-su-Anx"/>
+                            <constraint firstItem="N00-PV-OUM" firstAttribute="leading" secondItem="gQW-kX-YSm" secondAttribute="leading" constant="16" id="tXE-Uo-mI1"/>
+                            <constraint firstItem="gQW-kX-YSm" firstAttribute="trailing" secondItem="N00-PV-OUM" secondAttribute="trailing" constant="16" id="uOz-xa-TSJ"/>
+                            <constraint firstItem="Hgh-q5-MWB" firstAttribute="top" secondItem="gQW-kX-YSm" secondAttribute="top" constant="143" id="zuo-G9-Crv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="結帳結果" id="wd7-bb-hWs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ln1-kh-ZEG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="418" y="2134"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Icons_80px_Success02" width="80" height="80"/>
+        <image name="x.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="B1">
             <color red="0.24705882352941178" green="0.22745098039215686" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

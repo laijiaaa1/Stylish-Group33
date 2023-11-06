@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		30C2E5FF28B87D4700DD2939 /* TPDirect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C2E5FE28B87D4700DD2939 /* TPDirect.framework */; };
-		349300F42AF5443000F5C880 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349300F32AF5443000F5C880 /* CollectionViewController.swift */; };
+		3423E5C62AF78D4500059F55 /* UseCouponTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423E5C52AF78D4500059F55 /* UseCouponTableView.swift */; };
+		345BF25B2AF78675005D415E /* UseCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BF25A2AF78675005D415E /* UseCouponViewController.swift */; };
+		345BF25F2AF78747005D415E /* UseCouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345BF25E2AF78747005D415E /* UseCouponTableViewCell.xib */; };
+		3492B2162AF68FEF00B7F131 /* MyCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492B2152AF68FEF00B7F131 /* MyCouponCell.swift */; };
+		3492B21E2AF71E9A00B7F131 /* GetCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492B21D2AF71E9A00B7F131 /* GetCouponViewController.swift */; };
+		3492B2202AF71F4800B7F131 /* MyCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492B21F2AF71F4800B7F131 /* MyCouponViewController.swift */; };
 		3C09F5122211435B00C5B3E2 /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C09F5112211435B00C5B3E2 /* Lobby.storyboard */; };
 		3C09F51C22114A0100C5B3E2 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */; };
 		3C09F51E22114E1900C5B3E2 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */; };
@@ -154,7 +159,12 @@
 
 /* Begin PBXFileReference section */
 		30C2E5FE28B87D4700DD2939 /* TPDirect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TPDirect.framework; sourceTree = "<group>"; };
-		349300F32AF5443000F5C880 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		3423E5C52AF78D4500059F55 /* UseCouponTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponTableView.swift; sourceTree = "<group>"; };
+		345BF25A2AF78675005D415E /* UseCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponViewController.swift; sourceTree = "<group>"; };
+		345BF25E2AF78747005D415E /* UseCouponTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UseCouponTableViewCell.xib; sourceTree = "<group>"; };
+		3492B2152AF68FEF00B7F131 /* MyCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponCell.swift; sourceTree = "<group>"; };
+		3492B21D2AF71E9A00B7F131 /* GetCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetCouponViewController.swift; path = "/Users/laijiaaa1/Desktop/cowork3/Stylish-Group33/iOS/STYLiSH/Views/Base/GetCouponViewController.swift"; sourceTree = "<absolute>"; };
+		3492B21F2AF71F4800B7F131 /* MyCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewController.swift; sourceTree = "<group>"; };
 		3C09F5112211435B00C5B3E2 /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
 		3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -374,6 +384,10 @@
 				3C1ACFE322151F50005583E2 /* ProfileViewController.swift */,
 				3C1ACFE822152D29005583E2 /* ProfileCollectionViewCell.swift */,
 				3C1ACFEA22153114005583E2 /* ProfileCollectionReusableView.swift */,
+				3492B2152AF68FEF00B7F131 /* MyCouponCell.swift */,
+				3492B21D2AF71E9A00B7F131 /* GetCouponViewController.swift */,
+				3492B21F2AF71F4800B7F131 /* MyCouponViewController.swift */,
+				345BF25A2AF78675005D415E /* UseCouponViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -676,6 +690,8 @@
 				3C831C6322E9AF8F00112298 /* STOrderUserInputCell.xib */,
 				3C831C8822EAAF7A00112298 /* STPaymentInfoTableViewCell.swift */,
 				3C831C8922EAAF7A00112298 /* STPaymentInfoTableViewCell.xib */,
+				345BF25E2AF78747005D415E /* UseCouponTableViewCell.xib */,
+				3423E5C52AF78D4500059F55 /* UseCouponTableView.swift */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -924,6 +940,7 @@
 				3C831C8B22EAAF7A00112298 /* STPaymentInfoTableViewCell.xib in Resources */,
 				3C4B10D722292732009942B7 /* card_unknown.png in Resources */,
 				3C4B10D822292732009942B7 /* card_mastercard@3x.png in Resources */,
+				345BF25F2AF78747005D415E /* UseCouponTableViewCell.xib in Resources */,
 				3CD29124221135E3008B8A2D /* Assets.xcassets in Resources */,
 				3C4B10D222292732009942B7 /* card_unknown@3x.png in Resources */,
 				3CD29122221135E2008B8A2D /* Main.storyboard in Resources */,
@@ -1031,14 +1048,17 @@
 				9D359ACC2AF6731C00DE4A42 /* CollectionProvider.swift in Sources */,
 				3CE7A507223042CE009FF003 /* STBaseTextField.swift in Sources */,
 				3CB80E78222FCCC20095F18C /* Bundle+Extension.swift in Sources */,
+				3492B2162AF68FEF00B7F131 /* MyCouponCell.swift in Sources */,
 				3CE7A519223064C7009FF003 /* UserObject.swift in Sources */,
 				3CB801272229AFF10029A552 /* UICollectionView+Extension.swift in Sources */,
 				3C8F191B22E5BA9F00EECE90 /* LobbyView.swift in Sources */,
 				3C6FABF522FD39EB00226316 /* STOrderProductCellModel.swift in Sources */,
+				345BF25B2AF78675005D415E /* UseCouponViewController.swift in Sources */,
 				3CED4C0C22141E9700121D4B /* MarketProvider.swift in Sources */,
 				3C831C6022E9945500112298 /* STOrderProductCell.swift in Sources */,
 				3C1ACFE922152D29005583E2 /* ProfileCollectionViewCell.swift in Sources */,
 				3CB801232229A5290029A552 /* MJRefreshWrapper.swift in Sources */,
+				3423E5C62AF78D4500059F55 /* UseCouponTableView.swift in Sources */,
 				3C546BE522EABB6D0082C655 /* CheckoutViewController.swift in Sources */,
 				3CD2911D221135E2008B8A2D /* AppDelegate.swift in Sources */,
 				3CEBE07A222F72600064EF82 /* STYLiSH.xcdatamodeld in Sources */,
@@ -1095,6 +1115,8 @@
 				3C0DD87E2213533F00F5237E /* LobbyTableViewCell.swift in Sources */,
 				3C33690E2226F53E008A5A7A /* TrolleyTableViewCell.swift in Sources */,
 				3CC706122216955900CAD850 /* STBaseNavigationController.swift in Sources */,
+				3492B2202AF71F4800B7F131 /* MyCouponViewController.swift in Sources */,
+				3492B21E2AF71E9A00B7F131 /* GetCouponViewController.swift in Sources */,
 				3C8F191922E5997B00EECE90 /* LobbyTableViewHeaderView.swift in Sources */,
 				3CE7A517223061A9009FF003 /* UserRequest.swift in Sources */,
 				3C09F52122115AB700C5B3E2 /* UIImage+Extension.swift in Sources */,
