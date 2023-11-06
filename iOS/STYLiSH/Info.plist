@@ -53,7 +53,7 @@
 		<true/>
 	</dict>
 	<key>STBaseURL</key>
-	<string>http://35.72.177.254:3000/api</string>
+	<string>https://ygolonhcet.online/api/v1</string>
 	<key>STOriginalURL</key>
 	<string>https://api.appworks-school.tw/api/1.0</string>
 	<key>STTapPayAppID</key>
@@ -81,9 +81,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-    <key>NSAllowsArbitraryLoads</key><true/>
-    </dict>
 </dict>
 </plist>
