@@ -16,8 +16,9 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     
     weak var delegate: UseCouponDelegate?
     var selectedCoupon: String?
-    var couponSelectionHandler: ((String?) -> Void)?
-    
+    var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
+
+
     var data: [CouponObject] = []
     var selectedCouponIndex: Int?
     
@@ -35,12 +36,12 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         tabBarController?.tabBar.isHidden = true
         
         data = [
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "免運", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "免運", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
         ]
         
         tableView.register(UseCouponTableCell.self, forCellReuseIdentifier: tableCellIdentifier)
@@ -56,13 +57,23 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.reloadData()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .white
+        view.addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+            backgroundView.heightAnchor.constraint(equalToConstant: 120)
+        ])
         checkButton.setTitle("確定", for: .normal)
         checkButton.backgroundColor = .darkGray
         checkButton.tintColor = .white
         checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(checkButton)
+        backgroundView.addSubview(checkButton)
         NSLayoutConstraint.activate([
             checkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             checkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -78,12 +89,15 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as? UseCouponTableCell else { return UITableViewCell() }
         
-        let coupon = ShowCoupon(
-            title: data[indexPath.row],
-            description: "des \(data[indexPath.row])",
-            expiredDate: "ED for \(data[indexPath.row])",
-            image: UIImage(named: "Image_Placeholder") ?? UIImage()
-        )
+        let coupon = CouponObject(
+               id: data[indexPath.row].id,
+               type: data[indexPath.row].type,
+               title: data[indexPath.row].title,
+               discount: data[indexPath.row].discount,
+               startDate: data[indexPath.row].startDate,
+               expiredDate: data[indexPath.row].expiredDate,
+               isUsed: data[indexPath.row].isUsed
+           )
         
         cell.coupon = coupon
         cell.radioButton.isSelected = (indexPath.row == selectedCouponIndex)
@@ -104,7 +118,6 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
                 let indexPath = IndexPath(row: iiii, section: 0)
                 if let cell = tableView.cellForRow(at: indexPath) as? UseCouponTableCell {
                     cell.resetButton()
-//                    cell.radioButton.isSelected = false
                 }
             }
         }
@@ -117,13 +130,14 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func checkButtonTapped() {
         if let selectedCouponIndex = selectedCouponIndex {
             let selectedCoupon = data[selectedCouponIndex]
-            couponSelectionHandler?(selectedCoupon)
+            couponSelectionHandler?(selectedCoupon.title, selectedCoupon.discount, selectedCoupon.type, selectedCoupon.id, selectedCoupon.isUsed, selectedCoupon.startDate, selectedCoupon.expiredDate)
             navigationController?.popViewController(animated: true)
         } else {
-            couponSelectionHandler?(nil)
+            couponSelectionHandler?(nil, 0, "", 0, 0, "", "")
             navigationController?.popViewController(animated: true)
         }
     }
+
 
 }
 
@@ -132,7 +146,7 @@ class UseCouponTableCell: CouponViewCell {
     var radioButton: UIButton = UIButton()
     var isToggled = false
 
-    override var coupon: ShowCoupon? {
+    override var coupon: CouponObject? {
         didSet {
             // Update the coupon's UI
         }

@@ -60,11 +60,14 @@ class AcquireCouponViewController: STCompondViewController {
         
         let isReceived = receivedCoupons.contains(couponTitle)
         
-        let coupon = ShowCoupon(
-            title: couponTitle,
-            description: "des \(couponTitle)",
-            expiredDate: "Expiration Date for \(couponTitle)",
-            image: UIImage(named: "Image_Placeholder") ?? UIImage()
+        let coupon = CouponObject(
+            id: 0,
+                type: "折扣",
+                title: couponTitle,
+                discount: 10,
+                startDate: "2023/10/01",
+                expiredDate: "2023/12/31",
+                isUsed: 0
         )
         cell.coupon = coupon
         cell.isCouponReceived = isReceived
@@ -109,7 +112,7 @@ class AcquireCouponTableViewCell: CouponViewCell {
     
     var isCouponReceived = false
     
-    override var coupon: ShowCoupon? {
+    override var coupon: CouponObject? {
         didSet {
             updateCellUI()
         }

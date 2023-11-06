@@ -81,6 +81,7 @@ class STPaymentInfoTableViewCell: UITableViewCell {
         payment: String,
         isCheckoutEnable: Bool
     ) {
+        
         productPriceLabel.text = "NT$ \(productPrice)"
         shipPriceLabel.text = "NT$ \(shipPrice)"
         totalPriceLabel.text = "NT$ \(shipPrice + productPrice)"

@@ -95,7 +95,7 @@ class UserProvider {
         guard let token = KeyChainManager.shared.token else {
             return completion(.failure(STYLiSHSignInError.noToken))
         }
-        let body = CheckoutAPIBody(order: order, prime: prime)
+        let body = CheckoutAPIBody(order: order, prime: prime, couponId: Int(order.list[0].id)!)
         let request = STUserRequest.checkout(
             token: token,
             body: try? JSONEncoder().encode(body)

@@ -33,7 +33,7 @@ class CouponViewCell: UITableViewCell {
     var couponDes: UILabel!
     var couponED: UILabel!
     var couponType: CouponType?
-    var coupon: ShowCoupon? {
+    var coupon: CouponObject? {
         didSet {
             guard let coupon = coupon else { return }
              if coupon.type == "折扣" {
@@ -43,7 +43,7 @@ class CouponViewCell: UITableViewCell {
             }
             couponTitle?.text = coupon.title
             couponTitle?.font = UIFont.systemFont(ofSize: 20)
-            couponDes?.text = coupon.description
+            couponDes?.text = coupon.type
             couponDes?.font = UIFont.systemFont(ofSize: 13)
             couponED?.text = coupon.expiredDate
             couponED?.font = UIFont.systemFont(ofSize: 13)

@@ -17,15 +17,6 @@ struct Coupon: Codable {
     let couponIsUsed: Bool
 }
 
-struct ShowCoupon {
-    var title: String
-    var description: String
-    var expiredDate: String
-    var image: UIImage
-    var type: String?
-    var isUsed: Bool?
-}
-
 enum CouponStatus: CaseIterable {
     case canUse
     case invalid
@@ -33,18 +24,21 @@ enum CouponStatus: CaseIterable {
 }
 
 protocol CouponDataProvider {
-    func fetchCoupons(type: CouponStatus) -> [ShowCoupon]
+    func fetchCoupons(type: CouponStatus) -> [CouponObject]
 }
 
 class CouponAPI: CouponDataProvider {
-    func fetchCoupons(type: CouponStatus) -> [ShowCoupon] {
-        var coupons: [ShowCoupon] = []
+    func fetchCoupons(type: CouponStatus) -> [CouponObject] {
+        var coupons: [CouponObject] = []
         for couponIndex in 1...5 {
-            let coupon = ShowCoupon(
-                title: "\(type) Coupon \(couponIndex)",
-                description: "Description for \(type) Coupon \(couponIndex)",
-                expiredDate: "ExpiredDate for \(type) Coupon \(couponIndex)",
-                image: UIImage(named: "Image_Placeholder")!
+            let coupon = CouponObject(
+                id: couponIndex,
+                type: "",
+                title: "優惠券\(couponIndex)",
+                discount: 100,
+                startDate: "2020-10-01",
+                expiredDate: "2020-12-31",
+                isUsed: 0
             )
             coupons.append(coupon)
         }
@@ -57,7 +51,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     let couponAPI = CouponAPI()
     var tabButton: [UIButton] = []
     var selectedTabButton = 0
-    private var coupons = [ShowCoupon]()
+    private var coupons = [CouponObject]()
     
     private var containerView: UIView!
     private var indicatorView: UIView!

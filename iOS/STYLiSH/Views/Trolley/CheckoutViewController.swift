@@ -10,6 +10,23 @@ import UIKit
 //MARK: -L-usecoupon/CheckoutViewController: useCoupon delegate
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
 
+    var currentPrice: Int = 0
+
+       func calculateOriginalPrice() -> Int {
+           var originalPrice = 0
+           for product in orderProvider.order.products {
+               originalPrice += Int(product.product?.price ?? 0)
+           }
+           return originalPrice
+       }
+    var selectedCouponTitle: String?
+        var discount: Int?
+        var couponType: String?
+        var couponID: Int?
+        var isCouponUsed: Int?
+        var couponStartDate: String?
+        var couponExpiredDate: String?
+    
     var stPaymentInfoTableViewCell: STPaymentInfoTableViewCell?
         
     func didSelectCoupon(_ coupon: String?) {
@@ -20,6 +37,8 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         }
     }
     
+    var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
+
     private struct Segue {
         static let success = "SegueSuccess"
     }
@@ -65,6 +84,13 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         stPaymentInfoTableViewCell?.delegate = self
+        
+        for orderProduct in orderProvider.order.products {
+            if let product = orderProduct.product {
+                
+                currentPrice += Int(product.price) * Int(orderProduct.amount)
+            }
+        }
     }
     
     private func setupTableView() {
@@ -272,9 +298,27 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
     func goUseCoupon(_ cell: STPaymentInfoTableViewCell) {
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         if let vc = storyboard.instantiateViewController(withIdentifier: "UseCouponViewController") as? UseCouponViewController {
-            vc.couponSelectionHandler = { [weak self] selectedCoupon in
-                if let selectedCoupon = selectedCoupon {
-                    self?.stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon
+            vc.couponSelectionHandler = { [weak self] (selectedCouponTitle, discount, type, id, isUsed, startDate, expiredDate) in
+                print("Selected Coupon Title: \(selectedCouponTitle)")
+                print("Discount: \(discount)")
+                print("Type: \(type)")
+                print("ID: \(id)")
+                print("Is Used: \(isUsed)")
+                print("Start Date: \(startDate)")
+                print("Expired Date: \(expiredDate)")
+
+                self?.selectedCouponTitle = selectedCouponTitle
+                self?.discount = discount
+                self?.couponType = type
+                self?.couponID = id
+                self?.isCouponUsed = isUsed
+                self?.couponStartDate = startDate
+                self?.couponExpiredDate = expiredDate
+                
+                self?.updatePrice(discount: discount ?? 0)
+                
+                if let selectedCouponTitle = selectedCouponTitle {
+                    self?.stPaymentInfoTableViewCell?.couponLabel.text = selectedCouponTitle
                 } else {
                     self?.stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
                 }
@@ -282,8 +326,14 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-
+    func updatePrice(discount: Int) {
+        let productPrice = currentPrice * discount / 100
+        let shipPrice = orderProvider.order.freight
+        let totalPrice = productPrice + shipPrice
+        stPaymentInfoTableViewCell?.productPriceLabel.text = "$\(productPrice)"
+        stPaymentInfoTableViewCell?.shipPriceLabel.text = "$\(shipPrice)"
+        stPaymentInfoTableViewCell?.totalPriceLabel.text = "$\(totalPrice)"
+    }
     func endEditing(_ cell: STPaymentInfoTableViewCell) {
         tableView.reloadData()
     }
