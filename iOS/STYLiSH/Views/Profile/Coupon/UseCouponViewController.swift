@@ -18,7 +18,7 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     var selectedCoupon: String?
     var couponSelectionHandler: ((String?) -> Void)?
     
-    var data: [String] = []
+    var data: [CouponObject] = []
     var selectedCouponIndex: Int?
     
     let tableView = UITableView()
@@ -35,11 +35,12 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         tabBarController?.tabBar.isHidden = true
         
         data = [
-            "Coupon 1",
-            "Coupon 2",
-            "Coupon 3",
-            "Coupon 4",
-            "Coupon 5"
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "免運", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 70, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
         ]
         
         tableView.register(UseCouponTableCell.self, forCellReuseIdentifier: tableCellIdentifier)

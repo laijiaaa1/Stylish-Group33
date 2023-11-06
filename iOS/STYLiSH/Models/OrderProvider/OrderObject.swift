@@ -11,6 +11,7 @@ import Foundation
 struct CheckoutAPIBody: Encodable {
     let order: Order
     let prime: String
+    let couponId: Int
 }
 
 struct Order: Encodable {

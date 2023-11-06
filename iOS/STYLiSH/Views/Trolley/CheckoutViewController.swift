@@ -89,7 +89,6 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         guard KeyChainManager.shared.token != nil else {
             return onShowLogin()
         }
-        
         switch orderProvider.order.payment {
         case .credit: checkoutWithTapPay()
         case .cash: checkoutWithCash()

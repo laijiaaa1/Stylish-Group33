@@ -9,11 +9,13 @@
 import Foundation
 
 struct CouponObject: Codable {
-    let couponId: Int
-    let couponType: String
-    let couponTitle: String
-    let couponExpiredDate: String
-    let isUsed: Bool
+    let id: Int
+    let type: String
+    let title: String
+    let discount: Int
+    let startDate: String
+    let expiredDate: String
+    let isUsed: Int
 }
 
 

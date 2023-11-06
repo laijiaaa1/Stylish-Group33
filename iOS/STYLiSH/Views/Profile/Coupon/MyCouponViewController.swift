@@ -312,7 +312,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @objc func getCouponButtonTappedFromMyCoupon() {
-        let getCouponVC = GetCouponViewController()
+        let getCouponVC = AcquireCouponViewController()
         present(getCouponVC, animated: true, completion: nil)
     }
 }
