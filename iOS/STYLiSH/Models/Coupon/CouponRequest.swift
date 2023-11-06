@@ -11,12 +11,14 @@ import Foundation
 enum STCouponRequest: STRequest {
     case allCoupons(token: String)
     case acquireCoupon(token: String, couponId: Int)
+    case validCoupons(token: String)
     case invalidCoupons(token: String)
-    
+   
     var headers: [String: String] {
         switch self {
         case .allCoupons(let token),
                 .acquireCoupon(let token, _),
+                .validCoupons(let token),
                 .invalidCoupons(let token):
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -32,13 +34,13 @@ enum STCouponRequest: STRequest {
                 "couponId": couponId
             ]
            return try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-        case .allCoupons, .invalidCoupons: return nil
+        case .allCoupons, .validCoupons, .invalidCoupons: return nil
         }
     }
     
     var method: String {
         switch self {
-        case .allCoupons, .invalidCoupons:
+        case .allCoupons, .validCoupons, .invalidCoupons:
             return STHTTPMethod.GET.rawValue
         case .acquireCoupon:
             return STHTTPMethod.POST.rawValue
@@ -48,7 +50,8 @@ enum STCouponRequest: STRequest {
     var endPoint: String {
         switch self {
         case .allCoupons, .acquireCoupon: return "/v1/coupons"
-        case .invalidCoupons: return "/v1/invalid-coupons/"
+        case .validCoupons: return "/v1/valid-coupons"
+        case .invalidCoupons: return "/v1/invalid-coupons"
         }
     }
 }

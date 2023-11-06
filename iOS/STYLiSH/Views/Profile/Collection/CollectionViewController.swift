@@ -8,28 +8,38 @@
 
 import UIKit
 
-class CollectionViewController: ProductListViewController {
+class CollectionViewController: STCompondViewController {
 
-    var collectionProvider: CollectionProvider?
-
+    private let collectionProvider = CollectionProvider.shared
     private var paging: Int? = 0
-
+  
     // MARK: - View Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = NSLocalizedString("收藏", comment: "")
-        self.navigationController?.navigationBar.backgroundColor = UIColor.white
+        navigationItem.title = "收藏"
         
         collectionView.register(CollectionProductCell.self, forCellWithReuseIdentifier: CollectionProductCell.identifier)
-        view.addSubview(collectionView)
-    
+        setUpCollectionViewLayout()
+        showGridView()
+    }
+    private func setUpCollectionViewLayout() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(
+            width: Int(164.0 / 375.0 * UIScreen.width),
+            height: Int(164.0 / 375.0 * UIScreen.width * 308.0 / 164.0)
+        )
+        flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 12.0, right: 16.0)
+        flowLayout.minimumInteritemSpacing = 0
+        flowLayout.minimumLineSpacing = 24.0
+        collectionView.collectionViewLayout = flowLayout
     }
     // MARK: - MJRefresher Methods
     override func headerLoader() {
         paging = nil
         datas = []
         resetNoMoreData()
-        collectionProvider?.fetchCollectionProducts(paging: 0, completion: { [weak self] result in
+        
+        collectionProvider.fetchCollectionProducts(paging: 0, completion: { [weak self] result in
             self?.endHeaderRefreshing()
             switch result {
             case .success(let response):
@@ -46,7 +56,7 @@ class CollectionViewController: ProductListViewController {
             endWithNoMoreData()
             return
         }
-        collectionProvider?.fetchCollectionProducts(paging: paging, completion: { [weak self] result in
+        collectionProvider.fetchCollectionProducts(paging: paging, completion: { [weak self] result in
             self?.endFooterRefreshing()
             guard let self = self else { return }
             switch result {
@@ -55,6 +65,7 @@ class CollectionViewController: ProductListViewController {
                 let newDatas = response.data
                 self.datas = [originalData + newDatas]
                 self.paging = response.paging
+                print(self.datas)
             case .failure(let error):
                 LKProgressHUD.showFailure(text: error.localizedDescription)
             }
@@ -70,6 +81,7 @@ class CollectionViewController: ProductListViewController {
             }
             
             if let product = datas[indexPath.section][indexPath.row] as? Product {
+                print("Product:\(product)")
                 cell.productId = product.id
                 cell.configureCell(
                     image: product.mainImage,
@@ -81,13 +93,15 @@ class CollectionViewController: ProductListViewController {
             // Remove Cell
             cell.removeHandler = { [weak self] in
                 if let indexPath = collectionView.indexPath(for: cell) {
-                    self?.datas.remove(at: indexPath.row)
                     collectionView.performBatchUpdates {
+                        self?.datas[indexPath.section].remove(at: indexPath.row)
+                        print("New Data: \(self?.datas)")
                         collectionView.deleteItems(at: [indexPath])
                     }
+                    
                 }
                 // POST API
-                self?.collectionProvider?.removeCollectionProducts(
+                self?.collectionProvider.removeCollectionProducts(
                     productId: cell.productId!,
                     completion: { result in
                         switch result {
@@ -108,7 +122,7 @@ class CollectionViewController: ProductListViewController {
         }
     
     // MARK: - Collection View Delegate
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let product = datas[indexPath.section][indexPath.row] as? Product else { return }
         let detailVC = ProductDetailViewController()
         detailVC.product = product

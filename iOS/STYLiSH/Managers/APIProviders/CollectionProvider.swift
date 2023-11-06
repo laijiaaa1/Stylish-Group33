@@ -8,11 +8,11 @@
 
 import UIKit
 
-typealias CollectionResponseWithPaging = (Result<STSuccessParser<[CollectionObject]>, Error>) -> Void
+typealias CollectionResponseWithPaging = (Result<STSuccessParser<[Product]>, Error>) -> Void
 typealias CollectionResponse = (Result<UserResponse, Error>) -> Void
 
 class CollectionProvider {
-  
+    static let shared = CollectionProvider(httpClient: HTTPClient())
     let decoder = JSONDecoder()
     let httpClient: HTTPClientProtocol
 
@@ -47,7 +47,7 @@ class CollectionProvider {
             switch result {
             case .success(let data):
                 do {
-                    let response = try self.decoder.decode(STSuccessParser<[CollectionObject]>.self, from: data)
+                    let response = try self.decoder.decode(STSuccessParser<[Product]>.self, from: data)
                     DispatchQueue.main.async {
                         completion(.success(response))
                     }
@@ -55,7 +55,13 @@ class CollectionProvider {
                     completion(.failure(error))
                 }
             case .failure(let error):
-                completion(.failure(error))
+                switch error{
+                case .clientError(_):
+                    return
+                default:
+                    completion(.failure(error))
+                }
+               
             }
         })
     }
@@ -74,6 +80,7 @@ class CollectionProvider {
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(error.localizedDescription)
                 completion(.failure(error))
             }
         })

@@ -9,17 +9,38 @@
 import UIKit
 import Foundation
 
-//need 
-class CollectionViewCell: UICollectionViewCell{}
-
-class TableViewCell: UITableViewCell {
+enum CouponType {
+    case discountActive
+    case discountInactive
+    case deliveryActive
+    case deliveryInactive
+    var image: UIImage {
+        switch self{
+        case .discountActive:
+            return UIImage(named: "discount_active")!
+        case .discountInactive:
+            return UIImage(named: "discount_inactive")!
+        case .deliveryActive:
+            return UIImage(named: "delivery_active")!
+        case .deliveryInactive:
+            return UIImage(named: "delivery_inactive")!
+        }
+    }
+}
+class CouponViewCell: UITableViewCell {
     var couponImage: UIImageView!
     var couponTitle: UILabel!
     var couponDes: UILabel!
     var couponED: UILabel!
+    var couponType: CouponType?
     var coupon: ShowCoupon? {
         didSet {
             guard let coupon = coupon else { return }
+             if coupon.type == "折扣" {
+                 couponType = .discountActive
+            } else {
+                couponType = .deliveryActive
+            }
             couponTitle?.text = coupon.title
             couponTitle?.font = UIFont.systemFont(ofSize: 20)
             couponDes?.text = coupon.description
@@ -27,11 +48,7 @@ class TableViewCell: UITableViewCell {
             couponED?.text = coupon.expiredDate
             couponED?.font = UIFont.systemFont(ofSize: 13)
             couponImage.contentMode = .scaleAspectFit
-            if coupon.type == "折扣" {
-                couponImage?.image = UIImage(named: "discount")
-            } else {
-                couponImage?.image = UIImage(named: "freeTransportation")
-            }
+            couponImage.image = couponType?.image
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -42,16 +59,12 @@ class TableViewCell: UITableViewCell {
         couponDes = UILabel()
         couponED = UILabel()
         
-        couponImage.translatesAutoresizingMaskIntoConstraints = false
-        couponTitle.translatesAutoresizingMaskIntoConstraints = false
-        couponDes.translatesAutoresizingMaskIntoConstraints = false
-        couponED.translatesAutoresizingMaskIntoConstraints = false
-        
         contentView.addSubview(couponImage)
         contentView.addSubview(couponTitle)
         contentView.addSubview(couponDes)
         contentView.addSubview(couponED)
         
+        contentView.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         NSLayoutConstraint.activate([
             couponImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             couponImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),

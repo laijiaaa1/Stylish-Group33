@@ -83,8 +83,8 @@ class ProfileViewController: UIViewController {
     }
     @objc func getCouponButtonTapped() {
         
-        let getCouponVC = GetCouponViewController()
-        navigationController?.pushViewController(getCouponVC, animated: true)
+        let acquireCouponVC = AcquireCouponViewController()
+        navigationController?.pushViewController(acquireCouponVC, animated: true)
     }
 
     // MARK: - Action
@@ -133,9 +133,9 @@ extension ProfileViewController: UICollectionViewDataSource {
     // L-coupon/MyCouponViewController: push to coupon page
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
-//            let collectionVC = CollectionViewController()
-//            collectionVC.hidesBottomBarWhenPushed = true
-//            navigationController?.pushViewController(collectionVC, animated: true)
+            let collectionVC = CollectionViewController()
+            collectionVC.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(collectionVC, animated: true)
         } else if indexPath.section == 1 && indexPath.row == 1{
             let couponVC = MyCouponViewController()
             navigationController?.pushViewController(couponVC, animated: true)

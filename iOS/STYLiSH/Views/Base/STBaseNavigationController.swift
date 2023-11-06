@@ -12,6 +12,8 @@ class STTransparentNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.backgroundColor = .clear
+        navigationBar.backgroundColor = .white
+        navigationBar.tintColor = .B1
+        
     }
 }

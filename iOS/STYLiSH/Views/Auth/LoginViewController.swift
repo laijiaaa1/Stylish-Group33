@@ -147,6 +147,7 @@ class LogInViewController: STBaseViewController {
             LKProgressHUD.showFailure(text: "請輸入完整資訊")
             return
         }
+        self.dismiss(animated: true)
         LKProgressHUD.show()
         
         userProvider.signInToStylish(

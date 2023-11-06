@@ -28,7 +28,6 @@ class STCompondViewController: STBaseViewController,
         super.viewDidLoad()
         cpdSetupTableView()
         cpdSetupCollectionView()
-
         tableView.beginHeaderRefreshing()
     }
 
