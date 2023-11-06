@@ -9,7 +9,8 @@
 import UIKit
 
 class ProductDetailViewController: STBaseViewController {
-
+    
+    private let collectionProvider = CollectionProvider.shared
     private struct Segue {
         static let picker = "SeguePicker"
     }
@@ -42,7 +43,7 @@ class ProductDetailViewController: STBaseViewController {
         let collectionButton = UIButton()
         collectionButton.setImage(UIImage(named: "heart_hollow"), for: .normal)
         collectionButton.setImage(UIImage(named: "heart_fill"), for: .selected)
-        collectionButton.frame = CGRect(x: 330, y: 585, width: 25, height: 25)
+        collectionButton.frame = CGRect(x: 350, y: 585, width: 25, height: 25)
         return collectionButton
     }()
     private let datas: [ProductContentCategory] = [
@@ -55,7 +56,7 @@ class ProductDetailViewController: STBaseViewController {
             galleryView.datas = product.images
         }
     }
-
+    var isCollected: Bool?
     private var pickerViewController: ProductPickerController?
 
     override var isHideNavigationBar: Bool { return true }
@@ -65,26 +66,19 @@ class ProductDetailViewController: STBaseViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupTableView()
-
+        setUpCollectionButton()
         guard let product = product else { return }
         galleryView.datas = product.images
-        
-        // Add collection button
+    }
+    private func setUpCollectionButton() {
         collectionButton.addTarget(self, action: #selector(collectionButtonTapped), for: .touchUpInside)
-        tableView.addSubview(collectionButton)
         
+        let selectedState = UserDefaults.standard.bool(forKey: "\(String(describing: product?.id))")
+        collectionButton.isSelected = selectedState
     }
-
-  
-    @objc func collectionButtonTapped() {
-        if let product = product {
-            
-        }
-    }
-    
     private func setupTableView() {
+        tableView.addSubview(collectionButton)
         tableView.lk_registerCellWithNib(
             identifier: String(describing: ProductDescriptionTableViewCell.self),
             bundle: nil
@@ -98,7 +92,6 @@ class ProductDetailViewController: STBaseViewController {
             bundle: nil
         )
     }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segue.picker,
            let pickerVC = segue.destination as? ProductPickerController {
@@ -107,8 +100,42 @@ class ProductDetailViewController: STBaseViewController {
             pickerViewController = pickerVC
         }
     }
-
-    // MARK: - Action
+    // MARK: - Methods
+    private func addCollection(with productId: Int) {
+        collectionProvider.addCollectionProducts(productId: productId, completion: { [weak self] result in
+            switch result {
+            case .success(let response):
+                LKProgressHUD.showSuccess(text: "\(response.message)")
+                self?.collectionButton.isSelected = true
+            case .failure:
+                LKProgressHUD.showFailure(text: "無法收藏商品")
+                self?.collectionButton.isSelected = false
+            }
+        })
+    }
+    private func removeCollection(with productId: Int) {
+        collectionProvider.removeCollectionProducts(productId: productId, completion: { [weak self] result in
+            switch result {
+            case .success(let response):
+                LKProgressHUD.showSuccess(text: "\(response.message)")
+                self?.collectionButton.isSelected = false
+            case .failure:
+                LKProgressHUD.showFailure(text: "無法移除收藏")
+                self?.collectionButton.isSelected = true
+            }
+        })
+    }
+    @objc func collectionButtonTapped(sender: UIButton) {
+        guard let product = product else { return }
+        // POST API
+        if collectionButton.isSelected == false {
+            addCollection(with: product.id)
+        } else {
+            removeCollection(with: product.id)
+        }
+        // Save button state
+        UserDefaults.standard.set(collectionButton.isSelected ,forKey: "\(String(describing: product.id))")
+    }
     @IBAction func didTouchAddToCarBtn(_ sender: UIButton) {
         if productPickerView.superview == nil {
             showProductPickerView()
