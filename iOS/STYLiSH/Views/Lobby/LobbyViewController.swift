@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hover
 
 class LobbyViewController: STBaseViewController {
 
@@ -31,6 +32,74 @@ class LobbyViewController: STBaseViewController {
         navigationItem.titleView = UIImageView(image: .asset(.Image_Logo02))
         
         lobbyView.beginHeaderRefresh()
+        
+        // Create Hover's Configuration (all parameters have defaults)
+        let configuration = HoverConfiguration(image: UIImage(named: "add"), color: .gradient(top: .blue, bottom: .cyan))
+
+        // Create the items to display
+        let items = [
+            HoverItem(title: "Log out", image: UIImage(named: "logout")) {
+                if KeyChainManager.shared.token != nil {
+                    let alertController = UIAlertController(title: "確定要登出嗎？", message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                    let logoutAction = UIAlertAction(title: "登出", style: .destructive) { _ in
+                        self.logout()
+                    }
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(logoutAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            },
+            HoverItem(title: "Coupon", image: UIImage(named: "getCoupon")) {
+            
+                if KeyChainManager.shared.token == nil {
+                    let logInViewController = LogInViewController()
+                    self.navigationController?.show(logInViewController, sender: nil)
+                    return
+                } else {
+                    let acquireCouponViewController = AcquireCouponViewController()
+                    self.navigationController?.pushViewController(acquireCouponViewController, animated: true)
+                }
+            },
+            HoverItem(title: "Collection", image: UIImage(named: "heart_fill")) {
+                if KeyChainManager.shared.token == nil {
+                    let logInViewController = LogInViewController()
+                    self.navigationController?.show(logInViewController, sender: nil)
+                }else{
+                    let collectionViewController = CollectionViewController()
+                    self.navigationController?.pushViewController(collectionViewController, animated: true)
+                }
+            }
+        ]
+
+        // Create an HoverView with the previous configuration & items
+        let hoverView = HoverView(with: configuration, items: items)
+
+        // Add to the top of the view hierarchy
+        view.addSubview(hoverView)
+        hoverView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Apply Constraints
+        // Never constrain to the safe area as Hover takes care of that
+        NSLayoutConstraint.activate(
+            [
+                hoverView.topAnchor.constraint(equalTo: view.topAnchor),
+                hoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                hoverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                hoverView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        )
+    }
+
+    func logout() {
+        KeyChainManager.shared.token = nil
+        
+        if let navigationController = self.navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            let loginViewController = LogInViewController()
+            UIApplication.shared.windows.first?.rootViewController = loginViewController
+        }
     }
 
     // MARK: - Action
