@@ -5,7 +5,7 @@
 //  Created by laijiaaa1 on 2023/11/5.
 //  Copyright © 2023 AppWorks School. All rights reserved.
 //
-
+//MARK: -L-useCoupon/useCoponViewController: All
 import UIKit
 
 protocol UseCouponDelegate: AnyObject {
@@ -16,9 +16,10 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     
     weak var delegate: UseCouponDelegate?
     var selectedCoupon: String?
-    var couponSelectionHandler: ((String?) -> Void)?
-    
-    var data: [String] = []
+    var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
+
+
+    var data: [CouponObject] = []
     var selectedCouponIndex: Int?
     
     let tableView = UITableView()
@@ -35,11 +36,12 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         tabBarController?.tabBar.isHidden = true
         
         data = [
-            "Coupon 1",
-            "Coupon 2",
-            "Coupon 3",
-            "Coupon 4",
-            "Coupon 5"
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "免運", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
         ]
         
         tableView.register(UseCouponTableCell.self, forCellReuseIdentifier: tableCellIdentifier)
@@ -55,13 +57,23 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.reloadData()
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .white
+        view.addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+            backgroundView.heightAnchor.constraint(equalToConstant: 120)
+        ])
         checkButton.setTitle("確定", for: .normal)
         checkButton.backgroundColor = .darkGray
         checkButton.tintColor = .white
         checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         
         checkButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(checkButton)
+        backgroundView.addSubview(checkButton)
         NSLayoutConstraint.activate([
             checkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             checkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -77,12 +89,15 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as? UseCouponTableCell else { return UITableViewCell() }
         
-        let coupon = ShowCoupon(
-            title: data[indexPath.row],
-            description: "des \(data[indexPath.row])",
-            expiredDate: "ED for \(data[indexPath.row])",
-            image: UIImage(named: "Image_Placeholder") ?? UIImage()
-        )
+        let coupon = CouponObject(
+               id: data[indexPath.row].id,
+               type: data[indexPath.row].type,
+               title: data[indexPath.row].title,
+               discount: data[indexPath.row].discount,
+               startDate: data[indexPath.row].startDate,
+               expiredDate: data[indexPath.row].expiredDate,
+               isUsed: data[indexPath.row].isUsed
+           )
         
         cell.coupon = coupon
         cell.radioButton.isSelected = (indexPath.row == selectedCouponIndex)
@@ -102,7 +117,7 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
             if iiii != index {
                 let indexPath = IndexPath(row: iiii, section: 0)
                 if let cell = tableView.cellForRow(at: indexPath) as? UseCouponTableCell {
-                    cell.radioButton.isSelected = false
+                    cell.resetButton()
                 }
             }
         }
@@ -115,90 +130,23 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func checkButtonTapped() {
         if let selectedCouponIndex = selectedCouponIndex {
             let selectedCoupon = data[selectedCouponIndex]
-            couponSelectionHandler?(selectedCoupon)
+            couponSelectionHandler?(selectedCoupon.title, selectedCoupon.discount, selectedCoupon.type, selectedCoupon.id, selectedCoupon.isUsed, selectedCoupon.startDate, selectedCoupon.expiredDate)
+            navigationController?.popViewController(animated: true)
+        } else {
+            couponSelectionHandler?(nil, 0, "", 0, 0, "", "")
             navigationController?.popViewController(animated: true)
         }
     }
 
+
 }
 
-//class UseCouponTableCell: TableViewCell {
-//
-//    var useCouponAction: ((String) -> Void)?
-//    var isToggled = false
-//
-//    var radioButton: UIButton = UIButton()
-//
-//    override var coupon: ShowCoupon? {
-//        didSet {
-//            // Update the coupon's UI
-//        }
-//    }
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//
-//        radioButton.backgroundColor = UIColor(
-//            red: 225 / 255.0,
-//            green: 213 / 255.0,
-//            blue: 205 / 255.0,
-//            alpha: 1.0
-//        )
-//
-//        contentView.addSubview(radioButton)
-//
-//        radioButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-//        radioButton.addTarget(self, action: #selector(radioButtonTapped), for: .touchUpInside)
-//
-//        radioButton.translatesAutoresizingMaskIntoConstraints = false
-//        radioButton.layer.cornerRadius = 15
-//
-//        NSLayoutConstraint.activate([
-//            radioButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-//            radioButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-//            radioButton.heightAnchor.constraint(equalToConstant: 30),
-//            radioButton.widthAnchor.constraint(equalToConstant: 30)
-//        ])
-//
-//        radioButton.isSelected = false
-//    }
-//
-//    @objc func radioButtonTapped() {
-//        if let couponTitle = coupon?.title {
-//            radioButton.isSelected = !radioButton.isSelected
-//
-//            if isToggled {
-//                radioButton.backgroundColor = UIColor(
-//                    red: 225 / 255.0,
-//                    green: 213 / 255.0,
-//                    blue: 205 / 255.0,
-//                    alpha: 1.0
-//                )
-//            } else {
-//                radioButton.backgroundColor = UIColor(
-//                    red: 153 / 255.0,
-//                    green: 103 / 255.0,
-//                    blue: 82 / 255.0,
-//                    alpha: 1.0
-//                )
-//            }
-//
-//            isToggled = !isToggled
-//
-//            useCouponAction?(couponTitle)
-//        }
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
-//}
 class UseCouponTableCell: CouponViewCell {
     var useCouponAction: ((String) -> Void)?
     var radioButton: UIButton = UIButton()
     var isToggled = false
 
-    override var coupon: ShowCoupon? {
+    override var coupon: CouponObject? {
         didSet {
             // Update the coupon's UI
         }
@@ -223,13 +171,7 @@ class UseCouponTableCell: CouponViewCell {
         ])
 
         radioButton.setImage(UIImage(systemName: "smallcircle.fill.circle"), for: .selected)
-        //change image color
-        radioButton.tintColor = UIColor(
-            red: 153 / 255.0,
-            green: 103 / 255.0,
-            blue: 82 / 255.0,
-            alpha: 1.0
-        )
+        radioButton.tintColor = .black
         
         radioButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }
@@ -249,6 +191,12 @@ class UseCouponTableCell: CouponViewCell {
         }
         
         useCouponAction?(coupon?.title ?? "")
+    }
+    func resetButton(){
+        radioButton.isSelected = false
+        radioButton.backgroundColor = .clear
+        isToggled = false
+        
     }
 
     required init?(coder: NSCoder) {

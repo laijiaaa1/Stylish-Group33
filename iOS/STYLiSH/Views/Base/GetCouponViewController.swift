@@ -4,7 +4,7 @@
 //
 //  Created by laijiaaa1 on 2023/11/5.
 //
-
+//MARK: -L-getCoupon/getCoponViewController: All
 import UIKit
 
 class GetCouponViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -48,6 +48,7 @@ class GetCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         if let receivedCoupons = UserDefaults.standard.stringArray(forKey: "receivedCoupons") {
             self.receivedCoupons = Set(receivedCoupons)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,7 +70,7 @@ class GetCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.coupon = coupon
         cell.isCouponReceived = isReceived
         
-        cell.getCouponButton.setTitle(isReceived ? "已领取" : "領取", for: .normal)
+        cell.getCouponButton.setTitle(isReceived ? "已領取" : "領取", for: .normal)
         cell.getCouponButton.backgroundColor = isReceived ? UIColor(
             red: 225 / 255.0,
             green: 213 / 255.0,
@@ -94,12 +95,12 @@ class GetCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func handleGetCouponAction(_ couponData: String) {
-        print("領取的: \(couponData)")
-        receivedCoupons.insert(couponData)
-        tableView.reloadData()
-        UserDefaults.standard.set(Array(receivedCoupons), forKey: "receivedCoupons")
+        if !receivedCoupons.contains(couponData) {
+            receivedCoupons.insert(couponData)
+            tableView.reloadData()
+             UserDefaults.standard.set(Array(receivedCoupons), forKey: "receivedCoupons")
+        }
     }
-    
 }
 
 class GetCouponTableCell: TableViewCell {

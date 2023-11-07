@@ -33,7 +33,7 @@ class CouponViewCell: UITableViewCell {
     var couponDes: UILabel!
     var couponED: UILabel!
     var couponType: CouponType?
-    var coupon: ShowCoupon? {
+    var coupon: CouponObject? {
         didSet {
             guard let coupon = coupon else { return }
              if coupon.type == "折扣" {
@@ -43,7 +43,7 @@ class CouponViewCell: UITableViewCell {
             }
             couponTitle?.text = coupon.title
             couponTitle?.font = UIFont.systemFont(ofSize: 20)
-            couponDes?.text = coupon.description
+            couponDes?.text = coupon.type
             couponDes?.font = UIFont.systemFont(ofSize: 13)
             couponED?.text = coupon.expiredDate
             couponED?.font = UIFont.systemFont(ofSize: 13)
@@ -72,7 +72,7 @@ class CouponViewCell: UITableViewCell {
             couponImage.widthAnchor.constraint(equalToConstant: 80),
             couponImage.heightAnchor.constraint(equalToConstant: 80),
             
-            couponTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            couponTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             couponTitle.leadingAnchor.constraint(equalTo: couponImage.trailingAnchor, constant: 20),
             couponTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             

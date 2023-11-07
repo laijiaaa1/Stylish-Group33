@@ -7,19 +7,38 @@
 //
 
 import UIKit
-
+//MARK: -L-usecoupon/CheckoutViewController: useCoupon delegate
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
 
-    let stPaymentInfoTableViewCell = STPaymentInfoTableViewCell(style: .default, reuseIdentifier: nil)
+    var currentPrice: Int = 0
 
+       func calculateOriginalPrice() -> Int {
+           var originalPrice = 0
+           for product in orderProvider.order.products {
+               originalPrice += Int(product.product?.price ?? 0)
+           }
+           return originalPrice
+       }
+    var selectedCouponTitle: String?
+        var discount: Int?
+        var couponType: String?
+        var couponID: Int?
+        var isCouponUsed: Int?
+        var couponStartDate: String?
+        var couponExpiredDate: String?
+    
+    var stPaymentInfoTableViewCell: STPaymentInfoTableViewCell?
+        
     func didSelectCoupon(_ coupon: String?) {
         if let selectedCoupon = coupon {
-            stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+            stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon
         } else {
-            stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+            stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
         }
     }
     
+    var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
+
     private struct Segue {
         static let success = "SegueSuccess"
     }
@@ -64,9 +83,14 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stPaymentInfoTableViewCell.delegate = self
+        stPaymentInfoTableViewCell?.delegate = self
         
-     
+        for orderProduct in orderProvider.order.products {
+            if let product = orderProduct.product {
+                
+                currentPrice += Int(product.price) * Int(orderProduct.amount)
+            }
+        }
     }
     
     private func setupTableView() {
@@ -90,6 +114,16 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         
         guard KeyChainManager.shared.token != nil else {
             return onShowLogin()
+        }
+        
+        if let selectedCouponTitle = selectedCouponTitle,
+                  let discount = discount,
+                  let couponType = couponType,
+                  let couponID = couponID,
+                  let isCouponUsed = isCouponUsed,
+                  let couponStartDate = couponStartDate,
+           let couponExpiredDate = couponExpiredDate {
+            couponSelectionHandler?(selectedCouponTitle, discount, couponType, couponID, isCouponUsed, couponStartDate, couponExpiredDate)
         }
         
         switch orderProvider.order.payment {
@@ -127,17 +161,23 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
                             StorageManager.shared.deleteAllProduct(completion: { _ in })
                         case .failure(let error):
                             // Error Handle
+//                            self.handleCheckoutFailure()
                             print(error)
                         }
                 })
             case .failure(let error):
                 LKProgressHUD.dismiss()
                 // Error Handle
+//                self?.handleCheckoutFailure()
                 print(error)
             }
         })
     }
-    
+    private func handleCheckoutFailure() {
+        let errorVC = ErrorCheckoutResultViewController()
+        errorVC.modalPresentationStyle = .overCurrentContext
+        self.present(errorVC, animated: false, completion: nil)
+    }
     func canCheckout() -> Bool {
         switch orderProvider.order.payment {
         case .cash: return orderProvider.order.isReady()
@@ -241,6 +281,8 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             return UITableViewCell()
         }
+        //MARK: -L-usecoupon/CheckoutViewController: pass selected coupon
+        stPaymentInfoTableViewCell = inputCell
         inputCell.creditView.stickSubView(tappayVC.view)
         inputCell.delegate = self
         inputCell.layoutCellWith(
@@ -273,18 +315,42 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
     func goUseCoupon(_ cell: STPaymentInfoTableViewCell) {
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         if let vc = storyboard.instantiateViewController(withIdentifier: "UseCouponViewController") as? UseCouponViewController {
-            vc.couponSelectionHandler = { [weak self] selectedCoupon in
-                if let selectedCoupon = selectedCoupon {
-                    self?.stPaymentInfoTableViewCell.couponLabel.text = selectedCoupon
+            vc.couponSelectionHandler = { [weak self] (selectedCouponTitle, discount, type, id, isUsed, startDate, expiredDate) in
+                print("Selected Coupon Title: \(selectedCouponTitle)")
+                print("Discount: \(discount)")
+                print("Type: \(type)")
+                print("ID: \(id)")
+                print("Is Used: \(isUsed)")
+                print("Start Date: \(startDate)")
+                print("Expired Date: \(expiredDate)")
+
+                self?.selectedCouponTitle = selectedCouponTitle
+                self?.discount = discount
+                self?.couponType = type
+                self?.couponID = id
+                self?.isCouponUsed = isUsed
+                self?.couponStartDate = startDate
+                self?.couponExpiredDate = expiredDate
+                
+                self?.updatePrice(discount: discount ?? 0)
+                
+                if let selectedCouponTitle = selectedCouponTitle {
+                    self?.stPaymentInfoTableViewCell?.couponLabel.text = selectedCouponTitle
                 } else {
-                    self?.stPaymentInfoTableViewCell.couponLabel.text = "未使用"
+                    self?.stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
                 }
             }
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-
+    func updatePrice(discount: Int) {
+        let productPrice = currentPrice * discount / 100
+        let shipPrice = orderProvider.order.freight
+        let totalPrice = productPrice + shipPrice
+        stPaymentInfoTableViewCell?.productPriceLabel.text = "$\(productPrice)"
+        stPaymentInfoTableViewCell?.shipPriceLabel.text = "$\(shipPrice)"
+        stPaymentInfoTableViewCell?.totalPriceLabel.text = "$\(totalPrice)"
+    }
     func endEditing(_ cell: STPaymentInfoTableViewCell) {
         tableView.reloadData()
     }

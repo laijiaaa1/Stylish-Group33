@@ -4,8 +4,7 @@
 //
 //  Created by laijiaaa1 on 2023/11/4.
 //
-
-// L-coupon/MyCouponViewController: myCoupon ViewController UI
+//MARK: -L-myCoupon/myCoponViewController: All
 import UIKit
 
 struct Coupon: Codable {
@@ -18,34 +17,28 @@ struct Coupon: Codable {
     let couponIsUsed: Bool
 }
 
-struct ShowCoupon {
-    var title: String
-    var description: String
-    var expiredDate: String
-    var image: UIImage
-    var type: String?
-    var isUsed: Bool?
-}
-
 enum CouponStatus: CaseIterable {
     case canUse
-    case used
+    case invalid
     case expired
 }
 
 protocol CouponDataProvider {
-    func fetchCoupons(type: CouponStatus) -> [ShowCoupon]
+    func fetchCoupons(type: CouponStatus) -> [CouponObject]
 }
 
 class CouponAPI: CouponDataProvider {
-    func fetchCoupons(type: CouponStatus) -> [ShowCoupon] {
-        var coupons: [ShowCoupon] = []
+    func fetchCoupons(type: CouponStatus) -> [CouponObject] {
+        var coupons: [CouponObject] = []
         for couponIndex in 1...5 {
-            let coupon = ShowCoupon(
-                title: "\(type) Coupon \(couponIndex)",
-                description: "Description for \(type) Coupon \(couponIndex)",
-                expiredDate: "ExpiredDate for \(type) Coupon \(couponIndex)",
-                image: UIImage(named: "Image_Placeholder")!
+            let coupon = CouponObject(
+                id: couponIndex,
+                type: "",
+                title: "優惠券\(couponIndex)",
+                discount: 100,
+                startDate: "2020-10-01",
+                expiredDate: "2020-12-31",
+                isUsed: 0
             )
             coupons.append(coupon)
         }
@@ -56,10 +49,9 @@ class CouponAPI: CouponDataProvider {
 class MyCouponViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
    
     let couponAPI = CouponAPI()
-    let getButton = UIButton()
     var tabButton: [UIButton] = []
     var selectedTabButton = 0
-    private var coupons = [ShowCoupon]()
+    private var coupons = [CouponObject]()
     
     private var containerView: UIView!
     private var indicatorView: UIView!
@@ -67,12 +59,13 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     var collectionView: UICollectionView!
     var tableView1: UITableView!
     var tableView2: UITableView!
-    var tableView3: UITableView!
- 
+    
+    let collectionCellIdentifier = "CollectionCell"
     let tableCellIdentifier = "TableCell"
     
     var indicatorViewLeadingConstraint: NSLayoutConstraint?
-    
+    let getCouponButton = UIButton()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -84,7 +77,33 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         tableView1.isHidden = false
         tableView1.reloadData()
         
+        let topView = UIView()
+        topView.backgroundColor = .white
+        view.addSubview(topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor),
+            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        let addButton = UIButton()
+        addButton.setTitle("領取優惠券 >", for: .normal)
+        addButton.setTitleColor(.black, for: .normal)
+        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        addButton.addTarget(self, action: #selector(getCouponButtonTappedFromMyCoupon), for: .touchUpInside)
+        topView.addSubview(addButton)
+        
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            addButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -10),
+            addButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
+            addButton.heightAnchor.constraint(equalToConstant: 30),
+            addButton.widthAnchor.constraint(equalToConstant: 100)
+        ])
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.tabBar.isHidden = false
@@ -101,17 +120,16 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         createCollectionView()
         createAllTableViews()
     }
+    
     private func createAllTableViews() {
         tableView1 = UITableView()
         tableView2 = UITableView()
-        tableView3 = UITableView()
         createTableView(tableView: tableView1)
         createTableView(tableView: tableView2)
-        createTableView(tableView: tableView3)
     }
     
     private func createTabButtons() {
-        let tabTitles = ["可使用", "已使用", "已失效"]
+        let tabTitles = ["可使用", "已失效"]
         
         for (index, title) in tabTitles.enumerated() {
             let button = UIButton()
@@ -182,7 +200,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         tableView.register(CouponViewCell.self, forCellReuseIdentifier: tableCellIdentifier)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -193,7 +211,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         tableView.dataSource = self
     }
     
-    //switching between tableviews
+    // Switching between tableviews
     @objc private func tabButtonTapped(_ sender: UIButton) {
         selectedTabButton = sender.tag
         selectTabButton()
@@ -202,9 +220,8 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         case 0:
             coupons = couponAPI.fetchCoupons(type: .canUse)
         case 1:
-            coupons = couponAPI.fetchCoupons(type: .used)
-        case 2:
-            coupons = couponAPI.fetchCoupons(type: .expired)
+            coupons = couponAPI.fetchCoupons(type: .invalid)
+       
         default:
             break
         }
@@ -213,8 +230,6 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
             tableView1.reloadData()
         } else if selectedTabButton == 1 {
             tableView2.reloadData()
-        } else if selectedTabButton == 2 {
-            tableView3.reloadData()
         }
         
         DispatchQueue.main.async {
@@ -222,15 +237,11 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.tableView1.reloadData()
             } else if self.selectedTabButton == 1 {
                 self.tableView2.reloadData()
-            } else if self.selectedTabButton == 2 {
-                self.tableView3.reloadData()
             }
         }
         
         tableView1.isHidden = selectedTabButton != 0
         tableView2.isHidden = selectedTabButton != 1
-        tableView3.isHidden = selectedTabButton != 2
-        
     }
     
     private func selectTabButton() {
@@ -250,7 +261,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: UICollectionViewDataSource and UICollectionViewDelegate methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -270,7 +281,7 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
         let coupon = coupons[indexPath.row]
         cell?.coupon = coupon
         
-        if selectedTabButton == 1 || selectedTabButton == 2 {
+        if selectedTabButton == 1 {
             let passView = UIView()
             passView.backgroundColor = .white
             passView.alpha = 0.1
@@ -286,10 +297,16 @@ class MyCouponViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell?.couponDes?.alpha = 1
             cell?.couponED?.alpha = 1
         }
-        
+
         return cell ?? UITableViewCell()
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
+    }
+    
+    @objc func getCouponButtonTappedFromMyCoupon() {
+        let getCouponVC = AcquireCouponViewController()
+        navigationController?.pushViewController(getCouponVC, animated: true)
     }
 }
