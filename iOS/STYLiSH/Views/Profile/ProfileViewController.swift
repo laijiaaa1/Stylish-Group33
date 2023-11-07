@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Hover
+
 
 class ProfileViewController: UIViewController {
 
@@ -40,45 +42,97 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         fetchData()
 
+        // Create Hover's Configuration (all parameters have defaults)
+        let configuration = HoverConfiguration(image: UIImage(named: "add"), color: .gradient(top: .blue, bottom: .cyan))
+
+        // Create the items to display
+        let items = [
+            HoverItem(title: "Drop it Anywhere", image: UIImage(named: "anywhere")) { print("Tapped 'Drop it anywhere'") },
+            HoverItem(title: "Gesture Driven", image: UIImage(named: "gesture")) { print("Tapped 'Gesture driven'") },
+            HoverItem(title: "Give it a Star", image: UIImage(named: "star")) { print("Tapped 'Give it a star'") }
+        ]
+
+        // Create an HoverView with the previous configuration & items
+        let hoverView = HoverView(with: configuration, items: items)
+
+        // Add to the top of the view hierarchy
+        view.addSubview(hoverView)
+        hoverView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Apply Constraints
+        // Never constrain to the safe area as Hover takes care of that
+        NSLayoutConstraint.activate(
+            [
+                hoverView.topAnchor.constraint(equalTo: view.topAnchor),
+                hoverView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                hoverView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                hoverView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        )
         //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
-        getCouponButton.setImage(UIImage(named: "getCoupon"), for: .normal)
+//        getCouponButton.setImage(UIImage(named: "getCoupon"), for: .normal)
+//
+//        view.addSubview(getCouponButton)
+//        getCouponButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            getCouponButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+//            getCouponButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+//            getCouponButton.heightAnchor.constraint(equalToConstant: 50),
+//            getCouponButton.widthAnchor.constraint(equalToConstant: 50)
+//        ])
+//
+//        getCouponButton.addTarget(self, action: #selector(getCouponButtonTapped), for: .touchUpInside)
 
-        view.addSubview(getCouponButton)
-        getCouponButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            getCouponButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-            getCouponButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            getCouponButton.heightAnchor.constraint(equalToConstant: 50),
-            getCouponButton.widthAnchor.constraint(equalToConstant: 50)
-        ])
-
-        getCouponButton.addTarget(self, action: #selector(getCouponButtonTapped), for: .touchUpInside)
-
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-           getCouponButton.addGestureRecognizer(panGesture)
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+//           getCouponButton.addGestureRecognizer(panGesture)
         
         tabBarController?.tabBar.isHidden = false
     
     }
    
-    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-       guard let getCouponButton = gesture.view as? UIButton else { return }
-        
-        switch gesture.state {
-        case .began, .changed:
-            let translation = gesture.translation(in: view)
-            getCouponButton.center = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
-            gesture.setTranslation(.zero, in: view)
-            
-        default:
-            break
-        }
-    }
-    @objc func getCouponButtonTapped() {
-        
-        let acquireCouponVC = AcquireCouponViewController()
-        navigationController?.pushViewController(acquireCouponVC, animated: true)
-    }
+//    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+//        guard let getCouponButton = gesture.view as? UIButton else { return }
+//
+//        let minX = getCouponButton.bounds.midX
+//        let maxX = view.bounds.maxX - getCouponButton.bounds.midX
+//        let minY = view.safeAreaInsets.top + getCouponButton.bounds.midY
+//        let maxY = view.bounds.maxY - getCouponButton.bounds.midY - view.safeAreaInsets.bottom
+//
+//        switch gesture.state {
+//        case .began, .changed:
+//            let translation = gesture.translation(in: view)
+//            var newCenter = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
+//
+//            newCenter.x = min(maxX, max(minX, newCenter.x))
+//            newCenter.y = min(maxY, max(minY, newCenter.y))
+//
+//            getCouponButton.center = newCenter
+//            gesture.setTranslation(.zero, in: view)
+//
+//        case .ended:
+//            UIView.animate(withDuration: 0.5,
+//                           delay: 0.5,
+//                           usingSpringWithDamping: 0.4,
+//                           initialSpringVelocity: 0.3,
+//                           options: .curveEaseOut,
+//                           animations: {
+//                               var newCenter = getCouponButton.center
+//                               newCenter.x = min(maxX, max(minX, newCenter.x))
+//                               newCenter.y = min(maxY, max(minY, newCenter.y))
+//                               getCouponButton.center = newCenter
+//                           },
+//                           completion: nil)
+//        default:
+//            break
+//        }
+//    }
+
+
+//    @objc func getCouponButtonTapped() {
+//
+//        let acquireCouponVC = AcquireCouponViewController()
+//        navigationController?.pushViewController(acquireCouponVC, animated: true)
+//    }
 
     // MARK: - Action
     private func fetchData() {

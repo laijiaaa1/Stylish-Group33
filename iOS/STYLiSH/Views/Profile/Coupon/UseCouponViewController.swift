@@ -37,11 +37,11 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         
         data = [
         CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "免運", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
+        CouponObject(id: 456, type: "免運", title: "免運", discount: 0, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 789, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 222, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 333, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 444, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
         ]
         
         tableView.register(UseCouponTableCell.self, forCellReuseIdentifier: tableCellIdentifier)

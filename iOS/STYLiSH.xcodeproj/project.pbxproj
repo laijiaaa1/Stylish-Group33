@@ -864,6 +864,8 @@
 			dependencies = (
 			);
 			name = STYLiSH;
+			packageProductDependencies = (
+			);
 			productName = STYLiSH;
 			productReference = 3CD29119221135E2008B8A2D /* STYLiSH.app */;
 			productType = "com.apple.product-type.application";
@@ -917,6 +919,8 @@
 				"zh-Hant",
 			);
 			mainGroup = 3CD29110221135E2008B8A2D;
+			packageReferences = (
+			);
 			productRefGroup = 3CD2911A221135E2008B8A2D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

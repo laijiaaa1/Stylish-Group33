@@ -10,10 +10,10 @@ import UIKit
 
 class AcquireCouponViewController: STCompondViewController {
     
-    var getCouponAction: ((String) -> Void)?
+    var getCouponAction: ((Int) -> Void)?
     
-    var data: [String] = []
-    var receivedCoupons: Set<String> = []
+    var data: [CouponObject] = []
+    var receivedCoupons: Set<Int> = []
     
     let getCouponButton = UIButton()
     let tableCellIdentifier = "tableCellIdentifier"
@@ -28,8 +28,15 @@ class AcquireCouponViewController: STCompondViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        data = ["Coupon 1", "Coupon 2", "Coupon 3"]
+        tabBarController?.tabBar.backgroundColor = .white
+        data = [
+        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 456, type: "免運", title: "免運", discount: 0, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 789, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 222, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 333, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
+        CouponObject(id: 444, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
+        ]
         
         tableView.register(AcquireCouponTableViewCell.self, forCellReuseIdentifier: tableCellIdentifier)
         
@@ -45,9 +52,9 @@ class AcquireCouponViewController: STCompondViewController {
         tableView.reloadData()
         
         navigationItem.title = "STYLiSH優惠券"
-        if let receivedCoupons = UserDefaults.standard.stringArray(forKey: "receivedCoupons") {
-            self.receivedCoupons = Set(receivedCoupons)
-        }
+        if let receivedCouponIDs = UserDefaults.standard.array(forKey: "receivedCouponIDs") as? [Int] {
+                   self.receivedCoupons = Set(receivedCouponIDs)
+               }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,21 +65,26 @@ class AcquireCouponViewController: STCompondViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as? AcquireCouponTableViewCell else { return UITableViewCell() }
         let couponTitle = data[indexPath.row]
         
-        let isReceived = receivedCoupons.contains(couponTitle)
+        let isReceived = receivedCoupons.contains(couponTitle.id)
         
         let coupon = CouponObject(
-            id: 0,
-                type: "折扣",
-                title: couponTitle,
-                discount: 10,
-                startDate: "2023/10/01",
-                expiredDate: "2023/12/31",
-                isUsed: 0
+            id: data[indexPath.row].id,
+            type: data[indexPath.row].type,
+            title: data[indexPath.row].title,
+            discount: data[indexPath.row].discount,
+            startDate: data[indexPath.row].startDate,
+            expiredDate: data[indexPath.row].expiredDate,
+            isUsed: data[indexPath.row].isUsed
         )
         cell.coupon = coupon
         cell.isCouponReceived = isReceived
         
         cell.getCouponButton.setTitle(isReceived ? "已领取" : "領取", for: .normal)
+        if coupon.type == "免運"{
+            cell.couponImage.image = isReceived ? UIImage(named: "delivery_inactive") : UIImage(named: "delivery_active")
+        }else{
+            cell.couponImage.image = isReceived ? UIImage(named: "discount_inactive") : UIImage(named: "discount_active")
+        }
         cell.getCouponButton.backgroundColor = isReceived ? UIColor(
             red: 225 / 255.0,
             green: 213 / 255.0,
@@ -85,8 +97,9 @@ class AcquireCouponViewController: STCompondViewController {
             alpha: 1.0
         )
         
-        cell.getCouponAction = { [weak self] couponData in
-            self?.handleGetCouponAction(couponData)
+        
+        cell.getCouponAction = { [weak self] couponID in
+            self?.handleGetCouponAction(couponID)
         }
         cell.indexPath = indexPath
         return cell
@@ -96,17 +109,18 @@ class AcquireCouponViewController: STCompondViewController {
         return 130
     }
     
-    func handleGetCouponAction(_ couponData: String) {
-        print("領取的: \(couponData)")
-        receivedCoupons.insert(couponData)
-        tableView.reloadData()
-        UserDefaults.standard.set(Array(receivedCoupons), forKey: "receivedCoupons")
-    }
+    func handleGetCouponAction(_ couponID: Int) {
+           print("领取的: \(couponID)")
+           receivedCoupons.insert(couponID)
+           tableView.reloadData()
+
+           UserDefaults.standard.set(Array(receivedCoupons), forKey: "receivedCouponIDs")
+       }
     
 }
 
 class AcquireCouponTableViewCell: CouponViewCell {
-    var getCouponAction: ((String) -> Void)?
+    var getCouponAction: ((Int) -> Void)?
     let getCouponButton = UIButton()
     var indexPath: IndexPath?
     
@@ -135,8 +149,8 @@ class AcquireCouponTableViewCell: CouponViewCell {
     }
     
     @objc func getCouponButtonTapped() {
-        if !isCouponReceived, let couponTitle = coupon?.title {
-            getCouponAction?(couponTitle)
+        if !isCouponReceived, let couponID = coupon?.id {
+            getCouponAction?(couponID)
             isCouponReceived = true
             updateCellUI()
         }
