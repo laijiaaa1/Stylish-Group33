@@ -11,6 +11,7 @@ import Hover
 
 class LobbyViewController: STBaseViewController {
 
+  
     @IBOutlet weak var lobbyView: LobbyView! {
         didSet {
             lobbyView.delegate = self
@@ -52,9 +53,20 @@ class LobbyViewController: STBaseViewController {
             },
             HoverItem(title: "Coupon", image: UIImage(named: "getCoupon")) {
             
+                /// Push Native Login
                 if KeyChainManager.shared.token == nil {
-                    let logInViewController = LogInViewController()
-                    self.navigationController?.show(logInViewController, sender: nil)
+                    let logInVC = LogInViewController()
+                    logInVC.isModalInPresentation = true
+                    
+                    if #available(iOS 16.0, *) {
+                        if let sheetPresentationController = logInVC.sheetPresentationController {
+                            sheetPresentationController.preferredCornerRadius = 16
+                            sheetPresentationController.detents = [.custom(resolver: { _ in
+                                350
+                            })]
+                        }
+                        self.present(logInVC, animated: true, completion: nil)
+                    }
                     return
                 } else {
                     let acquireCouponViewController = AcquireCouponViewController()
@@ -63,8 +75,19 @@ class LobbyViewController: STBaseViewController {
             },
             HoverItem(title: "Collection", image: UIImage(named: "heart_fill")) {
                 if KeyChainManager.shared.token == nil {
-                    let logInViewController = LogInViewController()
-                    self.navigationController?.show(logInViewController, sender: nil)
+                    let logInVC = LogInViewController()
+                    logInVC.isModalInPresentation = true
+                    
+                    if #available(iOS 16.0, *) {
+                        if let sheetPresentationController = logInVC.sheetPresentationController {
+                            sheetPresentationController.preferredCornerRadius = 16
+                            sheetPresentationController.detents = [.custom(resolver: { _ in
+                                350
+                            })]
+                        }
+                        self.present(logInVC, animated: true, completion: nil)
+                    }
+                    return
                 }else{
                     let collectionViewController = CollectionViewController()
                     self.navigationController?.pushViewController(collectionViewController, animated: true)
@@ -90,7 +113,7 @@ class LobbyViewController: STBaseViewController {
             ]
         )
     }
-
+   
     func logout() {
         KeyChainManager.shared.token = nil
         
