@@ -16,8 +16,8 @@ enum FacebookError: String, Error {
     case denineEmailPermission = "請允許存取 Facebook email！"
 }
 
-enum STYLiSHSignInError: Error {
-    case noToken
+enum STYLiSHSignInError: String, Error {
+    case noToken = "請先登入！"
 }
 
 class UserProvider {

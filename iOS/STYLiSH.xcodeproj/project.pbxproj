@@ -636,7 +636,7 @@
 			children = (
 				9D359AD72AF7DAE300DE4A42 /* Coupon */,
 				9D359ACF2AF677F800DE4A42 /* Collection */,
-				3CE7A51A2230899D009FF003 /* OrderProvider */,
+				3CE7A51A2230899D009FF003 /* Order */,
 				3CE7A51122305904009FF003 /* User */,
 				3CEBE075222F714A0064EF82 /* Local Storage */,
 				3C9C0D512215377B00595689 /* Profile */,
@@ -702,12 +702,12 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		3CE7A51A2230899D009FF003 /* OrderProvider */ = {
+		3CE7A51A2230899D009FF003 /* Order */ = {
 			isa = PBXGroup;
 			children = (
 				3CE7A51D22308D34009FF003 /* OrderObject.swift */,
 			);
-			path = OrderProvider;
+			path = Order;
 			sourceTree = "<group>";
 		};
 		3CEBE075222F714A0064EF82 /* Local Storage */ = {

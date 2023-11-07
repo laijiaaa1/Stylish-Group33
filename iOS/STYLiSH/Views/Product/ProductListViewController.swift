@@ -50,8 +50,8 @@ class ProductListViewController: STCompondViewController {
     private func setupCollectionViewLayout() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(
-            width: Int(164.0 / 375.0 * UIScreen.width),
-            height: Int(164.0 / 375.0 * UIScreen.width * 308.0 / 164.0)
+            width: Int((UIScreen.width - 46) / 2),
+            height: Int((UIScreen.width - 46) / 2 / 164 * 280)
         )
         flowLayout.sectionInset = UIEdgeInsets(top: 24.0, left: 16.0, bottom: 24.0, right: 16.0)
         flowLayout.minimumInteritemSpacing = 0
