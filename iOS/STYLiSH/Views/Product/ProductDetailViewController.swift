@@ -69,6 +69,7 @@ class ProductDetailViewController: STBaseViewController {
         setupTableView()
         setUpCollectionButton()
         guard let product = product else { return }
+        guard let galleryView = galleryView else { return }
         galleryView.datas = product.images
     }
     private func setUpCollectionButton() {
@@ -78,6 +79,11 @@ class ProductDetailViewController: STBaseViewController {
         collectionButton.isSelected = selectedState
     }
     private func setupTableView() {
+        
+        guard let tableView = tableView else {
+                return
+            }
+        
         tableView.addSubview(collectionButton)
         tableView.lk_registerCellWithNib(
             identifier: String(describing: ProductDescriptionTableViewCell.self),
