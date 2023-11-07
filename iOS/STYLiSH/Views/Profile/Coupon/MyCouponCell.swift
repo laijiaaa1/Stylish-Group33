@@ -72,7 +72,7 @@ class CouponViewCell: UITableViewCell {
             couponImage.widthAnchor.constraint(equalToConstant: 80),
             couponImage.heightAnchor.constraint(equalToConstant: 80),
             
-            couponTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            couponTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             couponTitle.leadingAnchor.constraint(equalTo: couponImage.trailingAnchor, constant: 20),
             couponTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             

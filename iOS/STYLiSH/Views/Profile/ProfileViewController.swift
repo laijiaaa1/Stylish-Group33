@@ -42,14 +42,7 @@ class ProfileViewController: UIViewController {
 
         //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
         getCouponButton.setImage(UIImage(named: "getCoupon"), for: .normal)
-//        getCouponButton.setTitle("領取", for: .normal)
-//        getCouponButton.backgroundColor = UIColor(
-//            red: 202 / 255.0,
-//            green: 185 / 255.0,
-//            blue: 163 / 255.0,
-//            alpha: 1.0
-//        )
-//        getCouponButton.layer.cornerRadius = 25
+
         view.addSubview(getCouponButton)
         getCouponButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

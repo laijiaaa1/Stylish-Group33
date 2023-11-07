@@ -115,6 +115,17 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         guard KeyChainManager.shared.token != nil else {
             return onShowLogin()
         }
+        
+        if let selectedCouponTitle = selectedCouponTitle,
+                  let discount = discount,
+                  let couponType = couponType,
+                  let couponID = couponID,
+                  let isCouponUsed = isCouponUsed,
+                  let couponStartDate = couponStartDate,
+           let couponExpiredDate = couponExpiredDate {
+            couponSelectionHandler?(selectedCouponTitle, discount, couponType, couponID, isCouponUsed, couponStartDate, couponExpiredDate)
+        }
+        
         switch orderProvider.order.payment {
         case .credit: checkoutWithTapPay()
         case .cash: checkoutWithCash()
@@ -150,17 +161,23 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
                             StorageManager.shared.deleteAllProduct(completion: { _ in })
                         case .failure(let error):
                             // Error Handle
+//                            self.handleCheckoutFailure()
                             print(error)
                         }
                 })
             case .failure(let error):
                 LKProgressHUD.dismiss()
                 // Error Handle
+//                self?.handleCheckoutFailure()
                 print(error)
             }
         })
     }
-    
+    private func handleCheckoutFailure() {
+        let errorVC = ErrorCheckoutResultViewController()
+        errorVC.modalPresentationStyle = .overCurrentContext
+        self.present(errorVC, animated: false, completion: nil)
+    }
     func canCheckout() -> Bool {
         switch orderProvider.order.payment {
         case .cash: return orderProvider.order.isReady()
