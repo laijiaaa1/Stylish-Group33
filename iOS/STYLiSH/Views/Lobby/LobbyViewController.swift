@@ -37,18 +37,13 @@ class LobbyViewController: STBaseViewController {
         
         let searchButton = UIButton()
         searchButton.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.setImage(UIImage(named: "close"), for: .normal)
+        searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        searchButton.tintColor = .black
+        searchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
-        view.addSubview(searchButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
 
-        NSLayoutConstraint.activate([
-            searchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
-            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            searchButton.widthAnchor.constraint(equalToConstant: 40),
-            searchButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-
-        // Create Hover's Configuration (all parameters have defaults)
         let configuration = HoverConfiguration(image: UIImage(named: "add"), color: .gradient(top: .blue, bottom: .cyan))
 
         let items = [

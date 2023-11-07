@@ -51,7 +51,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             searchBar.heightAnchor.constraint(equalToConstant: 40),
