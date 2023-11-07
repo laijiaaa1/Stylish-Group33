@@ -1,4 +1,5 @@
 PODS:
+  - DropDown (2.3.2)
   - FBAEMKit (16.1.0):
     - FBSDKCoreKit_Basics (= 16.1.0)
   - FBSDKCoreKit (16.1.0):
@@ -16,6 +17,7 @@ PODS:
   - SwiftLint (0.52.2)
 
 DEPENDENCIES:
+  - DropDown (= 2.3.2)
   - FBSDKLoginKit
   - Hover
   - IQKeyboardManagerSwift
@@ -27,6 +29,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - DropDown
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -48,6 +51,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ronanociosoig/JGProgressHUD
 
 SPEC CHECKSUMS:
+  DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
   FBAEMKit: c7efe06720a8b15b1d25b68921ba46dee20996e0
   FBSDKCoreKit: ca77d40d46786157b7b31ad3516f5ad9c2315339
   FBSDKCoreKit_Basics: d39c3361379def7297bf76738cdd4fd2e0eb1a68
@@ -60,6 +64,6 @@ SPEC CHECKSUMS:
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
 
-PODFILE CHECKSUM: 3ce9b6a58c07735df84ed31dac971319d7fb96c8
+PODFILE CHECKSUM: 0f6aba15f25ec6a9624a92029478f2f02e06cd70
 
 COCOAPODS: 1.13.0

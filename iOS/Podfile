@@ -15,6 +15,7 @@ target 'STYLiSH' do
   pod 'FBSDKLoginKit'
   pod 'SwiftLint'
   pod 'Hover'
+  pod 'DropDown', '2.3.2'
   
   post_install do |installer|
     installer.pods_project.build_configurations.each do |config|

@@ -8,10 +8,11 @@
 
 import UIKit
 import Hover
+import DropDown
 
 class LobbyViewController: STBaseViewController {
 
-  
+
     @IBOutlet weak var lobbyView: LobbyView! {
         didSet {
             lobbyView.delegate = self
@@ -34,10 +35,22 @@ class LobbyViewController: STBaseViewController {
         
         lobbyView.beginHeaderRefresh()
         
+        let searchButton = UIButton()
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.setImage(UIImage(named: "close"), for: .normal)
+        searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
+        view.addSubview(searchButton)
+
+        NSLayoutConstraint.activate([
+            searchButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchButton.widthAnchor.constraint(equalToConstant: 40),
+            searchButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
         // Create Hover's Configuration (all parameters have defaults)
         let configuration = HoverConfiguration(image: UIImage(named: "add"), color: .gradient(top: .blue, bottom: .cyan))
 
-        // Create the items to display
         let items = [
             HoverItem(title: "Log out", image: UIImage(named: "logout")) {
                 if KeyChainManager.shared.token != nil {
@@ -113,7 +126,15 @@ class LobbyViewController: STBaseViewController {
             ]
         )
     }
-   
+    @objc func searchButtonPressed() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if let searchVC = storyboard.instantiateViewController(withIdentifier: "searchViewController") as? SearchViewController {
+            navigationController?.pushViewController(searchVC, animated: true)
+        }
+    }
+
+
     func logout() {
         KeyChainManager.shared.token = nil
         
