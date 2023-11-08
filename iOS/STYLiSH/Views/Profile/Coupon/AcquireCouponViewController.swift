@@ -21,12 +21,14 @@ class AcquireCouponViewController: STTableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isTranslucent = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         datas = []
         tabBarController?.tabBar.backgroundColor = .white
-        tabBarController?.tabBar.isTranslucent = false
         navigationItem.title = "優惠券"
         
         tableView.register(AcquireCouponTableViewCell.self, forCellReuseIdentifier: AcquireCouponTableViewCell.subIdentifier)
