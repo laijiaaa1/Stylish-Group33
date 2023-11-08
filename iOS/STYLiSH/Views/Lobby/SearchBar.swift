@@ -189,16 +189,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
         let product = dataFiltered[indexPath.row]
 
-        if let imageURL = URL(string: product.mainImage) {
-            if let imageData = try? Data(contentsOf: imageURL) {
-                cell.productImageView.image = UIImage(data: imageData)
+        DispatchQueue.global().async {
+            if let imageURL = URL(string: product.mainImage) {
+                if let imageData = try? Data(contentsOf: imageURL) {
+
+                    DispatchQueue.main.async {
+                        cell.productImageView.image = UIImage(data: imageData)
+                        cell.titleLabel.text = product.title
+                        cell.priceLabel.text = "Price: $\(product.price)"
+                    }
+                }
             }
         }
-        cell.titleLabel.text = product.title
-        cell.priceLabel.text = "Price: $\(product.price)"
-
+        
         return cell
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             if indexPath.row < dataFiltered.count {
                 let selectedProduct = dataFiltered[indexPath.row]
