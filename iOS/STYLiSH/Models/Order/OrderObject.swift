@@ -72,11 +72,16 @@ struct Order: Encodable {
     var freight: Int = 60
     
     var productPrices: Int {
-        let productPrices = products.reduce(0){ partialResult, item in
-            let price = Int(item.product!.price) * Int(item.amount)
-           return partialResult + price
+//        let productPrices = products.reduce(0){ partialResult, item in
+//            let price = Int(item.product!.price) * Int(item.amount)
+//           return partialResult + price
+//        }
+//        return productPrices
+        var price = 0
+        for item in products {
+            price += Int(item.product!.price) * Int(item.amount)
         }
-        return productPrices
+        return price
     }
 
 

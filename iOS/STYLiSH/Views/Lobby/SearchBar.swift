@@ -85,7 +85,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(SearchProductCollectionViewCell.self, forCellWithReuseIdentifier: "collectionCell")
-
+        collectionView.contentInsetAdjustmentBehavior = .never
+        
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
@@ -119,11 +120,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             backView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backView.heightAnchor.constraint(equalToConstant: 400),            collectionView.topAnchor.constraint(equalTo: backView.topAnchor, constant: -10),
+            backView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: backView.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: 0),
-            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
             collectionView.widthAnchor.constraint(equalToConstant: 200)
         ])
     
@@ -199,7 +201,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             }
         }
         cell.titleLabel.text = product.title
-        cell.priceLabel.text = "Price: $\(product.price)"
+        cell.priceLabel.text = "NT$\(product.price)"
 
         return cell
     }
@@ -265,22 +267,20 @@ class SearchProductCollectionViewCell: UICollectionViewCell {
         imageView.layer.masksToBounds = true
         return imageView
     }()
-
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = UIColor.black
+        label.font = .medium(size: 16)
+        label.textColor = UIColor.B1
         label.textAlignment = .left
         label.numberOfLines = 2
         return label
     }()
-
     let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor.gray
+        label.font = .medium(size: 14)
+        label.textColor = UIColor.B1
         label.textAlignment = .left
         return label
     }()
@@ -303,11 +303,11 @@ class SearchProductCollectionViewCell: UICollectionViewCell {
 
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            titleLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 10),
 
             priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5)
         ])
     }
 

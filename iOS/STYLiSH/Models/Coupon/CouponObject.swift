@@ -66,7 +66,3 @@ enum CouponType {
     }
 }
 
-enum CouponStatus: String, CaseIterable {
-    case valid = "可使用"
-    case invalid = "已失效"
-}

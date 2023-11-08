@@ -86,6 +86,7 @@ class TrolleyViewController: STBaseViewController {
             guard let checkoutVC = segue.destination as? CheckoutViewController else { return }
             let orderProvider = OrderProvider(order: Order(products: orders))
             checkoutVC.orderProvider = orderProvider
+            checkoutVC.newOrder = orderProvider.order
         }
     }
 }

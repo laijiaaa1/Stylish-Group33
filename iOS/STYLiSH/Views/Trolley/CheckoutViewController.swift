@@ -10,6 +10,7 @@ import UIKit
 
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     
+    var newOrder: Order?
     var currentPrice: Int = 0
     
     func calculateOriginalPrice() -> Int {
@@ -33,16 +34,24 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         }
     }
     private func updatePrice() {
-        if let selectedCoupon = selectedCoupon {
+        if let selectedCoupon = selectedCoupon,
+        var newOrder = newOrder {
+            print(selectedCoupon)
             switch selectedCoupon.type {
             case CouponType.deliveryActive.type:
-                orderProvider.order.freight = 0
-                
+                newOrder.freight = 0
+                newOrder.products = orderProvider.order.products
             case CouponType.discountActive.type:
-                let beforeDiscount = orderProvider.order.products
-                let discountPrices = beforeDiscount.map { item in
-                    return item.product!.price * Int64(selectedCoupon.discount!)
-                }
+                newOrder.freight = 60
+                let beforeDiscount = newOrder.products 
+                    let discount = beforeDiscount.map { item in
+                        print("before: \(item.product!.price)")
+                        item.product!.price = item.product!.price * Int64(selectedCoupon.discount!) / 100
+                        return item
+                    }
+                    print(discount)
+                    newOrder.products = discount
+                
             default: break
             }
             tableView.reloadData()
@@ -155,7 +164,7 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     
     private func checkoutWithCash(with couponId: Int? = nil) {
         self.userProvider.checkout(
-            order: self.orderProvider.order,
+            order: self.newOrder!,
             prime: "",
             couponId: couponId,
             completion: { result in
@@ -180,7 +189,7 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
             case .success(let prime):
                 guard let self = self else { return }
                 self.userProvider.checkout(
-                    order: self.orderProvider.order,
+                    order: (self.newOrder)!,
                     prime: prime,
                     couponId: couponId,
                     completion: { result in
@@ -312,18 +321,22 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             return UITableViewCell()
         }
+       
         stPaymentInfoTableViewCell = inputCell
-        inputCell.creditView.stickSubView(tappayVC.view)
-        inputCell.delegate = self
-        inputCell.layoutCellWith(
-            productPrice: orderProvider.order.productPrices,
-            shipPrice: orderProvider.order.freight,
-            productCount: orderProvider.order.amount,
-            payment: orderProvider.order.payment.title(),
-            isCheckoutEnable: canCheckout()
-        )
-        inputCell.checkoutBtn.isEnabled = canCheckout()
-        return inputCell
+        if let newOrder = newOrder {
+            inputCell.creditView.stickSubView(tappayVC.view)
+            inputCell.delegate = self
+            inputCell.layoutCellWith(
+                productPrice: newOrder.productPrices,
+                shipPrice: newOrder.freight,
+                productCount: orderProvider.order.amount,
+                payment: orderProvider.order.payment.title(),
+                isCheckoutEnable: canCheckout()
+            )
+            inputCell.checkoutBtn.isEnabled = canCheckout()
+            return inputCell
+        }
+        return UITableViewCell()
     }
     
     func updateCheckoutButton() {
