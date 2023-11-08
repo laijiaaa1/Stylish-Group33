@@ -155,6 +155,7 @@
                         <outlet property="labelInfo" destination="lfu-2b-3uF" id="PVp-Wg-s50"/>
                         <outlet property="labelName" destination="yNj-wu-sFn" id="Aje-d3-pVE"/>
                         <segue destination="0Qa-5x-8sN" kind="show" id="6kf-4r-dAw"/>
+                        <segue destination="TXO-EQ-qgs" kind="show" id="ErQ-Y1-pdb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgO-tk-LoJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,7 +178,7 @@
             </objects>
             <point key="canvasLocation" x="1775" y="-542"/>
         </scene>
-        <!--My Coupon View Controller-->
+        <!--我的優惠卷-->
         <scene sceneID="R8e-f2-XsQ">
             <objects>
                 <viewController storyboardIdentifier="MyCouponViewController" id="TXO-EQ-qgs" customClass="MyCouponViewController" customModule="STYLiSH" customModuleProvider="target" sceneMemberID="viewController">
@@ -186,7 +187,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TnN-U1-13E">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="sVW-Vb-PsK" customClass="CouponCell" customModule="STYLiSH" customModuleProvider="target">
@@ -209,10 +210,14 @@
                             <constraint firstItem="TnN-U1-13E" firstAttribute="leading" secondItem="sei-wM-Jox" secondAttribute="leading" id="U80-aW-jqP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="我的優惠卷" id="dRh-DI-drd"/>
+                    <connections>
+                        <segue destination="Nf9-hf-7gf" kind="show" id="xII-wk-rDW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yEv-WN-Myf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1794" y="158"/>
+            <point key="canvasLocation" x="1890" y="144"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5ng-So-aA4">
@@ -227,22 +232,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xl0-aW-5tF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2552" y="166"/>
+            <point key="canvasLocation" x="3634" y="889"/>
         </scene>
-        <!--Get Coupon View Controller-->
+        <!--優惠卷-->
         <scene sceneID="fXs-7Q-uhV">
             <objects>
-                <viewController storyboardIdentifier="GetCouponViewController" id="Nf9-hf-7gf" customClass="GetCouponViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GetCouponViewController" id="Nf9-hf-7gf" customClass="AcquireCouponViewController" customModule="STYLiSH" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qZe-JL-X81">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="bo0-Ki-biw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" title="優惠卷" id="xyD-XF-uZc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZJ-0p-IX7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3308" y="158"/>
+            <point key="canvasLocation" x="2673" y="158"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="31t-f1-vAi">
@@ -257,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nPh-a4-ko3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4071" y="179"/>
+            <point key="canvasLocation" x="3414" y="158"/>
         </scene>
         <!--Use Coupon View Controller-->
         <scene sceneID="I9e-cG-AeG">
@@ -269,10 +275,11 @@
                         <viewLayoutGuide key="safeArea" id="6zS-nA-kw1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="zR0-6b-vGz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWm-r7-cf3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4847" y="176"/>
+            <point key="canvasLocation" x="1889" y="931"/>
         </scene>
         <!--Transparent Navigation Controller-->
         <scene sceneID="HWM-t4-4rC">
@@ -283,6 +290,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="B1"/>
+                        </textAttributes>
                         <navigationBarAppearance key="standardAppearance">
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </navigationBarAppearance>

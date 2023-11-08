@@ -105,8 +105,14 @@ class ProductDetailViewController: STBaseViewController {
         collectionProvider.addCollectionProducts(productId: productId, completion: { [weak self] result in
             switch result {
             case .success(let response):
-                LKProgressHUD.showSuccess(text: "\(response.message)")
-                completion(true)
+                if response.success == true {
+                    LKProgressHUD.showSuccess(text: "\(response.message)")
+                    completion(true)
+                } else {
+                    LKProgressHUD.showFailure(text: "\(response.message)")
+                    completion(false)
+                }
+                
             case .failure(let error):
                 if let error = error as? STYLiSHSignInError {
                     LKProgressHUD.showFailure(text: "\(error.rawValue)")
@@ -121,8 +127,13 @@ class ProductDetailViewController: STBaseViewController {
         collectionProvider.removeCollectionProducts(productId: productId, completion: { [weak self] result in
             switch result {
             case .success(let response):
-                LKProgressHUD.showSuccess(text: "\(response.message)")
-                completion(false)
+                if response.success == true {
+                    LKProgressHUD.showSuccess(text: "\(response.message)")
+                    completion(true)
+                } else {
+                    LKProgressHUD.showFailure(text: "\(response.message)")
+                    completion(false)
+                }
             case .failure:
                 LKProgressHUD.showFailure(text: "無法移除收藏")
                 completion(true)

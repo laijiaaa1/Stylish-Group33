@@ -17,73 +17,86 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
     weak var delegate: UseCouponDelegate?
     var selectedCoupon: String?
     var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
-
-
     var data: [CouponObject] = []
     var selectedCouponIndex: Int?
     
+    // MARK: - Subviews
     let tableView = UITableView()
     let tableCellIdentifier = "tableCellIdentifier"
-    let checkButton = UIButton()
-    
+    let backgroundView = UIView()
+    let seperatorView = UIView()
+    private let checkButton: UIButton = {
+        let checkButton = UIButton()
+        checkButton.setTitle("確定", for: .normal)
+        checkButton.backgroundColor = .darkGray
+        checkButton.tintColor = .white
+        return checkButton
+    }()
+    // MARK: - View Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         navigationItem.title = "STYLiSH優惠券"
         tabBarController?.tabBar.isHidden = true
-        
-        data = [
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "免運", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0),
-        CouponObject(id: 123, type: "折扣", title: "9折", discount: 90, startDate: "2023/10/01", expiredDate: "2023/12/31", isUsed: 0)
-        ]
-        
+        seperatorView.backgroundColor = .G1
+        checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .C1
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 12.0, right: 0)
+        tableView.separatorStyle = .none
         tableView.register(UseCouponTableCell.self, forCellReuseIdentifier: tableCellIdentifier)
-        
+        setUpLayouts()
+    
+        tableView.reloadData()
+
+    }
+    private func setUpLayouts() {
         view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(backgroundView)
+        view.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        backgroundView.addSubview(checkButton)
+        backgroundView.addSubview(seperatorView)
+        backgroundView.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+       
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        tableView.reloadData()
-        
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .white
-        view.addSubview(backgroundView)
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
-            backgroundView.heightAnchor.constraint(equalToConstant: 120)
-        ])
-        checkButton.setTitle("確定", for: .normal)
-        checkButton.backgroundColor = .darkGray
-        checkButton.tintColor = .white
-        checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-        
-        checkButton.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.addSubview(checkButton)
-        NSLayoutConstraint.activate([
-            checkButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            checkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            checkButton.heightAnchor.constraint(equalToConstant: 60),
-            checkButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            tableView.bottomAnchor.constraint(equalTo: backgroundView.topAnchor),
+            
+            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            seperatorView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            seperatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            seperatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            seperatorView.heightAnchor.constraint(equalToConstant: 1.0),
+            
+            checkButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            checkButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16),
+            checkButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16),
+            checkButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
-    
+    // MARK: - Actions
+    @objc func checkButtonTapped() {
+//        if let selectedCouponIndex = selectedCouponIndex {
+//            let selectedCoupon = data[selectedCouponIndex]
+//            couponSelectionHandler?(selectedCoupon.title, 
+        //selectedCoupon.discount, selectedCoupon.type,
+        //selectedCoupon.id, selectedCoupon.isUsed, selectedCoupon.startDate,
+        //selectedCoupon.expiredDate)
+//            navigationController?.popViewController(animated: true)
+//        } else {
+//            couponSelectionHandler?(nil, 0, "", 0, 0, "", "")
+//            navigationController?.popViewController(animated: true)
+//        }
+    }
+    // MARK: - TableView Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,6 +109,7 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
                discount: data[indexPath.row].discount,
                startDate: data[indexPath.row].startDate,
                expiredDate: data[indexPath.row].expiredDate,
+               amount: data[indexPath.row].amount,
                isUsed: data[indexPath.row].isUsed
            )
         
@@ -126,19 +140,6 @@ class UseCouponViewController: UIViewController, UITableViewDelegate, UITableVie
         let selectedCoupon = data[index]
         print("Selected Coupon: \(selectedCoupon)")
     }
-
-    @objc func checkButtonTapped() {
-        if let selectedCouponIndex = selectedCouponIndex {
-            let selectedCoupon = data[selectedCouponIndex]
-            couponSelectionHandler?(selectedCoupon.title, selectedCoupon.discount, selectedCoupon.type, selectedCoupon.id, selectedCoupon.isUsed, selectedCoupon.startDate, selectedCoupon.expiredDate)
-            navigationController?.popViewController(animated: true)
-        } else {
-            couponSelectionHandler?(nil, 0, "", 0, 0, "", "")
-            navigationController?.popViewController(animated: true)
-        }
-    }
-
-
 }
 
 class UseCouponTableCell: CouponViewCell {
@@ -154,38 +155,36 @@ class UseCouponTableCell: CouponViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+       setUpLayouts()
+    }
+    private func setUpLayouts() {
         contentView.addSubview(radioButton)
 
         radioButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        radioButton.layer.cornerRadius = 15
+        radioButton.setImage(UIImage(systemName: "smallcircle.fill.circle"), for: .selected)
+        radioButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        radioButton.tintColor = .B2
         radioButton.addTarget(self, action: #selector(radioButtonTapped), for: .touchUpInside)
 
         radioButton.translatesAutoresizingMaskIntoConstraints = false
-        radioButton.layer.cornerRadius = 15
-
         NSLayoutConstraint.activate([
             radioButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            radioButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            radioButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
             radioButton.heightAnchor.constraint(equalToConstant: 30),
             radioButton.widthAnchor.constraint(equalToConstant: 30)
         ])
-
-        radioButton.setImage(UIImage(systemName: "smallcircle.fill.circle"), for: .selected)
-        radioButton.tintColor = .black
-        
-        radioButton.setImage(UIImage(systemName: "circle"), for: .normal)
     }
-
     @objc func radioButtonTapped() {
         radioButton.isSelected.toggle()
         
         if radioButton.isSelected {
-            radioButton.backgroundColor = UIColor(
-                red: 225 / 255.0,
-                green: 213 / 255.0,
-                blue: 205 / 255.0,
-                alpha: 1.0
-            )
+//            radioButton.backgroundColor = UIColor(
+//                red: 225 / 255.0,
+//                green: 213 / 255.0,
+//                blue: 205 / 255.0,
+//                alpha: 1.0
+//            )
         } else {
             radioButton.backgroundColor = .clear
         }

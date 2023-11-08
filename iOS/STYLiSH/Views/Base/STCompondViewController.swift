@@ -27,8 +27,11 @@ class STCompondViewController: STBaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         cpdSetupTableView()
-        cpdSetupCollectionView()
+     
         tableView.beginHeaderRefreshing()
+    
+            cpdSetupCollectionView()
+        
     }
 
     // MARK: - Private Method
@@ -41,13 +44,15 @@ class STCompondViewController: STBaseViewController,
         
         tableView.dataSource = self
         tableView.delegate = self
-        
+    
         tableView.addRefreshHeader(refreshingBlock: { [weak self] in
             self?.headerLoader()
         })
-        tableView.addRefreshFooter(refreshingBlock: { [weak self] in
-            self?.footerLoader()
-        })
+ 
+            tableView.addRefreshFooter(refreshingBlock: { [weak self] in
+                self?.footerLoader()
+            })
+        
     }
 
     private func cpdSetupCollectionView() {
