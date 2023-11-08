@@ -37,10 +37,10 @@ class STTableViewController: STBaseViewController,
     private func cpdSetupTableView() {
         if tableView == nil {
             let tableView = UITableView()
-           // view.stickSubView(tableView)
+            //view.stickSubView(tableView)
             self.tableView = tableView
         }
-      
+    
         tableView.dataSource = self
         tableView.delegate = self
         

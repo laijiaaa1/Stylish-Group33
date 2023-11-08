@@ -49,8 +49,8 @@ class ProfileViewController: UIViewController {
         NSLayoutConstraint.activate([
             getCouponButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
             getCouponButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            getCouponButton.heightAnchor.constraint(equalToConstant: 50),
-            getCouponButton.widthAnchor.constraint(equalToConstant: 50)
+            getCouponButton.heightAnchor.constraint(equalToConstant: 80),
+            getCouponButton.widthAnchor.constraint(equalToConstant: 80)
         ])
 
         getCouponButton.addTarget(self, action: #selector(getCouponButtonTapped), for: .touchUpInside)

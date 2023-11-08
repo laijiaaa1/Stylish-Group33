@@ -9,6 +9,7 @@
 import UIKit
 import Hover
 import DropDown
+import JGProgressHUD
 
 class LobbyViewController: STBaseViewController {
 
@@ -47,12 +48,15 @@ class LobbyViewController: STBaseViewController {
         let configuration = HoverConfiguration(image: UIImage(named: "add"), color: .gradient(top: .blue, bottom: .cyan))
 
         let items = [
-            HoverItem(title: "Log out", image: UIImage(named: "logout")) {
+            HoverItem(title: "Log out", image: UIImage(named: "logout_home")) {
                 if KeyChainManager.shared.token != nil {
                     let alertController = UIAlertController(title: "確定要登出嗎？", message: nil, preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                     let logoutAction = UIAlertAction(title: "登出", style: .destructive) { _ in
                         self.logout()
+                        KeyChainManager.shared.token = nil
+                        LKProgressHUD.showSuccess(text: "登出成功")
+                    
                     }
                     alertController.addAction(cancelAction)
                     alertController.addAction(logoutAction)
@@ -81,7 +85,7 @@ class LobbyViewController: STBaseViewController {
                     self.navigationController?.pushViewController(acquireCouponViewController, animated: true)
                 }
             },
-            HoverItem(title: "Collection", image: UIImage(named: "heart_fill")) {
+            HoverItem(title: "Collection", image: UIImage(named: "heart_home1")) {
                 if KeyChainManager.shared.token == nil {
                     let logInVC = LogInViewController()
                     logInVC.isModalInPresentation = true
