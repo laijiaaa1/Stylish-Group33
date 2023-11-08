@@ -46,10 +46,10 @@ class MyCouponViewController: STTableViewController {
         view.backgroundColor = .white
         datas = [[]]
         datas2 = [[]]
-        createTabButtons()
-        setUpSubviews()
-
+        
         tableView2 = UITableView()
+        setUpSubviews()
+    
         createTableView(tableView: tableView)
         createTableView(tableView: tableView2!)
         tableView.isHidden = false
@@ -67,36 +67,26 @@ class MyCouponViewController: STTableViewController {
     }
 
     private func createTableView(tableView: UITableView) {
-        view.addSubview(tableView)
-        tableView.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CouponViewCell.self, forCellReuseIdentifier: CouponViewCell.cellIdentifier)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 200),
+            tableView.topAnchor.constraint(equalTo: topView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
         tableView.isHidden = true
         tableView.separatorStyle = .none
         tableView.backgroundColor = .C1
     }
-
-    private func createTabButtons() {
+    // Inside your createTabButtons() function
+    private func setUpSubviews() {
         let tabTitles = [CouponStatus.valid.rawValue, CouponStatus.invalid.rawValue]
-
+        view.addSubview(tableView)
+        view.addSubview(tableView2!)
         for (index, title) in tabTitles.enumerated() {
             let button = UIButton()
             button.setTitle(title, for: .normal)
@@ -105,48 +95,48 @@ class MyCouponViewController: STTableViewController {
             button.addTarget(self, action: #selector(tabButtonTapped(_:)), for: .touchUpInside)
             button.tag = index
             tabButton.append(button)
+
+            // Set zPosition for the button's layer
+            button.layer.zPosition = CGFloat(index)
         }
 
         let stackView = UIStackView(arrangedSubviews: tabButton)
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 0
-        tableView.addSubview(stackView)
+        view.addSubview(stackView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 40)
         ])
-    }
-
-    private func setUpSubviews() {
-        tableView.addSubview(topView)
+ 
         topView.backgroundColor = .white
         indicatorView.backgroundColor = .B1
         separatorView.backgroundColor = .G1
         addButton.addTarget(self, action: #selector(getCouponButtonTappedFromMyCoupon), for: .touchUpInside)
-
+        view.addSubview(topView)
         topView.addSubview(separatorView)
         topView.addSubview(addButton)
         topView.addSubview(indicatorView)
-//        view.addSubview(topView)
+
 
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        indicatorViewLeadingConstraint = indicatorView.leadingAnchor.constraint(equalTo: tabButton[0].leadingAnchor)
+        indicatorViewLeadingConstraint = indicatorView.centerXAnchor.constraint(equalTo: tabButton[0].centerXAnchor)
         indicatorViewLeadingConstraint?.isActive = true
 
         NSLayoutConstraint.activate([
-            topView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor),
+            topView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             topView.heightAnchor.constraint(equalToConstant: 40),
 
-            indicatorView.topAnchor.constraint(equalTo: topView.bottomAnchor),
+            indicatorView.topAnchor.constraint(equalTo: topView.topAnchor),
             indicatorView.heightAnchor.constraint(equalToConstant: 1),
             indicatorView.widthAnchor.constraint(equalTo: tabButton[0].widthAnchor),
 
@@ -173,9 +163,11 @@ class MyCouponViewController: STTableViewController {
                 switch result {
                 case .success(let response):
                     self?.datas = [response.data]
+                    print("Valid Data: \(self?.datas)")
                 case .failure(let error):
                     LKProgressHUD.showFailure(text: error.localizedDescription)
                 }
+               
             })
         } else {
             datas2 = [[]]
@@ -185,9 +177,12 @@ class MyCouponViewController: STTableViewController {
                 switch result {
                 case .success(let response):
                     self?.datas2 = [response.data]
+                    print("----------------")
+                    print("Invalid Data: \(self?.datas2)")
                 case .failure(let error):
                     LKProgressHUD.showFailure(text: error.localizedDescription)
                 }
+               
             })
         }
     }
@@ -213,7 +208,7 @@ class MyCouponViewController: STTableViewController {
         }
 
         indicatorViewLeadingConstraint?.isActive = false
-        indicatorViewLeadingConstraint = indicatorView.leadingAnchor.constraint(equalTo: tabButton[selectedTabButton].leadingAnchor)
+        indicatorViewLeadingConstraint = indicatorView.centerXAnchor.constraint(equalTo: tabButton[selectedTabButton].centerXAnchor)
         indicatorViewLeadingConstraint?.isActive = true
 
         UIView.animate(withDuration: 0.3) {
