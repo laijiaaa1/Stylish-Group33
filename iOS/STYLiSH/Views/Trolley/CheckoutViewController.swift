@@ -9,17 +9,10 @@
 import UIKit
 
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
-    
+    var oldOder: Order?
     var newOrder: Order?
     var currentPrice: Int = 0
     
-    func calculateOriginalPrice() -> Int {
-        var originalPrice = 0
-        for product in orderProvider.order.products {
-            originalPrice += Int(product.product?.price ?? 0)
-        }
-        return originalPrice
-    }
     var selectedCoupon: CouponObject?
     var stPaymentInfoTableViewCell: STPaymentInfoTableViewCell?
     
@@ -28,34 +21,42 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         selectedCoupon = coupon
         if let selectedCoupon = selectedCoupon {
             stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon.title
-            updatePrice()
         } else {
             stPaymentInfoTableViewCell?.couponLabel.text = "未使用"
         }
+        updatePrice()
     }
     private func updatePrice() {
-        if let selectedCoupon = selectedCoupon,
-        var newOrder = newOrder {
+        if let selectedCoupon = selectedCoupon {
+          
             print(selectedCoupon)
             switch selectedCoupon.type {
             case CouponType.deliveryActive.type:
-                newOrder.freight = 0
-                newOrder.products = orderProvider.order.products
-            case CouponType.discountActive.type:
-                newOrder.freight = 60
-                let beforeDiscount = newOrder.products 
-                    let discount = beforeDiscount.map { item in
-                        print("before: \(item.product!.price)")
-                        item.product!.price = item.product!.price * Int64(selectedCoupon.discount!) / 100
-                        return item
-                    }
-                    print(discount)
-                    newOrder.products = discount
+                newOrder?.freight = 0
+                newOrder?.products = (oldOder?.products)!
                 
+            case CouponType.discountActive.type:
+                newOrder?.freight = 60
+                let beforeDiscount = (oldOder?.products)!
+                let discount = (100 - Float(selectedCoupon.discount!)) / 100
+                let discountProducts = beforeDiscount.map { item in
+                    print("before: \(item.product!.price)")
+                    let newPrice = Float(item.product!.price) * discount
+                    print("newprice: \(newPrice)")
+                    item.product!.price = Int64(newPrice)
+                    print("after: \(item.product!.price)")
+                    return item
+                }
+                print(discountProducts[0].product?.price)
+               // self.newOrder?.products = discountProducts
             default: break
             }
-            tableView.reloadData()
+        } else {
         }
+            tableView.reloadData()
+        print("orderprovider: \(orderProvider.order.products[0].product!.price)")
+        print("newOrder: \(newOrder!.products[0].product!.price)")
+        print("oldOrder: \(oldOder!.products[0].product!.price)")
     }
     private struct Segue {
         static let success = "SegueSuccess"
@@ -133,18 +134,20 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         guard KeyChainManager.shared.token != nil else {
             return onShowLogin()
         }
-        
-        if let selectedCoupon = selectedCoupon {
-            switch orderProvider.order.payment {
-            case .credit: checkoutWithTapPay(with: selectedCoupon.id)
-            case .cash: checkoutWithCash(with: selectedCoupon.id)
-            }
-        } else {
-            switch orderProvider.order.payment {
-            case .credit: checkoutWithTapPay()
-            case .cash: checkoutWithCash()
-            }
-        }
+        self.performSegue(withIdentifier: Segue.success, sender: nil)
+        StorageManager.shared.deleteAllProduct(completion: { _ in })
+//
+//        if let selectedCoupon = selectedCoupon {
+//            switch orderProvider.order.payment {
+//            case .credit: checkoutWithTapPay(with: selectedCoupon.id)
+//            case .cash: checkoutWithCash(with: selectedCoupon.id)
+//            }
+//        } else {
+//            switch orderProvider.order.payment {
+//            case .credit: checkoutWithTapPay()
+//            case .cash: checkoutWithCash()
+//            }
+//        }
     }
     
     private func onShowLogin() {
@@ -214,9 +217,11 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         })
     }
     private func handleCheckoutFailure() {
-        let errorVC = ErrorCheckoutResultViewController()
-        errorVC.modalPresentationStyle = .overCurrentContext
-        self.present(errorVC, animated: false, completion: nil)
+        DispatchQueue.main.async {
+            let errorVC = ErrorCheckoutResultViewController()
+            errorVC.modalPresentationStyle = .overCurrentContext
+            self.present(errorVC, animated: false, completion: nil)
+        }
     }
     func canCheckout() -> Bool {
         switch orderProvider.order.payment {
@@ -323,20 +328,18 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
         }
        
         stPaymentInfoTableViewCell = inputCell
-        if let newOrder = newOrder {
+        guard let newOrder = newOrder else { return UITableViewCell() }
             inputCell.creditView.stickSubView(tappayVC.view)
             inputCell.delegate = self
             inputCell.layoutCellWith(
-                productPrice: newOrder.productPrices,
-                shipPrice: newOrder.freight,
+                productPrice: orderProvider.order.productPrices,
+                shipPrice: orderProvider.order.freight,
                 productCount: orderProvider.order.amount,
                 payment: orderProvider.order.payment.title(),
                 isCheckoutEnable: canCheckout()
             )
             inputCell.checkoutBtn.isEnabled = canCheckout()
             return inputCell
-        }
-        return UITableViewCell()
     }
     
     func updateCheckoutButton() {
