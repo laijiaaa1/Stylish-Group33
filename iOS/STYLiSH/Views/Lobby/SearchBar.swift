@@ -10,7 +10,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var products: [Product] = []
     var dataFiltered: [Product] = []
     var dropButton = DropDown()
-
+    let backView = UIView()
+    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +25,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.clipsToBounds = true
         return searchBar
     }()
-
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 500, height: 300)
+        layout.itemSize = CGSize(width: 200, height: 200)
         layout.minimumLineSpacing = 20
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         view.addSubview(dropButton)
         view.addSubview(searchBar)
         view.addSubview(tableView)
-        tableView.addSubview(collectionView)
+//        tableView.addSubview(collectionView)
 
         searchBar.delegate = self
         tableView.delegate = self
@@ -102,16 +102,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
 
-            collectionView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            collectionView.heightAnchor.constraint(equalToConstant: 500),
-            collectionView.widthAnchor.constraint(equalToConstant: 500)
+//            collectionView.topAnchor.constraint(equalTo: backView.bottomAnchor, constant: 10),
+//            collectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20),
+//            collectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
+//            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
+//            collectionView.heightAnchor.constraint(equalToConstant: 500),
+//            collectionView.widthAnchor.constraint(equalToConstant: 500)
             
         ])
 
         setupSearchBarAppearance()
+        
+       
+        backView.backgroundColor = UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 0.5)
+        view.addSubview(backView)
+//        view.sendSubviewToBack(backView)
+        backView.addSubview(collectionView)
+        backView.layer.cornerRadius = 10
+        backView.layer.masksToBounds = true
+        backView.isHidden = true
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 120),
+            collectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
+            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            collectionView.widthAnchor.constraint(equalToConstant: 200)
+        ])
+    
     }
 
     func setupSearchBarAppearance() {
@@ -154,10 +177,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
 
         let selectedProduct = dataFiltered[indexPath.row]
-
         if let selectedProductIndex = dataFiltered.firstIndex(where: { $0.id == selectedProduct.id }) {
             let selectedProductData = [selectedProduct]
             let indexPath = IndexPath(item: selectedProductIndex, section: 0)
+                //show backview
+            self.backView.isHidden = false
+//            self.collectionView.reloadData()
+//            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             collectionView.reloadData()
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
