@@ -41,7 +41,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
+      
         getCouponButton.setImage(UIImage(named: "getCoupon"), for: .normal)
 
         view.addSubview(getCouponButton)
@@ -119,6 +119,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func updateUser(_ user: UserProfile) {
+        print(user.picture)
         imageProfile.loadImage(user.picture, placeHolder: .asset(.Icons_36px_Profile_Normal))
         labelName.text = user.name
         labelInfo.text = user.getUserInfo(userProfile: user)

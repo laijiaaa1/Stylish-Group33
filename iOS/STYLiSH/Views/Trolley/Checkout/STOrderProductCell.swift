@@ -27,11 +27,13 @@ class STOrderProductCell: UITableViewCell {
         productTitleLabel.text = data?.title
         productSizeLabel.text = data?.size
         priceLabel.text = data?.price
-        orderNumberLabel.text = data?.pieces
+        orderNumberLabel.text = "x\(data!.pieces)"
         guard let colorCode = data?.color else {
             colorView.backgroundColor = .white
             return
         }
         colorView.backgroundColor = .hexStringToUIColor(hex: colorCode)
+        colorView.layer.borderColor = UIColor.B1?.cgColor
+        colorView.layer.borderWidth = 0.3
     }
 }

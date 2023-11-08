@@ -20,7 +20,7 @@ protocol STPaymentInfoTableViewCellDelegate: AnyObject {
 }
 
 class STPaymentInfoTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var paymentTextField: UITextField! {
         didSet {
             let shipPicker = UIPickerView()
@@ -100,8 +100,8 @@ class STPaymentInfoTableViewCell: UITableViewCell {
     }
     
     //MARK: -L-useCoupon/STPaymentInfoTableViewCell: useCoupon UI
+    
     @IBOutlet weak var couponLabel: UILabel!
-   
     @IBAction func goUuseCouponButton(_ sender: Any) {
         delegate?.goUseCoupon(self)
        

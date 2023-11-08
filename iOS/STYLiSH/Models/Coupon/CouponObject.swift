@@ -35,3 +35,38 @@ extension String {
     }
 }
 
+enum CouponType {
+    case discountActive
+    case discountInactive
+    case deliveryActive
+    case deliveryInactive
+    var image: UIImage {
+        switch self{
+        case .discountActive:
+            return UIImage(named: "discount_active")!
+        case .discountInactive:
+            return UIImage(named: "discount_inactive")!
+        case .deliveryActive:
+            return UIImage(named: "delivery_active")!
+        case .deliveryInactive:
+            return UIImage(named: "delivery_inactive")!
+        }
+    }
+    var type: String {
+        switch self{
+        case .discountActive, .discountInactive: return "折扣"
+        case .deliveryActive, .deliveryInactive: return "免運"
+        }
+    }
+    var textColor: UIColor {
+        switch self{
+        case .deliveryActive, .discountActive: return UIColor.B1!
+        case .deliveryInactive, .discountInactive: return UIColor.G1!
+        }
+    }
+}
+
+enum CouponStatus: String, CaseIterable {
+    case valid = "可使用"
+    case invalid = "已失效"
+}
