@@ -11,7 +11,13 @@ import Foundation
 struct CheckoutAPIBody: Encodable {
     let order: Order
     let prime: String
-    let couponId: Int
+    let couponId: Int?
+    
+    init(order: Order, prime: String, couponId: Int? = nil) {
+        self.order = order
+        self.prime = prime
+        self.couponId = couponId
+    }
 }
 
 struct Order: Encodable {
@@ -63,18 +69,16 @@ struct Order: Encodable {
     var reciever: Reciever = Reciever()
     var deliverTime: String = "08:00-12:00"
     var payment: Payment = .cash
-
+    var freight: Int = 60
+    
     var productPrices: Int {
-            var price = 0
-            for item in products {
-                price += Int(item.product!.price) * Int(item.amount)
-            }
-            return price
+        let productPrices = products.reduce(0){ partialResult, item in
+            let price = Int(item.product!.price) * Int(item.amount)
+           return partialResult + price
+        }
+        return productPrices
     }
 
-    var freight: Int {
-        return products.count * 60
-    }
 
     var totalPrice: Int {
         return productPrices + freight

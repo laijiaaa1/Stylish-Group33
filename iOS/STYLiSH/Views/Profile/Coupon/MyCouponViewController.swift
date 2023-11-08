@@ -6,10 +6,6 @@
 //
 import UIKit
 
-enum CouponStatus: String, CaseIterable {
-    case valid = "可使用"
-    case invalid = "已失效"
-}
 protocol CouponDataProvider {
     func fetchCoupons(type: CouponStatus) -> [CouponObject]
 }

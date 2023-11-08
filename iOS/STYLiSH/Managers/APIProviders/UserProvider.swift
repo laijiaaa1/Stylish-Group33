@@ -91,16 +91,28 @@ class UserProvider {
         })
     }
 
-    func checkout(order: Order, prime: String, completion: @escaping (Result<Reciept, Error>) -> Void) {
+    func checkout(order: Order, prime: String, couponId: Int? = nil, completion: @escaping (Result<Reciept, Error>) -> Void) {
         guard let token = KeyChainManager.shared.token else {
             return completion(.failure(STYLiSHSignInError.noToken))
         }
-        let body = CheckoutAPIBody(order: order, prime: prime, couponId: Int(order.list[0].id)!)
+        var body: CheckoutAPIBody!
+        if let couponId = couponId {
+           body = CheckoutAPIBody(
+                order: order,
+                prime: prime,
+                couponId: couponId
+            )
+        } else {
+            body = CheckoutAPIBody(
+                 order: order,
+                 prime: prime
+             )
+        }
         let request = STUserRequest.checkout(
             token: token,
             body: try? JSONEncoder().encode(body)
         )
-        httpClient.originalRequest(request, completion: { result in
+        httpClient.request(request, completion: { result in
             switch result {
             case .success(let data):
                 do {

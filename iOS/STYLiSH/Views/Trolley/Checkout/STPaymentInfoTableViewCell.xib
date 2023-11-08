@@ -161,7 +161,7 @@
                     <constraint firstItem="nue-Rk-3kZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="50b-57-AeJ"/>
                     <constraint firstItem="vX3-QS-RG3" firstAttribute="centerY" secondItem="hPR-LJ-9ws" secondAttribute="centerY" id="8Sg-RW-nWj"/>
                     <constraint firstItem="6gP-45-wOA" firstAttribute="bottom" secondItem="da4-NM-yrP" secondAttribute="bottom" id="AKo-Es-3rn"/>
-                    <constraint firstAttribute="bottom" secondItem="Jg8-e7-47O" secondAttribute="bottom" priority="250" constant="16" id="GF7-9i-VP6"/>
+                    <constraint firstAttribute="bottom" secondItem="Jg8-e7-47O" secondAttribute="bottom" priority="250" constant="36" id="GF7-9i-VP6"/>
                     <constraint firstItem="vX3-QS-RG3" firstAttribute="trailing" secondItem="Umo-U6-mXM" secondAttribute="trailing" id="GL7-pg-y5A"/>
                     <constraint firstAttribute="trailing" secondItem="nue-Rk-3kZ" secondAttribute="trailing" constant="30" id="N8d-ai-wxO"/>
                     <constraint firstAttribute="trailing" secondItem="da4-NM-yrP" secondAttribute="trailing" constant="16" id="N9P-qD-ALL"/>
@@ -190,6 +190,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkoutBtn" destination="Jg8-e7-47O" id="Rdv-gI-U7C"/>
+                <outlet property="couponLabel" destination="OIz-V2-Xa0" id="iCA-zI-Ma7"/>
                 <outlet property="creditView" destination="nue-Rk-3kZ" id="2mE-Xs-Z0g"/>
                 <outlet property="paymentTextField" destination="da4-NM-yrP" id="eia-6w-AhH"/>
                 <outlet property="productAmountLabel" destination="8ov-ov-dSM" id="rep-49-JCF"/>
@@ -201,11 +202,6 @@
             <point key="canvasLocation" x="143.47826086956522" y="152.00892857142856"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="da4-NM-yrP">
-            <size key="intrinsicContentSize" width="64" height="24.333333333333332"/>
-        </designable>
-    </designables>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <namedColor name="B1">
