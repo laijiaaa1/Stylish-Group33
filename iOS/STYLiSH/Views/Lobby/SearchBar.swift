@@ -19,9 +19,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.barStyle = .default
         searchBar.barTintColor = .white
         searchBar.backgroundImage = UIImage()
-//        searchBar.layer.borderWidth = 1
-//        searchBar.layer.borderColor = UIColor.white.cgColor
-//        searchBar.layer.cornerRadius = 8
         searchBar.clipsToBounds = true
         return searchBar
     }()
@@ -67,7 +64,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
 
         view.backgroundColor = .C1
-//        UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 1.0)
 
         tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         
@@ -195,16 +191,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
         let product = dataFiltered[indexPath.row]
 
-        if let imageURL = URL(string: product.mainImage) {
-            if let imageData = try? Data(contentsOf: imageURL) {
-                cell.productImageView.image = UIImage(data: imageData)
+        DispatchQueue.global().async {
+            if let imageURL = URL(string: product.mainImage) {
+                if let imageData = try? Data(contentsOf: imageURL) {
+
+                    DispatchQueue.main.async {
+                        cell.productImageView.image = UIImage(data: imageData)
+                        cell.titleLabel.text = product.title
+                        cell.priceLabel.text = "Price: $\(product.price)"
+                    }
+                }
             }
         }
-        cell.titleLabel.text = product.title
-        cell.priceLabel.text = "NT$\(product.price)"
-
+        
         return cell
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             if indexPath.row < dataFiltered.count {
                 let selectedProduct = dataFiltered[indexPath.row]

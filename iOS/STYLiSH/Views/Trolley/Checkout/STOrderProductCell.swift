@@ -26,8 +26,8 @@ class STOrderProductCell: UITableViewCell {
         productImageView.loadImage(data?.imageUrl)
         productTitleLabel.text = data?.title
         productSizeLabel.text = data?.size
-        priceLabel.text = data?.price
-        orderNumberLabel.text = "x\(data!.pieces)"
+        priceLabel.text = "NT$ \(data?.price ?? "")"
+        orderNumberLabel.text = "x \(data?.pieces ?? "")"
         guard let colorCode = data?.color else {
             colorView.backgroundColor = .white
             return
