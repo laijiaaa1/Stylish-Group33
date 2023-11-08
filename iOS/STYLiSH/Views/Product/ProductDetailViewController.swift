@@ -135,14 +135,14 @@ class ProductDetailViewController: STBaseViewController {
             case .success(let response):
                 if response.success == true {
                     LKProgressHUD.showSuccess(text: "\(response.message)")
-                    completion(true)
+                    completion(false)
                 } else {
                     LKProgressHUD.showFailure(text: "\(response.message)")
-                    completion(false)
+                    completion(true)
                 }
             case .failure:
                 LKProgressHUD.showFailure(text: "無法移除收藏")
-                completion(true)
+                completion(false)
             }
         })
     }

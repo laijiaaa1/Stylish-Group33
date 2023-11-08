@@ -122,9 +122,11 @@ class CollectionViewController: STCompondViewController {
     // MARK: - Collection View Delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let product = datas[indexPath.section][indexPath.row] as? Product else { return }
-        let detailVC = ProductDetailViewController()
+        let storyboard = UIStoryboard(name: "Product", bundle: nil)
+        guard let detailVC = storyboard.instantiateViewController(withIdentifier: "ProductDetailViewController") as? ProductDetailViewController else { return }
+
         detailVC.product = product
-        navigationController?.pushViewController(detailVC, animated: true)
+        navigationController?.pushViewController(detailVC, animated: false)
     }
 
 }

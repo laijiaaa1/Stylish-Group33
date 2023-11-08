@@ -48,7 +48,7 @@ class TrolleyTableViewCell: UITableViewCell {
         else {
             return
         }
-        trolleyBaseView.layoutView(title: title, size: size, price: String(Int(product.price)), color: color.code)
+        trolleyBaseView.layoutView(title: title, size: size, price: "NT$ " + String(Int(product.price)), color: color.code)
 
         productImg.loadImage(image)
 
