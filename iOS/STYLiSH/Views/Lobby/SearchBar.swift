@@ -19,9 +19,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.barStyle = .default
         searchBar.barTintColor = .white
         searchBar.backgroundImage = UIImage()
-//        searchBar.layer.borderWidth = 1
-//        searchBar.layer.borderColor = UIColor.white.cgColor
-//        searchBar.layer.cornerRadius = 8
         searchBar.clipsToBounds = true
         return searchBar
     }()
@@ -67,7 +64,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
 
         view.backgroundColor = .C1
-//        UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 1.0)
 
         tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         
