@@ -18,7 +18,8 @@ class STTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tabBar.backgroundColor = .white
+     
         viewControllers = tabs.map { $0.makeViewController() }
 
         trolleyTabBarItem = viewControllers?[2].tabBarItem

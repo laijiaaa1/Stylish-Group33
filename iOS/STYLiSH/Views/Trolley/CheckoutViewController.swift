@@ -332,7 +332,7 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
                 self?.couponStartDate = startDate
                 self?.couponExpiredDate = expiredDate
                 
-                self?.updatePrice(discount: discount ?? 0)
+                self?.updatePrice(discount: discount )
                 
                 if let selectedCouponTitle = selectedCouponTitle {
                     self?.stPaymentInfoTableViewCell?.couponLabel.text = selectedCouponTitle
@@ -344,30 +344,31 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
         }
     }
     func updatePrice(discount: Int) {
-        if selectedCouponTitle == nil {
-            let productPrice = orderProvider.order.productPrices
-            let shipPrice = orderProvider.order.freight
-            let totalPrice = productPrice + shipPrice
-            stPaymentInfoTableViewCell?.productPriceLabel.text = "$\(productPrice)"
-            stPaymentInfoTableViewCell?.shipPriceLabel.text = "$\(shipPrice)"
-            stPaymentInfoTableViewCell?.totalPriceLabel.text = "$\(totalPrice)"
-        } else if selectedCouponTitle == "免運"{
-            let productPrice = orderProvider.order.productPrices
-            let shipPrice = 0
-            let totalPrice = productPrice + shipPrice
-            stPaymentInfoTableViewCell?.productPriceLabel.text = "$\(productPrice)"
-            stPaymentInfoTableViewCell?.shipPriceLabel.text = "$\(shipPrice)"
-            stPaymentInfoTableViewCell?.totalPriceLabel.text = "$\(totalPrice)"
-        } else {
-            
-            let productPrice = currentPrice * discount / 100
-            let shipPrice = orderProvider.order.freight
-            let totalPrice = productPrice + shipPrice
-            stPaymentInfoTableViewCell?.productPriceLabel.text = "$\(productPrice)"
-            stPaymentInfoTableViewCell?.shipPriceLabel.text = "$\(shipPrice)"
-            stPaymentInfoTableViewCell?.totalPriceLabel.text = "$\(totalPrice)"
+            if selectedCouponTitle == nil {
+                let productPrice = orderProvider.order.productPrices
+                let shipPrice = orderProvider.order.freight
+                let totalPrice = productPrice + shipPrice
+                stPaymentInfoTableViewCell?.productPriceLabel.text = "$(productPrice)"
+                stPaymentInfoTableViewCell?.shipPriceLabel.text = "$(shipPrice)"
+                stPaymentInfoTableViewCell?.totalPriceLabel.text = "$(totalPrice)"
+            } else if selectedCouponTitle == "免運"{
+                let productPrice = orderProvider.order.productPrices
+                let shipPrice = 0
+                let totalPrice = productPrice + shipPrice
+                stPaymentInfoTableViewCell?.productPriceLabel.text = "$(productPrice)"
+                stPaymentInfoTableViewCell?.shipPriceLabel.text = "$(shipPrice)"
+                stPaymentInfoTableViewCell?.totalPriceLabel.text = "$(totalPrice)"
+            } else {
+
+                let productPrice = currentPrice * discount / 100
+                let shipPrice = orderProvider.order.freight
+                let totalPrice = productPrice + shipPrice
+                stPaymentInfoTableViewCell?.productPriceLabel.text = "$(productPrice)"
+                stPaymentInfoTableViewCell?.shipPriceLabel.text = "$(shipPrice)"
+                stPaymentInfoTableViewCell?.totalPriceLabel.text = "$(totalPrice)"
+            }
         }
-    }
+
     func endEditing(_ cell: STPaymentInfoTableViewCell) {
         tableView.reloadData()
     }
