@@ -196,10 +196,14 @@ class MyCouponViewController: STTableViewController {
  
     // MARK: -    // MARK: UITableViewDataSource and UITableViewDelegate methods for table views
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return CouponStatus.allCases.count
+        if tableView == tableView {
+            return datas.count
+        } else {
+            return datas2.count
+        }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if tableView == tableView {
             return datas[0].count
         } else {
             return datas2[0].count
@@ -211,8 +215,8 @@ class MyCouponViewController: STTableViewController {
             withIdentifier: CouponViewCell.cellIdentifier,
             for: indexPath) as? CouponViewCell else { fatalError("Cannot create cell") }
         
-        switch indexPath.section {
-        case 0:
+        switch tableView {
+        case tableView:
             guard let coupon = datas[indexPath.section][indexPath.row] as? CouponObject else { return cell }
             cell.coupon = coupon
             return cell
