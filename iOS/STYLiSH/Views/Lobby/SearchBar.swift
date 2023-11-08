@@ -34,7 +34,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 200, height: 200)
+        layout.itemSize = CGSize(width: 250, height: 250)
         layout.minimumLineSpacing = 20
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             print("Selected item: \(item) at index: \(index)")
         }
 
-        view.backgroundColor = UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 1.0)
+        view.backgroundColor = .C1
+//        UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 1.0)
 
         tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         
@@ -75,7 +76,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         view.addSubview(dropButton)
         view.addSubview(searchBar)
         view.addSubview(tableView)
-//        tableView.addSubview(collectionView)
 
         searchBar.delegate = self
         tableView.delegate = self
@@ -100,21 +100,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             tableView.topAnchor.constraint(equalTo: dropButton.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-
-//            collectionView.topAnchor.constraint(equalTo: backView.bottomAnchor, constant: 10),
-//            collectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20),
-//            collectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
-//            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
-//            collectionView.heightAnchor.constraint(equalToConstant: 500),
-//            collectionView.widthAnchor.constraint(equalToConstant: 500)
-            
+            tableView.heightAnchor.constraint(equalToConstant: 200)
         ])
 
         setupSearchBarAppearance()
         
        
-        backView.backgroundColor = UIColor(red: 0.98, green: 0.96, blue: 0.91, alpha: 0.5)
+        backView.backgroundColor = .C1
+        
         view.addSubview(backView)
 //        view.sendSubviewToBack(backView)
         backView.addSubview(collectionView)
@@ -123,18 +116,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         backView.isHidden = true
         backView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            backView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 120),
+            backView.heightAnchor.constraint(equalToConstant: 400),            collectionView.topAnchor.constraint(equalTo: backView.topAnchor, constant: -10),
             collectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -20),
-            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: 0),
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             collectionView.widthAnchor.constraint(equalToConstant: 200)
         ])
     
+        collectionView.showsHorizontalScrollIndicator = false
     }
 
     func setupSearchBarAppearance() {
@@ -180,13 +173,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if let selectedProductIndex = dataFiltered.firstIndex(where: { $0.id == selectedProduct.id }) {
             let selectedProductData = [selectedProduct]
             let indexPath = IndexPath(item: selectedProductIndex, section: 0)
-                //show backview
             self.backView.isHidden = false
-//            self.collectionView.reloadData()
-//            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             collectionView.reloadData()
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
+        view.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 241/255, alpha: 1.0)
+        backView.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 241/255, alpha: 1.0)
+        collectionView.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 241/255, alpha: 1.0)
     }
 
     // MARK: - UICollectionView Data Source
@@ -205,8 +198,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                 cell.productImageView.image = UIImage(data: imageData)
             }
         }
-//        cell.titleLabel.text = product.title
-//        cell.priceLabel.text = "Price: $\(product.price)"
+        cell.titleLabel.text = product.title
+        cell.priceLabel.text = "Price: $\(product.price)"
 
         return cell
     }
@@ -273,49 +266,48 @@ class SearchProductCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-//    let titleLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.boldSystemFont(ofSize: 14)
-//        label.textColor = UIColor.black
-//        label.textAlignment = .left
-//        label.numberOfLines = 2
-//        return label
-//    }()
-//
-//    let priceLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.systemFont(ofSize: 12)
-//        label.textColor = UIColor.gray
-//        label.textAlignment = .left
-//        return label
-//    }()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.black
+        label.textAlignment = .left
+        label.numberOfLines = 2
+        return label
+    }()
+
+    let priceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.gray
+        label.textAlignment = .left
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         addSubview(productImageView)
-//        addSubview(titleLabel)
-//        addSubview(priceLabel)
+        addSubview(titleLabel)
+        addSubview(priceLabel)
 
         NSLayoutConstraint.activate([
             productImageView.topAnchor.constraint(equalTo: topAnchor),
             productImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             productImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            productImageView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor),
             productImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            productImageView.widthAnchor.constraint(equalToConstant: 100),
-            productImageView.heightAnchor.constraint(equalToConstant: 100),
+            productImageView.widthAnchor.constraint(equalToConstant: 120),
+            productImageView.heightAnchor.constraint(equalToConstant: 120),
 
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-//            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-//            titleLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 8),
-//
-//            priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-//            priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-//            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            titleLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 8),
+
+            priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
         ])
     }
 
