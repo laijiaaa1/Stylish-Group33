@@ -9,6 +9,7 @@
 import UIKit
 import Hover
 import DropDown
+import JGProgressHUD
 
 class LobbyViewController: STBaseViewController {
 
@@ -54,6 +55,7 @@ class LobbyViewController: STBaseViewController {
                     let logoutAction = UIAlertAction(title: "登出", style: .destructive) { _ in
                         self.logout()
                         KeyChainManager.shared.token = nil
+                        LKProgressHUD.showSuccess(text: "登出成功")
                     
                     }
                     alertController.addAction(cancelAction)
