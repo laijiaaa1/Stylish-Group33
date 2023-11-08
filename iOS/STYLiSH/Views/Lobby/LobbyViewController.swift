@@ -53,6 +53,8 @@ class LobbyViewController: STBaseViewController {
                     let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                     let logoutAction = UIAlertAction(title: "登出", style: .destructive) { _ in
                         self.logout()
+                        KeyChainManager.shared.token = nil
+                    
                     }
                     alertController.addAction(cancelAction)
                     alertController.addAction(logoutAction)
