@@ -13,6 +13,7 @@
 		345BF25F2AF78747005D415E /* UseCouponTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345BF25E2AF78747005D415E /* UseCouponTableViewCell.xib */; };
 		3492B2162AF68FEF00B7F131 /* CouponViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492B2152AF68FEF00B7F131 /* CouponViewCell.swift */; };
 		3492B2202AF71F4800B7F131 /* MyCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492B21F2AF71F4800B7F131 /* MyCouponViewController.swift */; };
+		34ED10132AFA39E000961DA6 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34ED10122AFA39E000961DA6 /* SearchBar.swift */; };
 		3C09F5122211435B00C5B3E2 /* Lobby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C09F5112211435B00C5B3E2 /* Lobby.storyboard */; };
 		3C09F51C22114A0100C5B3E2 /* STTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */; };
 		3C09F51E22114E1900C5B3E2 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */; };
@@ -165,6 +166,7 @@
 		345BF25E2AF78747005D415E /* UseCouponTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UseCouponTableViewCell.xib; sourceTree = "<group>"; };
 		3492B2152AF68FEF00B7F131 /* CouponViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponViewCell.swift; sourceTree = "<group>"; };
 		3492B21F2AF71F4800B7F131 /* MyCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCouponViewController.swift; sourceTree = "<group>"; };
+		34ED10122AFA39E000961DA6 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3C09F5112211435B00C5B3E2 /* Lobby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Lobby.storyboard; sourceTree = "<group>"; };
 		3C09F51B22114A0100C5B3E2 /* STTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTabBarViewController.swift; sourceTree = "<group>"; };
 		3C09F51D22114E1900C5B3E2 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				3C0DD875221348E900F5237E /* LobbyViewController.swift */,
+				34ED10122AFA39E000961DA6 /* SearchBar.swift */,
 				3C0DD87C2213533F00F5237E /* LobbyTableViewCell.swift */,
 				3C8F191A22E5BA9F00EECE90 /* LobbyView.swift */,
 				3C0DD87D2213533F00F5237E /* LobbyTableViewCell.xib */,
@@ -867,6 +870,8 @@
 			dependencies = (
 			);
 			name = STYLiSH;
+			packageProductDependencies = (
+			);
 			productName = STYLiSH;
 			productReference = 3CD29119221135E2008B8A2D /* STYLiSH.app */;
 			productType = "com.apple.product-type.application";
@@ -920,6 +925,8 @@
 				"zh-Hant",
 			);
 			mainGroup = 3CD29110221135E2008B8A2D;
+			packageReferences = (
+			);
 			productRefGroup = 3CD2911A221135E2008B8A2D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1131,6 +1138,7 @@
 				3CE7A517223061A9009FF003 /* UserRequest.swift in Sources */,
 				3C09F52122115AB700C5B3E2 /* UIImage+Extension.swift in Sources */,
 				3C6B8FE8222CE53100804EFE /* BasicSelectionCell.swift in Sources */,
+				34ED10132AFA39E000961DA6 /* SearchBar.swift in Sources */,
 				3C41B8472216667000112F94 /* ProductViewController.swift in Sources */,
 				3CE7A51322305916009FF003 /* UserProvider.swift in Sources */,
 				3CE7A51E22308D34009FF003 /* OrderObject.swift in Sources */,

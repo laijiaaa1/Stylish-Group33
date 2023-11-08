@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Hover
+
 
 class ProfileViewController: UIViewController {
 
@@ -39,7 +41,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-
         //MARK: -L-getCoupon/ProfileViewController: go to get Coupon page
         getCouponButton.setImage(UIImage(named: "getCoupon"), for: .normal)
 
@@ -62,20 +63,45 @@ class ProfileViewController: UIViewController {
     }
    
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-       guard let getCouponButton = gesture.view as? UIButton else { return }
-        
+        guard let getCouponButton = gesture.view as? UIButton else { return }
+
+        let minX = getCouponButton.bounds.midX
+        let maxX = view.bounds.maxX - getCouponButton.bounds.midX
+        let minY = view.safeAreaInsets.top + getCouponButton.bounds.midY
+        let maxY = view.bounds.maxY - getCouponButton.bounds.midY - view.safeAreaInsets.bottom
+
         switch gesture.state {
         case .began, .changed:
             let translation = gesture.translation(in: view)
-            getCouponButton.center = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
+            var newCenter = CGPoint(x: getCouponButton.center.x + translation.x, y: getCouponButton.center.y + translation.y)
+
+            newCenter.x = min(maxX, max(minX, newCenter.x))
+            newCenter.y = min(maxY, max(minY, newCenter.y))
+
+            getCouponButton.center = newCenter
             gesture.setTranslation(.zero, in: view)
-            
+
+        case .ended:
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.5,
+                           usingSpringWithDamping: 0.4,
+                           initialSpringVelocity: 0.3,
+                           options: .curveEaseOut,
+                           animations: {
+                               var newCenter = getCouponButton.center
+                               newCenter.x = min(maxX, max(minX, newCenter.x))
+                               newCenter.y = min(maxY, max(minY, newCenter.y))
+                               getCouponButton.center = newCenter
+                           },
+                           completion: nil)
         default:
             break
         }
     }
+
+
     @objc func getCouponButtonTapped() {
-        
+
         let acquireCouponVC = AcquireCouponViewController()
         navigationController?.pushViewController(acquireCouponVC, animated: true)
     }

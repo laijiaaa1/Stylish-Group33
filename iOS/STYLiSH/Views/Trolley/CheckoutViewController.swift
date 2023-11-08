@@ -9,26 +9,26 @@
 import UIKit
 //MARK: -L-usecoupon/CheckoutViewController: useCoupon delegate
 class CheckoutViewController: STBaseViewController, UseCouponDelegate {
-
+    
     var currentPrice: Int = 0
-
-       func calculateOriginalPrice() -> Int {
-           var originalPrice = 0
-           for product in orderProvider.order.products {
-               originalPrice += Int(product.product?.price ?? 0)
-           }
-           return originalPrice
-       }
+    
+    func calculateOriginalPrice() -> Int {
+        var originalPrice = 0
+        for product in orderProvider.order.products {
+            originalPrice += Int(product.product?.price ?? 0)
+        }
+        return originalPrice
+    }
     var selectedCouponTitle: String?
-        var discount: Int?
-        var couponType: String?
-        var couponID: Int?
-        var isCouponUsed: Int?
-        var couponStartDate: String?
-        var couponExpiredDate: String?
+    var discount: Int?
+    var couponType: String?
+    var couponID: Int?
+    var isCouponUsed: Int?
+    var couponStartDate: String?
+    var couponExpiredDate: String?
     
     var stPaymentInfoTableViewCell: STPaymentInfoTableViewCell?
-        
+    
     func didSelectCoupon(_ coupon: String?) {
         if let selectedCoupon = coupon {
             stPaymentInfoTableViewCell?.couponLabel.text = selectedCoupon
@@ -38,7 +38,7 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
     }
     
     var couponSelectionHandler: ((String?, Int, String, Int, Int, String, String) -> Void)?
-
+    
     private struct Segue {
         static let success = "SegueSuccess"
     }
@@ -117,11 +117,11 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
         }
         
         if let selectedCouponTitle = selectedCouponTitle,
-                  let discount = discount,
-                  let couponType = couponType,
-                  let couponID = couponID,
-                  let isCouponUsed = isCouponUsed,
-                  let couponStartDate = couponStartDate,
+           let discount = discount,
+           let couponType = couponType,
+           let couponID = couponID,
+           let isCouponUsed = isCouponUsed,
+           let couponStartDate = couponStartDate,
            let couponExpiredDate = couponExpiredDate {
             couponSelectionHandler?(selectedCouponTitle, discount, couponType, couponID, isCouponUsed, couponStartDate, couponExpiredDate)
         }
@@ -161,14 +161,14 @@ class CheckoutViewController: STBaseViewController, UseCouponDelegate {
                             StorageManager.shared.deleteAllProduct(completion: { _ in })
                         case .failure(let error):
                             // Error Handle
-//                            self.handleCheckoutFailure()
+                            self.handleCheckoutFailure()
                             print(error)
                         }
-                })
+                    })
             case .failure(let error):
                 LKProgressHUD.dismiss()
                 // Error Handle
-//                self?.handleCheckoutFailure()
+                self?.handleCheckoutFailure()
                 print(error)
             }
         })
@@ -218,7 +218,7 @@ extension CheckoutViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return .empty
     }
-
+    
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch orderProvider.orderCustructor[section] {
@@ -323,7 +323,7 @@ extension CheckoutViewController: STPaymentInfoTableViewCellDelegate {
                 print("Is Used: \(isUsed)")
                 print("Start Date: \(startDate)")
                 print("Expired Date: \(expiredDate)")
-
+                
                 self?.selectedCouponTitle = selectedCouponTitle
                 self?.discount = discount
                 self?.couponType = type
